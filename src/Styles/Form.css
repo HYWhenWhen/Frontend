@@ -1,0 +1,40 @@
+.rdrCalendarWrapper {
+  color: #000000;
+  font-size: 12px;
+  width: 100%;
+  height: 30rem;
+}
+
+.rdrMonths {
+  width: 100%;
+  height: 100%;
+  font-size: 0.85rem;
+}
+.rdrMonth {
+  width: 50% !important;
+  height: 100%;
+}
+
+.rdrDay {
+  height: 5em !important;
+}
+.rdrDayToday .rdrDayNumber span:after {
+  background: #ff9e1b !important;
+}
+
+.rdrInRange {
+  color: #d8d8d8 !important;
+}
+
+.rdrInRange ~ .rdrDayNumber span,
+.rdrSelected ~ .rdrDayNumber span {
+  color: black !important;
+}
+/* 
+.rdrStartEdge {
+  border-radius: 100% 0 0 100% !important;
+}
+
+.rdrEndEdge {
+  border-radius: 0 100% 100% 0 !important;
+} */
