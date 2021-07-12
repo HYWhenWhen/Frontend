@@ -5,6 +5,7 @@ import { ko } from 'react-date-range/dist/locale';
 import { DateRange } from 'react-date-range';
 import '../Styles/Form.css'
 import useInput from '../Hooks/useInput';
+import Button from '../Component/Button';
 
 const Container = styled.div`
     width: 100%;
@@ -44,7 +45,7 @@ const Name = styled.input`
     margin: 0 20% 20px;
     font-size: 1.3rem;
     border: none;
-    border-bottom: 2px solid #FF9E1B;
+    border-bottom: 2px solid #E2E2E2;
     font-family: 'Noto Sans CJK KR';
     text-align: center;
 `;
@@ -81,8 +82,8 @@ export default ({ }) => {
                  direction="horizontal"
             />
             <Buttons>
-                <Quit onClick={()=>{window.location.replace("/")}} >취소</Quit>
-                <Make onClick={()=>{make()}}>일정 생성하기</Make>
+                <Button onClick={()=>{window.location.replace("/")}} content="취소" backgroundColor="#7953D2" marginRight="20px"/>
+                <Button onClick={()=>{make()}} content="일정 생성하기" backgroundColor="#000070"/>
             </Buttons>
 
         </Container>
