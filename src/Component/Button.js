@@ -21,6 +21,7 @@ const Btn = styled.button`
     content - 들어가는 내용 (버튼에 나오는 글씨 ex- 취소)
     background color, width, marginright - css 관련 옵션들. (background color는 꼭 넣어줘야됨.)
     onclick - 버튼 클릭시 작동되는 함수.
+    입력 타입은 하단 props 참고.
 */
 const Button = ({onClick, content, backgroundColor, width, marginRight }) => (
     <Btn onClick={onClick} backgroundColor={backgroundColor} width={width} marginRight={marginRight}>
