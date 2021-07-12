@@ -8,6 +8,7 @@ import Submit from "../Routes/Submit";
 import MyPage from "../Routes/MyPage";
 
 import styled from "styled-components";
+import ResultPage from "../Routes/ResultPage";
 
 const Wrapper = styled.div`
     display: flex; 
@@ -29,6 +30,7 @@ export default () => (
                     <Route path="/form" component={Form} />
                     <Route path="/submit" component={Submit} />
                     <Route path="/myPage" component={MyPage} />
+                    <Route path="/result" component={ResultPage} />
                     <Redirect path="*" to="/" />
                 </Switch>
             </Contents>
