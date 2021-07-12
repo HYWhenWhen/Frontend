@@ -62,8 +62,7 @@ const contentStyle = {
 const X = styled.div`
   cursor: pointer;
   position: absolute;
-  right: -0.7em;
-  top: -0.5em;
+  right: -2.3rem;
   font-size: 2.3em;
   color: #e5eaee;
 `;
