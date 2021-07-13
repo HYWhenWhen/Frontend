@@ -7,6 +7,11 @@ import '../Styles/Form.css'
 import useInput from '../Hooks/useInput';
 import Button from '../Component/Button';
 
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faUser } from "@fortawesome/free-solid-svg-icons";
+
+
+
 const Container = styled.div`
     width: 100%;
     box-sizing: border-box;
@@ -31,6 +36,38 @@ const Name = styled.input`
     text-align: center;
 `;
 
+const PeopleNum = styled.div`
+    display: flex;
+    justify-content: center;
+    color: #000070;
+    font-size: 1.3rem;
+    margin-bottom: 1rem;
+    align-items: center;
+`;
+const PeopleTxt = styled.div`
+    margin: 0 1rem;
+`;
+
+const NumController = styled.div`
+    display: flex;
+    align-items: center;
+`;
+
+const PM = styled.div`
+    font-size: 2rem;
+    cursor: pointer;
+`;
+
+const Num = styled.div`
+    border: 2px solid #000070;
+    border-radius: 2rem;
+    width: 7rem;
+    text-align: center;
+    margin: 0 0.5rem;
+    
+`;
+
+
 export default ({ }) => {
     const [state, setState] = useState([
         {
@@ -48,10 +85,21 @@ export default ({ }) => {
         sessionStorage.setItem('name', name.value);
         window.location.replace("/#/myPage")
     }
+    const [num, setNum] = useState(1);
 
     return (
         <Container>
             <Name {...name} placeholder ="일정 이름"></Name>
+            <PeopleNum>
+                <FontAwesomeIcon icon={faUser}/>
+                <PeopleTxt> 인원설정 </PeopleTxt>
+                <NumController>
+                    <PM onClick ={()=>{if(num ==1) alert("인원수는 1명 이상이어야합니다."); else setNum(num-1);}}> - </PM>
+                    <Num>{num}</Num>
+                    <PM onClick ={()=>{setNum(num+1)}}> + </PM>
+                </NumController>
+
+            </PeopleNum>
 
             <DateRange
                 editableDateInputs={true}
