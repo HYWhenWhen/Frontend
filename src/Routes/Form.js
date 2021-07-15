@@ -83,7 +83,7 @@ export default ({ }) => {
         sessionStorage.setItem('startDate', state[0].startDate);
         sessionStorage.setItem('endDate', state[0].endDate);
         sessionStorage.setItem('name', name.value);
-        window.location.replace("/#/myPage")
+        window.location.replace("/#/form/result")
     }
     const [num, setNum] = useState(1);
 
