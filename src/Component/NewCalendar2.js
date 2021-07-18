@@ -2,13 +2,18 @@ import React, { useEffect, useState } from 'react';
 import moment from 'moment';
 import styled from "styled-components";
 
+const Container = styled.div`
+  padding: 0 5%;
+`;
 const Controller = styled.div`
     display: flex;
-    justify-content: center;
+    justify-content: space-around;
     font-size: 1.5rem;
+    color: #000070;
 `;
 const Btn = styled.div`
     font-weight: bold;
+    cursor: pointer;
 `;
 const Month = styled.span`
     margin: 0 10px;
@@ -37,10 +42,13 @@ const Days = styled.tbody`
 `;
 const Week = styled.tr`
 `;
-const Day = styled.td`
+const DayContainer = styled.td`
     cursor: pointer;
     line-height: 5rem;
     font-size: 1.2rem;
+`;
+const Day = styled.span`
+    padding: 0 1rem;
 `;
 
 
@@ -50,8 +58,8 @@ export default ({ startDate, endDate }) => {
 
     const cnt  = moment.duration(end.diff(start)).asDays();
     const [checkDays, setCheckDays] = useState([]);
+    const [loading, setLoading] = useState(true);
     let check_tmp = [];
-    let idx = 0;
 
     useEffect (()=>{
       for(let i = 0; i<=cnt; i++){
@@ -65,9 +73,9 @@ export default ({ startDate, endDate }) => {
         }]
       }
       setCheckDays([...check_tmp])
-    },[])
-    
-    console.log(checkDays);
+      setLoading(false);
+    },[])    
+
 
     const [getMoment, setMoment]=useState(moment());     
     const today = getMoment;    // today == moment()   입니다.
@@ -79,6 +87,11 @@ export default ({ startDate, endDate }) => {
             <WeekDay>{day}</WeekDay>
         )
     );
+    const handleClick=(days)=>{
+      const tmp = checkDays;
+      tmp[days.diff(start,'days')].count = (tmp[days.diff(start,'days')].count +1) %3;
+      setCheckDays([...tmp]);
+    }
 
     const calendarArr=()=>{
         let result = [];
@@ -90,37 +103,38 @@ export default ({ startDate, endDate }) => {
                 {
               Array(7).fill(0).map((data, index) => {
                 let days = today.clone().startOf('year').week(week).startOf('week').add(index, 'day');
-                // case 1. 오늘일 경우 
-                /* 
-                if(moment().format('YYYYMMDD') === days.format('YYYYMMDD')){ 
-                    return(
-                        <Day key={index} style={{backgroundColor:'red'}} >
-                          <span>{days.format('D')}</span>
-                        </Day>
-                    );
-                  }
-                  */
-                    // case 2. 이번달이 아닌경우
+                    // case 1. 이번달이 아닌경우
                   if(days.format('MM') !== today.format('MM')){
                     return(
-                        <Day key={index}/>
+                        <DayContainer key={index}/>
                     );
                   }
-                  // case 3. 범위
+                  // case 2. 범위
                   else if (start.format('YYYYMMDD')<= days.format('YYYYMMDD') &&  days.format('YYYYMMDD')<= end.format('YYYYMMDD')){
+                    
                     return(
-                      <Day key={index} style={{backgroundColor: "red"}} onClick={()=>{console.log(checkDays[idx].day)}}>
-                      <span>{days.format('D')}</span>
-                    </Day>
+                      <DayContainer key={index} onClick={()=>{handleClick(days)}}>
+                        
+                      {checkDays[days.diff(start,'days')].count %3 === 0 &&
+                      <Day style={{ borderBottom: '4px solid #008000' }}>{days.format('D')}</Day>
+                      }
+                      {checkDays[days.diff(start,'days')].count %3 === 1 &&
+                      <Day style={{ borderBottom: '4px solid #FFC312' }}>{days.format('D')}</Day>
+                      
+                      }
+                      {checkDays[days.diff(start,'days')].count %3 === 2 &&
+                      <Day style={{ borderBottom: '4px solid #EA2027' }}>{days.format('D')}</Day>
+                      }
+
+                    </DayContainer>
                   );
                   }
-                  
                   // 기본
                   else{
                     return(
-                        <Day key={index}  >
-                          <span>{days.format('D')}</span>
-                        </Day>
+                        <DayContainer key={index}  >
+                          <Day>{days.format('D')}</Day>
+                        </DayContainer>
                     );
                   }
 
@@ -131,21 +145,28 @@ export default ({ startDate, endDate }) => {
         return result;
       }
 
+
     return (
-        <>
-        <Controller>
-          <Btn onClick={()=>{ setMoment(getMoment.clone().subtract(1, 'month')) }}>&lt; </Btn>
-          <Month>{today.format('YYYY 년 MM 월')}</Month>  
-          <Btn onClick={()=>{ setMoment(getMoment.clone().add(1, 'month')) }}>&gt;</Btn>
-        </Controller>
-        <WeekDayRow>
-            {days_row}
-        </WeekDayRow>
-        <CalendarContainer>
-        <Days>
-            {calendarArr()}
-        </Days>
-        </CalendarContainer>
-        </>
+      <>
+      {loading ? (
+        <></>
+      ):(
+        <Container>
+          <Controller>
+            <Btn onClick={()=>{ setMoment(getMoment.clone().subtract(1, 'month')) }}>&lt; </Btn>
+            <Month>{today.format('YYYY 년 MM 월')}</Month>  
+            <Btn onClick={()=>{ setMoment(getMoment.clone().add(1, 'month')) }}>&gt;</Btn>
+          </Controller>
+          <WeekDayRow>
+              {days_row}
+          </WeekDayRow>
+          <CalendarContainer>
+          <Days>
+              {calendarArr()}
+          </Days>
+          </CalendarContainer>
+        </Container>
+      )}
+    </>
     );
 }

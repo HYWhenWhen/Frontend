@@ -3,97 +3,79 @@ import Calendar from '../Component/Calendar';
 
 import styled from "styled-components";
 import NewCalendar2 from '../Component/NewCalendar2';
+import Button from '../Component/Button';
+import useInput from '../Hooks/useInput';
 
 const Container = styled.div`
     display: flex;
-    padding: 3%;
+    padding: 2% 6%;
 `;
 
 const InfoContainer = styled.div`
-   width:35%;
+   width:40%;
    padding-top:150px;
+   display: flex;
+   flex-direction:column;
+   align-items: center;
 `;
 
 const DayContainer = styled.div`
-    width: 65%;
+    width: 60%;
 `;
-
-const Test = styled.div`
-display: flex;
-    flex-direction: column;
-    text-align: center;
-    font-size:1.3rem;
-`;
-
-const Text = styled.div`
-`;
-
-const Number = styled.div`
-`;
-
-const Des = styled.div`
-`;
-
-
-const Cal = styled.div`
-`;
-
-const TestDay = styled.div`
-`;
-const Info = styled.div`
-    width: 50%;
-    margin: 0 auto 2rem;
-    color: #FF9E1B;
-`;
-
 const Title = styled.div`
-    border-bottom: 1px solid black;
+    border-bottom: 3px solid #E2E2E2;
     text-align: center;
     padding-bottom: 7px;
-    margin-bottom: 3rem;
+    margin-bottom: 1.5rem;
     font-size: 1.2rem;
 `;
 
-
+const Info = styled.div`
+    width: 50%;
+    margin: 0 auto 2rem;
+    color: #000070;
+`;
 const MyDays = styled.div`
     text-align: center;
     font-size: 1.2rem;
 `;
 
-const Btn = styled.div`
-    width: 3rem;
+const Btns = styled.div`
+    display: flex;
+    margin-top: 14px;
+    justify-content: center;
+`;
+
+const Test = styled.div`
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    margin-bottom: 4rem;
+`;
+const Des = styled.div`
+    font-size: 1.8rem;
+`;
+const TestDay = styled.div`
+    width: 6rem;
     padding: 0 3px;
     box-sizing: border-box;
     text-align:center;
     cursor:pointer;
     height: 4rem;
     line-height: 4rem;
-    font-size: 1.5rem;
+    font-size: 2.5rem;
     margin: 20px auto;
 `;
 
-const SubmitBtn = styled.div`
-    margin: 5rem auto 0;
-    background-color: #FF9E1B;
-    padding: 15px 55px;
-    border-radius: 0.5rem;
-    width: 6rem;
-    cursor:pointer;
-    color:white;
-    box-shadow: 1px 2px 5px 0px #bfbfbf;
+const NameInput = styled.input`
+    border:none;
+    border-bottom: 3px solid #E2E2E2;
     text-align: center;
-`;
-
-const ResetBtn = styled.div`
-    margin: 1rem auto 0;
-    background-color: #000000;
-    padding: 15px 55px;
-    border-radius: 0.5rem;
-    width: 6rem;
-    cursor:pointer;
-    color:white;
-    box-shadow: 1px 2px 5px 0px #bfbfbf;
-    text-align: center;
+    padding-bottom: 7px;
+    font-size: 1.2rem;
+    margin-bottom: 4rem;
+    font-family: 'Noto Sans CJK KR';
+    
 `;
 
 function Submit() {
@@ -103,6 +85,7 @@ function Submit() {
     const formName = sessionStorage.getItem("name");
     const [testClick, setTestClick] = useState(0);
 
+    const name = useInput("");
 
     const sendCalendar = (calendar) => {
         sessionStorage.setItem('Calendar', calendar);
@@ -121,32 +104,38 @@ function Submit() {
                 <Info>
                     <Title>{formName}</Title>
                     <MyDays>{getDateFormat(startDate)} ~ {getDateFormat(endDate)}</MyDays>
+                    <Btns>
+                        <Button fontSize="0.9rem" content="내 일정 불러오기" backgroundColor="#000070" marginRight="4rem"/>
+                        <Button fontSize="0.9rem" content="일정참여 포기하기" backgroundColor="#7953D2"/>
+                    </Btns>
                 </Info>
                 <NewCalendar2 startDate = {startDate} endDate={endDate}/>
             </DayContainer>
             <InfoContainer>
                 <Test>
-                    <Text>클릭해보세요</Text>
+                    <Des>클릭해보세요</Des>
                         {testClick === 0 && 
                         <>
-                            <Btn onClick={() => { setTestClick((testClick + 1) % 3) }} style={{ borderBottom: '4px solid #008000' }}>1</Btn>
+                            <TestDay onClick={() => { setTestClick((testClick + 1) % 3) }} style={{ borderBottom: '4px solid #008000' }}>1</TestDay>
                             <Des >가능한 날</Des>
                         </>
                         }
                         {testClick === 2 && 
                         <>
-                            <Btn onClick={() => { setTestClick((testClick + 1) % 3) }} style={{ borderBottom: '4px solid #EA2027' }}>1</Btn>
+                            <TestDay onClick={() => { setTestClick((testClick + 1) % 3) }} style={{ borderBottom: '4px solid #EA2027' }}>1</TestDay>
                             <Des >불가능한 날</Des>
                         </>
                         }
                         {testClick === 1 && 
                         <>
-                            <Btn onClick={() => { setTestClick((testClick + 1) % 3) }} style={{ borderBottom: '4px solid #FFC312' }}>1</Btn>
+                            <TestDay onClick={() => { setTestClick((testClick + 1) % 3) }} style={{ borderBottom: '4px solid #FFC312' }}>1</TestDay>
                             <Des >조정 가능한 날</Des>
                         </>
                         }
                 </Test>
-                <SubmitBtn onClick={() => { sendCalendar(); }}>제출하기</SubmitBtn>
+                <NameInput {...name} placeholder ="이름을 입력해주세요"/>
+                <Button backgroundColor="#000070" content="제출하기"  onClick={() => { sendCalendar(); }}></Button>
+
             </InfoContainer>
         </Container>
     )
