@@ -1,6 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import moment from 'moment';
 import styled from "styled-components";
+import Popup from "reactjs-popup";
+import MypageSchedule from '../Routes/MypageSchedule';
+
 
 const Container = styled.div`
   padding: 0 5%;
@@ -48,51 +51,37 @@ const DayContainer = styled.td`
     font-size: 1.2rem;
 `;
 const Day = styled.span`
-    padding: 0 1rem;
 `;
 
+const contentStyle = {
+  width: "35%",
+  height: "60%",
+  borderRadius: "15px",
+  padding: "0px",
+};
 
-export default ({ startDate, endDate }) => { 
-    const start = moment(startDate);
-    const end = moment(endDate);
+const X = styled.div`
+  cursor: pointer;
+  position: absolute;
+  right: -2.3rem;
+  font-size: 2.3em;
+  color: #e5eaee;
+`;
 
-    const cnt  = moment.duration(end.diff(start)).asDays();
-    const [checkDays, setCheckDays] = useState([]);
-    const [loading, setLoading] = useState(true);
-    let check_tmp = [];
-
-    useEffect (()=>{
-      for(let i = 0; i<=cnt; i++){
-        const now = start.clone().add(i,'days');
-        const year = now.format("YYYY");
-        const month = now.format("MM");
-        const day = now.format("DD");
-        check_tmp = [...check_tmp,{
-          day: new Date(year, month, day),
-          count : 0,
-        }]
-      }
-      setCheckDays([...check_tmp])
-      setLoading(false);
-    },[])    
-
-
+export default ({}) => { 
     const [getMoment, setMoment]=useState(moment());     
+    const [checkDay, setCheckDay]=useState(moment());     
     const today = getMoment;    // today == moment()   입니다.
     const firstWeek = today.clone().startOf('month').week();
     const lastWeek = today.clone().endOf('month').week() === 1 ? 53 : today.clone().endOf('month').week();
     const WeekDays = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
 
+    const [loading, setLoading] = useState(false);
+
     const days_row = WeekDays.map((day) => (
             <WeekDay>{day}</WeekDay>
         )
     );
-    const handleClick=(days)=>{
-      const tmp = checkDays;
-      tmp[days.diff(start,'days')].count = (tmp[days.diff(start,'days')].count +1) %3;
-      setCheckDays([...tmp]);
-    }
-
     const calendarArr=()=>{
         let result = [];
         let week = firstWeek;
@@ -109,31 +98,34 @@ export default ({ startDate, endDate }) => {
                         <DayContainer key={index}/>
                     );
                   }
-                  // case 2. 범위
-                  else if (start.format('YYYYMMDD')<= days.format('YYYYMMDD') &&  days.format('YYYYMMDD')<= end.format('YYYYMMDD')){
-                    
+                  // case 2. 클릭된거
+                  else if (checkDay.format('YYYYMMDD') === days.format('YYYYMMDD')){
                     return(
-                      <DayContainer key={index} onClick={()=>{handleClick(days)}}>
-                        
-                      {checkDays[days.diff(start,'days')].count %3 === 0 &&
-                      <Day style={{ borderBottom: '4px solid #008000' }}>{days.format('D')}</Day>
-                      }
-                      {checkDays[days.diff(start,'days')].count %3 === 1 &&
-                      <Day style={{ borderBottom: '4px solid #FFC312' }}>{days.format('D')}</Day>
-                      
-                      }
-                      {checkDays[days.diff(start,'days')].count %3 === 2 &&
-                      <Day style={{ borderBottom: '4px solid #EA2027' }}>{days.format('D')}</Day>
-                      }
+                      <Popup
+                            trigger={
+                              <DayContainer key={index} style={{backgroundColor:"#7953D2", borderRadius:"1rem"}} >
+                                <Day >{days.format('D')}</Day>
+                              </DayContainer>
+                            }
+                            modal
+                            contentStyle={contentStyle}
+                            lockScroll={true}>
+                            {close => (
+                                <>
+                                    <X onClick={close}>&times; </X>
+                                    <MypageSchedule day = {days}/>
+                                </>
+                            )}
 
-                    </DayContainer>
+                        </Popup>
+                      
                   );
                   }
                   // 기본
                   else{
                     return(
                         <DayContainer key={index}  >
-                          <Day style={{ color: '#dedede' }}>{days.format('D')}  </Day>
+                          <Day onClick ={()=>{setCheckDay(days)}}>{days.format('D')}  </Day>
                         </DayContainer>
                     );
                   }
