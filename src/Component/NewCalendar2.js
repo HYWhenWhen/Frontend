@@ -133,7 +133,7 @@ export default ({ startDate, endDate }) => {
                   else{
                     return(
                         <DayContainer key={index}  >
-                          <Day>{days.format('D')}</Day>
+                          <Day style={{ color: '#dedede' }}>{days.format('D')}  </Day>
                         </DayContainer>
                     );
                   }

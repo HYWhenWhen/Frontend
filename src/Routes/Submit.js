@@ -67,16 +67,7 @@ const TestDay = styled.div`
     margin: 20px auto;
 `;
 
-const NameInput = styled.input`
-    border:none;
-    border-bottom: 3px solid #E2E2E2;
-    text-align: center;
-    padding-bottom: 7px;
-    font-size: 1.2rem;
-    margin-bottom: 4rem;
-    font-family: 'Noto Sans CJK KR';
-    
-`;
+
 
 function Submit() {
     const startDate = new Date(sessionStorage.getItem("startDate"));
@@ -85,7 +76,6 @@ function Submit() {
     const formName = sessionStorage.getItem("name");
     const [testClick, setTestClick] = useState(0);
 
-    const name = useInput("");
 
     const sendCalendar = (calendar) => {
         sessionStorage.setItem('Calendar', calendar);
@@ -133,7 +123,6 @@ function Submit() {
                         </>
                         }
                 </Test>
-                <NameInput {...name} placeholder ="이름을 입력해주세요"/>
                 <Button backgroundColor="#000070" content="제출하기"  onClick={() => { sendCalendar(); }}></Button>
 
             </InfoContainer>
