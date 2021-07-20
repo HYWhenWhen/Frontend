@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import Calendar from '../Component/Calendar';
 
 import styled from "styled-components";
-import NewCalendar2 from '../Component/NewCalendar2';
+import SubmitCalendar from '../Component/SubmitCalendar';
 import Button from '../Component/Button';
 import useInput from '../Hooks/useInput';
 
@@ -99,7 +99,7 @@ function Submit() {
                         <Button fontSize="0.9rem" content="일정참여 포기하기" backgroundColor="#7953D2"/>
                     </Btns>
                 </Info>
-                <NewCalendar2 startDate = {startDate} endDate={endDate}/>
+                <SubmitCalendar startDate = {startDate} endDate={endDate}/>
             </DayContainer>
             <InfoContainer>
                 <Test>
