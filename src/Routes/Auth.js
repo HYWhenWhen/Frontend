@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import styled from "styled-components";
 import { GoogleLogin } from 'react-google-login';
 
@@ -22,21 +22,24 @@ export default ({}) => {
       name:res.profileObj.name,
       token:res.accessToken
     })
-    localStorage.setItem('login', userObj.token);
-    window.location.replace("/");
+    localStorage.setItem("login", userObj.token);
   }
-  console.log(userObj);
+  useEffect(()=>{
+    localStorage.setItem("login", userObj.token);
+    console.log(localStorage.getItem("login"));
+    console.log(userObj);
+  })
+
 
     return (
         <Container>
-                        <GoogleLogin 
-                         clientId={clientId}
-                         buttonText="구글로 로그인하기"
-                         onSuccess={result=>onLoginSuccess(result)}
-                         onFailure={result => console.log(result)}
-                         cookiePolicy={'single_host_origin'}
-                    />
-
+            <GoogleLogin 
+                clientId={clientId}
+                buttonText="구글로 로그인하기"
+                onSuccess={result=>onLoginSuccess(result)}
+                onFailure={result => console.log(result)}
+                cookiePolicy={'single_host_origin'}
+        />
         </Container>
     )
 }

@@ -21,6 +21,7 @@ const Wrapper = styled.div`
 const Contents = styled.div`
     flex:1;
 `;
+console.log(localStorage.getItem("login"));
 
 export default () => (
     <Wrapper>
@@ -29,12 +30,17 @@ export default () => (
             <Contents>
                 <Switch>
                     <Route exact path="/" exact component={Main} />
-                    <Route exact path="/form" component={Form} />
-                    <Route path="/auth" component={Auth} />
                     <Route path="/submit" component={Submit} />
-                    <Route path="/myPage" component={MyPage} />
-                    <Route path="/result" component={ResultPage} />
-                    <Route path="/form/result" component={FormResult} />
+                    {localStorage.getItem("login") ?(
+                        <>
+                            <Route path="/myPage" component={MyPage} />
+                            <Route path="/result" component={ResultPage} />
+                            <Route exact path="/form" component={Form} />
+                            <Route exact path="/form/result" component={FormResult} />
+                        </>
+                    ):(
+                        <Route exact path="/auth" component={Auth} />
+                    )}
                     <Redirect path="*" to="/" />
                 </Switch>
             </Contents>
