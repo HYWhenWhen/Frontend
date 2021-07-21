@@ -58,7 +58,6 @@ export default () => {
         localStorage.removeItem('login');
         window.location.replace("/")
     }
-    console.log(isLogin)
 
     return (
         <Container>
