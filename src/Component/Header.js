@@ -51,22 +51,6 @@ const Link = styled.a`
     line-height: 2rem;
 `;
 
-const contentStyle = {
-    width: "55%",
-    height: "65%",
-    borderRadius: "15px",
-    padding: "0px",
-};
-
-
-const X = styled.div`
-  cursor: pointer;
-  position: absolute;
-  right: -2.3rem;
-  font-size: 2.3em;
-  color: #e5eaee;
-`;
-
 export default () => {
     const isLogin =localStorage.getItem('login')
     const logout=()=>{
@@ -90,21 +74,7 @@ export default () => {
                     </List>
                 ) : (
                     <List>
-                        <Popup
-                            trigger={
-                                <AuthBtn>LOGIN</AuthBtn>
-                            }
-                            modal
-                            contentStyle={contentStyle}
-                            lockScroll={true}>
-                            {close => (
-                                <>
-                                    <X onClick={close}>&times; </X>
-                                    <Auth />
-                                </>
-                            )}
-
-                        </Popup>
+                        <AuthBtn onClick={()=>{window.location.replace("/#/auth")}}>LOGIN</AuthBtn>
                     </List>
                 )
             }

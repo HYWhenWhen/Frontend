@@ -7,6 +7,7 @@ import Form from "../Routes/Form";
 import Submit from "../Routes/Submit";
 import MyPage from "../Routes/MyPage";
 import FormResult from "../Routes/FormResult";
+import Auth from "../Routes/Auth";
 
 import styled from "styled-components";
 import ResultPage from "../Routes/ResultPage";
@@ -29,6 +30,7 @@ export default () => (
                 <Switch>
                     <Route exact path="/" exact component={Main} />
                     <Route exact path="/form" component={Form} />
+                    <Route path="/auth" component={Auth} />
                     <Route path="/submit" component={Submit} />
                     <Route path="/myPage" component={MyPage} />
                     <Route path="/result" component={ResultPage} />
