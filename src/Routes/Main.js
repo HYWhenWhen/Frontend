@@ -2,8 +2,9 @@ import React from 'react';
 import { toast } from 'react-toastify';
 
 import styled from "styled-components";
+import Button from '../Component/Button';
 
-import main from "../Styles/Images/Main.png"
+import Main from "../Styles/Images/Main.svg";
 
 
 const Container = styled.div`
@@ -11,36 +12,30 @@ const Container = styled.div`
     height: 53rem;
     padding:0 20%;
     box-sizing: border-box;
+    background-image : url(${Main});
+    background-size: 103rem;
+    background-position: 22rem -4rem;
+    background-repeat: no-repeat;
+
 `;
 
 const Content = styled.div`
-    padding-top: 4rem;
-    text-align: center;
+padding-top: 21%;
+
+
 `;
 
 
 const Text = styled.div`
-    padding-bottom: 1rem;
+    padding-bottom: 2rem;
     cursor: default;
-    font-size: 1.2rem;
-    color: #FF9E1B;
+    font-size: 2.5rem;
+    color: #000070;
+    line-height: 3.5rem;
 `;
 
 const Image = styled.img`
     height:33rem;
-    border-radius: 2rem;
-    box-shadow: 1px 2px 5px 0px #bfbfbf;
-`;
-
-const Button = styled.div`
-    margin: 2rem auto 0;
-    background-color: #FF9E1B;
-    padding: 15px 55px;
-    border-radius: 0.5rem;
-    width: fit-content;
-    cursor:pointer;
-    color:white;
-    box-shadow: 1px 2px 5px 0px #bfbfbf;
 `;
 
 const Check =()=>{
@@ -56,11 +51,9 @@ export default ({})=>{
     return (
         <Container>
             <Content>
-            <Text> 지인들과 일정을 잡으세요</Text>
-            <Image src = {main}/>
-            <Button onClick={()=>{isLogin?(window.location.replace("/#/form")):(toast("로그인이 필요합니다"))}}>
-                일정 맞추기
-            </Button>
+            <Text> 지인들과<br/>일정을 <br/>잡으세요</Text>
+
+            <Button onClick={()=>{isLogin?(window.location.replace("/#/form")):(toast("로그인이 필요합니다"))}} content="일정맞추기" backgroundColor="#000070"/>
             </Content>
         </Container>
     )

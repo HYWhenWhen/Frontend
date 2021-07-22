@@ -73,13 +73,14 @@ export default ({}) => {
                 onSuccess={response=>kakaoLoginFunc(response)}
                 getProfile={true}
           />
-          <NaverLogin 
+          {/* <NaverLogin 
                 clientId={"XeM0NxCkHE0demSf3Y1j"}
-                callbackUrl ="http://localhost:3000/auth"
+                callbackUrl ="http://localhost:3000/"
                 render={(props) => <div onClick={props.onClick}>Naver Login</div>}
                 onSuccess={result=>console.log(result)}
                 onFailure={result => console.log(result)}
-        />
+        /> */}
+        {/* 네이버 로그인 현재 오류... */}
         </Container>
     )
 }
