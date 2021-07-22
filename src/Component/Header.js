@@ -53,6 +53,7 @@ const Link = styled.a`
 
 export default () => {
     const isLogin =localStorage.getItem('login')
+    console.log(isLogin);
     const logout=()=>{
         toast("로그아웃 되었습니다")
         localStorage.removeItem('login');
@@ -66,14 +67,14 @@ export default () => {
                 <T2>When</T2>
             </Logo>
             {
-                isLogin == undefined || isLogin == null ? (
+                (isLogin == undefined || isLogin == null) ? (
                     <List>
-                        <Link href="/#/myPage">MYPAGE</Link>
-                        <AuthBtn onClick={()=>{logout()}}>LOGOUT</AuthBtn>
+                    <AuthBtn onClick={()=>{window.location.replace("/#/auth")}}>LOGIN</AuthBtn>
                     </List>
                 ) : (
                     <List>
-                        <AuthBtn onClick={()=>{window.location.replace("/#/auth")}}>LOGIN</AuthBtn>
+                        <Link href="/#/myPage">MYPAGE</Link>
+                        <AuthBtn onClick={()=>{logout()}}>LOGOUT</AuthBtn>
                     </List>
                 )
             }

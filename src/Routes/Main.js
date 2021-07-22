@@ -20,8 +20,6 @@ const Container = styled.div`
 
 const Content = styled.div`
 padding-top: 21%;
-
-
 `;
 
 

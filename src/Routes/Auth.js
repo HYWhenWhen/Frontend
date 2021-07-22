@@ -55,6 +55,8 @@ export default ({}) => {
 
   useEffect(()=>{
     console.log(userObj);
+    localStorage.setItem("login", userObj.token);
+    console.log(localStorage.getItem('login'));
   })
 
 
