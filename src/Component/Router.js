@@ -4,6 +4,7 @@ import Header from "./Header";
 import Main from "../Routes/Main";
 import Form from "../Routes/Form";
 import Submit from "../Routes/Submit";
+import SubmitResult from "../Routes/SubmitResult";
 import MyPage from "../Routes/MyPage";
 import FormResult from "../Routes/FormResult";
 import Auth from "../Routes/Auth";
@@ -29,7 +30,8 @@ export default () => (
             <Contents>
                 <Switch>
                     <Route exact path="/" exact component={Main} />
-                    <Route path="/submit" component={Submit} />
+                    <Route exact path="/submit" component={Submit} />
+                    <Route exact path="/submit/result" component={SubmitResult} />
                     <Route path="/myPage" component={MyPage} />
                     <Route path="/result" component={ResultPage} />
                     <Route exact path="/form" component={Form} />
