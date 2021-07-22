@@ -20,12 +20,10 @@ const Logo = styled.a`
 `;
 
 const T1 = styled.div`
-    border-bottom: 2px solid  #FF9E1B;
     padding-bottom: 3px;
 `;
 const T2 = styled.div`
     color: #FF9E1B;
-    border-bottom: 2px solid  #000000;
     padding-bottom: 3px;
 `;
 
@@ -33,15 +31,24 @@ const List = styled.div`
     display:flex;
 `;
 
-const Text = styled.div`
+const AuthBtn = styled.div`
     cursor:pointer;
-    color: #FF9E1B;
-    margin-left: 10px;
+    background-color: #000070;
+    color:white;
+    border-radius: 2rem;
+    padding: 0 2rem;
+    line-height: 2rem;
 `;
 
 const Link = styled.a`
-    color: #FF9E1B;
     cursor:pointer;
+    border: 2px solid #000070;
+    box-sizing: border-box;
+    color:#000070;
+    border-radius: 2rem;
+    padding:0 2rem;
+    margin-right: 1rem;
+    line-height: 2rem;
 `;
 
 const contentStyle = {
@@ -55,8 +62,7 @@ const contentStyle = {
 const X = styled.div`
   cursor: pointer;
   position: absolute;
-  right: -0.7em;
-  top: -0.5em;
+  right: -2.3rem;
   font-size: 2.3em;
   color: #e5eaee;
 `;
@@ -79,14 +85,14 @@ export default () => {
             {
                 isLogin ? (
                     <List>
-                        <Link href="/#/myPage">마이페이지</Link>
-                        <Text onClick={()=>{logout()}}>로그아웃</Text>
+                        <Link href="/#/myPage">MYPAGE</Link>
+                        <AuthBtn onClick={()=>{logout()}}>LOGOUT</AuthBtn>
                     </List>
                 ) : (
                     <List>
                         <Popup
                             trigger={
-                                <Text>login</Text>
+                                <AuthBtn>LOGIN</AuthBtn>
                             }
                             modal
                             contentStyle={contentStyle}

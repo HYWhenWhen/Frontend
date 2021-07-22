@@ -5,6 +5,12 @@ import { ko } from 'react-date-range/dist/locale';
 import { DateRange } from 'react-date-range';
 import '../Styles/Form.css'
 import useInput from '../Hooks/useInput';
+import Button from '../Component/Button';
+
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faUser } from "@fortawesome/free-solid-svg-icons";
+
+
 
 const Container = styled.div`
     width: 100%;
@@ -20,34 +26,47 @@ const Buttons = styled.div`
     color:white;
 `;
 
-const Quit = styled.div`
-    background-color: #000000;
-    width: 7rem;
-    padding: 13px 8px;
-    border-radius: 0.2rem;
-    box-shadow: 1px 2px 5px #bfbfbf;
-    cursor: pointer;
-`;
-
-const Make = styled.div`
-    background-color: #FF9E1B;
-    width: 7rem;
-    padding: 13px 8px;
-    margin-left: 2rem;
-    border-radius: 0.2rem;
-    cursor: pointer;
-    box-shadow: 1px 2px 5px #bfbfbf;
-`;
-
 const Name = styled.input`
     width: 60%;
     margin: 0 20% 20px;
     font-size: 1.3rem;
     border: none;
-    border-bottom: 2px solid #FF9E1B;
+    border-bottom: 2px solid #E2E2E2;
     font-family: 'Noto Sans CJK KR';
     text-align: center;
 `;
+
+const PeopleNum = styled.div`
+    display: flex;
+    justify-content: center;
+    color: #000070;
+    font-size: 1.3rem;
+    margin-bottom: 1rem;
+    align-items: center;
+`;
+const PeopleTxt = styled.div`
+    margin: 0 1rem;
+`;
+
+const NumController = styled.div`
+    display: flex;
+    align-items: center;
+`;
+
+const PM = styled.div`
+    font-size: 2rem;
+    cursor: pointer;
+`;
+
+const Num = styled.div`
+    border: 2px solid #000070;
+    border-radius: 2rem;
+    width: 7rem;
+    text-align: center;
+    margin: 0 0.5rem;
+    
+`;
+
 
 export default ({ }) => {
     const [state, setState] = useState([
@@ -64,12 +83,23 @@ export default ({ }) => {
         sessionStorage.setItem('startDate', state[0].startDate);
         sessionStorage.setItem('endDate', state[0].endDate);
         sessionStorage.setItem('name', name.value);
-        window.location.replace("/#/myPage")
+        window.location.replace("/#/form/result")
     }
+    const [num, setNum] = useState(1);
 
     return (
         <Container>
             <Name {...name} placeholder ="일정 이름"></Name>
+            <PeopleNum>
+                <FontAwesomeIcon icon={faUser}/>
+                <PeopleTxt> 인원설정 </PeopleTxt>
+                <NumController>
+                    <PM onClick ={()=>{if(num ==1) alert("인원수는 1명 이상이어야합니다."); else setNum(num-1);}}> - </PM>
+                    <Num>{num}</Num>
+                    <PM onClick ={()=>{setNum(num+1)}}> + </PM>
+                </NumController>
+
+            </PeopleNum>
 
             <DateRange
                 editableDateInputs={true}
@@ -81,8 +111,8 @@ export default ({ }) => {
                  direction="horizontal"
             />
             <Buttons>
-                <Quit onClick={()=>{window.location.replace("/")}} >취소</Quit>
-                <Make onClick={()=>{make()}}>일정 생성하기</Make>
+                <Button onClick={()=>{window.location.replace("/")}} content="취소" backgroundColor="#7953D2" marginRight="20px"/>
+                <Button onClick={()=>{make()}} content="일정 생성하기" backgroundColor="#000070"/>
             </Buttons>
 
         </Container>

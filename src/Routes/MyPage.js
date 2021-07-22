@@ -1,99 +1,104 @@
-import React, { useRef } from 'react';
-import Result from "./Result";
+import React, { useState } from 'react';
 import styled from "styled-components";
+
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faUser } from "@fortawesome/free-solid-svg-icons";
+import MypageCalendar from '../Component/MypageCalendar';
+
 const Container = styled.div`
    display: flex;
+   padding: 3rem 15%;
 `;
 
-const InfoContainer = styled.div`
-   width:35%;
-   display: flex;
-   flex-direction: column;
-   padding: 7% 0 0 8%;
-   box-sizing: border-box;
-   color:#FF9E1B;
-   text-align: center;
+// 왼쪽 디자인
+const Left = styled.div`
+    width: 23%;
+    margin-right: 10%;
+    text-align:center;
+    display: flex;
+    flex-direction: column;
+`;
+const UserInfo = styled.div`
+    border: 1px solid #000070;
+    padding: 5%;
+    line-height: 1.6rem;
+    margin: 0 10% 1rem;
+    height: 7rem;
+    display: flex;
+    flex-direction: column;
+`;
+const Logo = styled.div`
+    background-color: #000070;
+    width: 5rem;
+    height: 5rem;
+    border-radius: 100%;
+    margin: auto;
+    color: white;
+    font-size: 2rem;
+    line-height: 5rem;
+`;
+const Name = styled.div`
 `;
 
-const Mypage = styled.div`
-   font-size: 1.5rem;
-   margin-bottom: 5rem;
+const Forms = styled.div`
+    background-color: #000070;
+    color: white;
+    height: 85%;
+    margin: 0 10%;
+    display: flex;
+    flex-direction:column;
+    align-items: center;
+    padding: 2rem 1rem;
+`;
+const Form = styled.div`
+    font-size: 0.9rem;
+    margin-bottom: 5px;
+`;
+const Line = styled.div`
+    height: 1px;
+    background-color: white;
+    width: 70%;
+    margin-bottom: 2rem;
 `;
 
-const Schedule = styled.div`
-    border-bottom: 1px solid black;
-    text-align: center;
-    padding-bottom: 7px;
-    margin-bottom: 3rem;
-    font-size: 1.2rem;
+const Center = styled.div`
+    width: 60%;
+    text-align:center;
 `;
 
-const Days = styled.div`
-    text-align: center;
-    font-size: 1.2rem;
-`;
 
-const FixBtn = styled.div`
-    margin: 5rem auto 0;
-    background-color: #000000;
-    padding: 15px 55px;
-    border-radius: 0.5rem;
-    width: 6rem;
-    cursor:pointer;
-    color:white;
-    box-shadow: 1px 2px 5px 0px #bfbfbf;
-`;
-
-const LinkCopyBtn = styled.button`
-    margin: 5rem auto 0;
-    background-color: #FF9E1B;
-    padding: 15px 55px;
-    border: none;
-    border-radius: 0.5rem;
-    width: 100%;
-    cursor:pointer;
-    color:white;
-    box-shadow: 1px 2px 5px 0px #bfbfbf;
-    font-size: 1rem;
-`;
-
-const LinkName = styled.input`
-    display:none;
-`;
-
-const getDateFormat = date => {
-    let reVal = "";
-    reVal += date.getFullYear() + '.' + date.getMonth() + '.' + date.getDate();
-    return reVal;
-}
 function MyPage() {
-    const startDate = new Date(sessionStorage.getItem("startDate"));
-    const endDate = new Date(sessionStorage.getItem("endDate"));
-    const formName = sessionStorage.getItem("name");
-    
-    const textInput = useRef();
-    const str = "http://localhost:3000/#/submit";
-    const copy = () => {
-        const el = textInput.current;
-        el.select();
-        document.execCommand("copy");
-    }
 
     return (
         <Container>
-            <InfoContainer>
-                <Mypage>마이페이지</Mypage>
-                <Schedule>{formName}</Schedule>
-                <Days>{getDateFormat(startDate)} ~ {getDateFormat(endDate)}</Days>
-                {/* <FixBtn>일정 확정하기</FixBtn> */}
-                <>
-                <LinkName  type="text" value={str} ref={textInput} readOnly></LinkName>
-                <LinkCopyBtn onClick={copy}>
-                    링크 공유</LinkCopyBtn>
-                    </>
-                    
-            </InfoContainer>
-            <Result></Result>
+            <Left>
+                <UserInfo>
+                    <Logo>
+                        <FontAwesomeIcon icon={faUser}/>
+                    </Logo>
+                    <Name>남민정</Name>
+                </UserInfo>
+                <Forms>
+                    <Form>멋쟁이 사자처럼 해커톤회의</Form>
+                    <Line/>
+
+                    <Form>멋쟁이 사자처럼 해커톤회의</Form>
+                    <Line/>
+
+                    <Form>멋쟁이 사자처럼 해커톤회의</Form>
+                    <Line/>
+
+                    <Form>멋쟁이 사자처럼 해커톤회의</Form>
+                    <Line/>
+
+                </Forms>
+            </Left>
+            <Center>
+                <MypageCalendar/> 
+            </Center>
+
+
+           
         </Container>
     )
 };

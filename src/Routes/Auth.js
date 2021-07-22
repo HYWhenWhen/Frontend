@@ -33,7 +33,7 @@ const Title = styled.div`
 
 const Input = styled.input`
     border: none;
-    border-bottom: 2px solid #FF9E1B;
+    border-bottom: 2px solid #7953D2;
     width: 80%;
     font-size: 0.9rem;
     height: 2rem;
@@ -44,7 +44,7 @@ const Content = styled.div`
 `;
 
 const Text = styled.div`
-    color: #FF9E1B;
+    color: #7953D2;
     font-size: 0.9rem;
     font-weight: bold;
 `;
@@ -53,12 +53,13 @@ const Button = styled.button`
   text-align:center;
   cursor:pointer;
   border:none;
-  background-color: #FF9E1B;
+  background-color: #7953D2;
   font-size: 0.9rem;
   width: 80%;
   height: 2.5rem;
   border-radius: 0.3rem;
   color:white;
+  font-family: 'Noto Sans CJK KR';
 `;
 
 
@@ -66,7 +67,7 @@ const SignupBtn = styled.div`
   text-align:center;
   cursor:pointer;
   border:none;
-  background-color: #000000;
+  background-color: #000070;
   font-size: 0.9rem;
   width: 80%;
   height: 2.5rem;
