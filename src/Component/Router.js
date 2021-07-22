@@ -1,7 +1,6 @@
 import React from "react";
 import { HashRouter as Router, Route, Switch, Redirect } from "react-router-dom";
 import Header from "./Header";
-import Footer from "./Footer";
 import Main from "../Routes/Main";
 import Form from "../Routes/Form";
 import Submit from "../Routes/Submit";
@@ -20,6 +19,7 @@ const Wrapper = styled.div`
 
 const Contents = styled.div`
     flex:1;
+    display: flex;
 `;
 console.log(localStorage.getItem("login"));
 
@@ -44,7 +44,6 @@ export default () => (
                     <Redirect path="*" to="/" />
                 </Switch>
             </Contents>
-            <Footer />
         </Router>
     </Wrapper>
 );
