@@ -31,7 +31,7 @@ export default () => (
                 <Switch>
                     <Route exact path="/" exact component={Main} />
                     <Route path="/submit" component={Submit} />
-                    {localStorage.getItem("login") ?(
+                    {localStorage.getItem("login") == null ||localStorage.getItem("login") == undefined ?(
                         <>
                             <Route path="/myPage" component={MyPage} />
                             <Route path="/result" component={ResultPage} />

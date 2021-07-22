@@ -66,7 +66,7 @@ export default () => {
                 <T2>When</T2>
             </Logo>
             {
-                isLogin ? (
+                isLogin == undefined || isLogin == null ? (
                     <List>
                         <Link href="/#/myPage">MYPAGE</Link>
                         <AuthBtn onClick={()=>{logout()}}>LOGOUT</AuthBtn>
