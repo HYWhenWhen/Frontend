@@ -9,6 +9,7 @@ import Main from "../Styles/Images/Main.svg";
 
 const Container = styled.div`
     width: 100%;
+    height: 56rem;
     padding:0 20%;
     box-sizing: border-box;
     background-image : url(${Main});
@@ -36,8 +37,6 @@ const Image = styled.img`
 `;
 
 const Check =()=>{
-    
-
 }
 
 
