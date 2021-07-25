@@ -80,7 +80,7 @@ function Submit() {
     const sendCalendar = (calendar) => {
         sessionStorage.setItem('Calendar', calendar);
         console.log(sessionStorage.getItem('Calendar'));
-        window.location.replace("/#/myPage");
+        window.location.replace("/#/submit/result");
     }
     const getDateFormat = date => {
         let reVal = "";

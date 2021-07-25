@@ -1,8 +1,7 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 
-import Popup from "reactjs-popup";
-import Auth from "../Routes/Auth";
+import WWLogo from "../Styles/Images/Logo.svg";
 
 import { toast } from "react-toastify";
 
@@ -19,12 +18,9 @@ const Logo = styled.a`
     font-weight:bold;
 `;
 
-const T1 = styled.div`
+const LogoImg= styled.img`
     padding-bottom: 3px;
-`;
-const T2 = styled.div`
-    color: #FF9E1B;
-    padding-bottom: 3px;
+    width: 9rem;
 `;
 
 const List = styled.div`
@@ -62,9 +58,8 @@ export default () => {
 
     return (
         <Container>
-            <Logo href ="/">
-                <T1>When</T1>
-                <T2>When</T2>
+            <Logo href ="/" >
+                <LogoImg src = {WWLogo}/>
             </Logo>
             {
                 (isLogin == undefined || isLogin == null) ? (
