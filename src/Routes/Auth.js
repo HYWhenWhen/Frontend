@@ -3,6 +3,7 @@ import styled from "styled-components";
 import { GoogleLogin } from 'react-google-login';
 import KaKaoLogin from 'react-kakao-login';
 import NaverLogin from 'react-naver-login';
+import axios from 'axios';
 
 const Container = styled.div`
     width:100%;
@@ -31,6 +32,22 @@ const Container = styled.div`
 //     }
 // `
 
+function loginApi() {
+  const url = "http://localhost:8080/api/log-in";
+  axios.post(url,{
+    idToken: "A2"
+  })
+  .then(function(response) {
+      console.log(response);
+  })
+  .catch(function(error) {
+      console.log("err");
+      console.log(error);
+  })
+  
+}
+
+
 export default ({}) => {
   const [userObj, setUserObj]=useState({})
 
@@ -41,6 +58,7 @@ export default ({}) => {
       token:res.accessToken
     })
     localStorage.setItem("login", userObj.token);
+
   }
 
     // 카카오
@@ -58,6 +76,7 @@ export default ({}) => {
     localStorage.setItem("login", userObj.token);
     console.log(localStorage.getItem('login'));
   })
+  loginApi();
 
 
     return (

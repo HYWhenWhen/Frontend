@@ -7,7 +7,7 @@ import MypageCalendar from '../Component/MypageCalendar';
 
 const Container = styled.div`
    display: flex;
-   padding: 3rem 15%;
+   padding: 6rem 15%;
 `;
 
 // 왼쪽 디자인

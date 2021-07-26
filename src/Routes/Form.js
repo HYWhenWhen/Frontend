@@ -9,6 +9,7 @@ import Button from '../Component/Button';
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUser } from "@fortawesome/free-solid-svg-icons";
+import axios from 'axios';
 
 
 
@@ -77,15 +78,29 @@ export default ({ }) => {
             color: "#000000"
         }
     ]);
-    const name = useInput("");
+    const name = useInput(""); //폼 이름
+    const [num, setNum] = useState(1); // 폼 인원수
 
     const make=()=>{
+        axios.post("http://localhost:8080/api/create-schedule", {
+            name: name.value,
+            expectedMemberCnt : num,
+            hostIdToken:"A2",
+            startDate : "2017-02-03",
+            endDate : "2017-02-10",
+          })
+          .then(function (response) {
+            console.log(response);
+          })
+          .catch(function (error) {
+            console.log(error);
+          });
+
         sessionStorage.setItem('startDate', state[0].startDate);
         sessionStorage.setItem('endDate', state[0].endDate);
         sessionStorage.setItem('name', name.value);
         window.location.replace("/#/form/result")
     }
-    const [num, setNum] = useState(1);
 
     return (
         <Container>
