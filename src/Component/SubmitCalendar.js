@@ -52,24 +52,20 @@ const Day = styled.span`
 `;
 
 
-export default ({ startDate, endDate }) => { 
+export default ({ startDate, endDate, checkDays, setCheckDays }) => { 
     const start = moment(startDate);
     const end = moment(endDate);
 
     const cnt  = moment.duration(end.diff(start)).asDays();
-    const [checkDays, setCheckDays] = useState([]);
     const [loading, setLoading] = useState(true);
     let check_tmp = [];
 
     useEffect (()=>{
       for(let i = 0; i<=cnt; i++){
-        const now = start.clone().add(i,'days');
-        const year = now.format("YYYY");
-        const month = now.format("MM");
-        const day = now.format("DD");
+        const tmpDay = start.clone().add(i,'days')
         check_tmp = [...check_tmp,{
-          day: new Date(year, month, day),
-          count : 0,
+          localDate: tmpDay.format('YYYY-MM-DD'),
+          availability : 0,
         }]
       }
       setCheckDays([...check_tmp])
@@ -89,7 +85,8 @@ export default ({ startDate, endDate }) => {
     );
     const handleClick=(days)=>{
       const tmp = checkDays;
-      tmp[days.diff(start,'days')].count = (tmp[days.diff(start,'days')].count +1) %3;
+      const idx = days.format('D') - start.format('D');
+      tmp[idx].availability = (tmp[idx].availability +1) %3;
       setCheckDays([...tmp]);
     }
 
@@ -115,14 +112,14 @@ export default ({ startDate, endDate }) => {
                     return(
                       <DayContainer key={index} onClick={()=>{handleClick(days)}}>
                         
-                      {checkDays[days.diff(start,'days')].count %3 === 0 &&
+                      {checkDays[ days.format('D') - start.format('D')].availability %3 === 0 &&
                       <Day style={{ borderBottom: '4px solid #008000' }}>{days.format('D')}</Day>
                       }
-                      {checkDays[days.diff(start,'days')].count %3 === 1 &&
+                      {checkDays[ days.format('D') - start.format('D')].availability %3 === 1 &&
                       <Day style={{ borderBottom: '4px solid #FFC312' }}>{days.format('D')}</Day>
                       
                       }
-                      {checkDays[days.diff(start,'days')].count %3 === 2 &&
+                      {checkDays[ days.format('D') - start.format('D')].availability %3 === 2 &&
                       <Day style={{ borderBottom: '4px solid #EA2027' }}>{days.format('D')}</Day>
                       }
 

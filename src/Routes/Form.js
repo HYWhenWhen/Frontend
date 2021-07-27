@@ -98,7 +98,7 @@ export default ({ }) => {
           .then(function (response) {
               console.log(response.data.scheduleKey);
 
-            window.location.replace("/#/form/result/$"+response.data.scheduleKey)
+            window.location.replace("/#/form/result/"+response.data.scheduleKey)
             
           })
           .catch(function (error) {
