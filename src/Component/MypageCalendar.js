@@ -58,18 +58,24 @@ const Day = styled.span`
 `;
 
 const contentStyle = {
-  width: "35%",
+  width: "30%",
   height: "60%",
-  borderRadius: "15px",
   padding: "0px",
+  backgroundColor: "#F3F3FF"
 };
 
 const X = styled.div`
-  cursor: pointer;
-  position: absolute;
-  right: -2.3rem;
-  font-size: 2.3em;
-  color: #e5eaee;
+    cursor: pointer;
+    position: absolute;
+    right: -1.6rem;
+    top: -1.2rem;
+    font-size: 1.7em;
+    color: #e5eaee;
+    width: 3rem;
+    height: 3rem;
+    line-height: 3rem;
+    border-radius: 100%;
+    background-color: #7953D2;
 `;
 
 export default ({}) => { 
