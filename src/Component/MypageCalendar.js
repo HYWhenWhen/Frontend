@@ -49,6 +49,10 @@ const DayContainer = styled.td`
     cursor: pointer;
     line-height: 5rem;
     font-size: 1.2rem;
+    border-radius:1rem;
+    :hover{
+      background-color:#F3F3FF;
+    }
 `;
 const Day = styled.span`
 `;
@@ -103,7 +107,7 @@ export default ({}) => {
                     return(
                       <Popup
                             trigger={
-                              <DayContainer key={index} style={{backgroundColor:"#7953D2", borderRadius:"1rem"}} >
+                              <DayContainer key={index} style={{backgroundColor:"#E2E2FF"}} >
                                 <Day >{days.format('D')}</Day>
                               </DayContainer>
                             }
