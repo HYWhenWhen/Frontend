@@ -80,9 +80,6 @@ function Submit({match}) {
 
     const [checkDays, setCheckDays] = useState([]); // 폼 체크된것 
 
-    console.log(checkDays);
-
-
     useEffect(()=>{
         axios.post("http://localhost:8080/api/get-submit-page",{
             scheduleKey : match.params.id,
@@ -110,7 +107,7 @@ function Submit({match}) {
           .catch(function (error) {
             console.log(error);
           })
-        window.location.replace("/#/submit/result");
+        window.location.replace("/#/result/submit");
     }
 
     const getDateFormat = date => {

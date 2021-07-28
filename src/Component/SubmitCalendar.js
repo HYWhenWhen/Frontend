@@ -85,7 +85,7 @@ export default ({ startDate, endDate, checkDays, setCheckDays }) => {
     );
     const handleClick=(days)=>{
       const tmp = checkDays;
-      const idx = days.format('D') - start.format('D');
+      const idx = days.diff(start,'days');
       tmp[idx].availability = (tmp[idx].availability +1) %3;
       setCheckDays([...tmp]);
     }
@@ -107,22 +107,19 @@ export default ({ startDate, endDate, checkDays, setCheckDays }) => {
                     );
                   }
                   // case 2. 범위
-                  else if (start.format('YYYYMMDD')<= days.format('YYYYMMDD') &&  days.format('YYYYMMDD')<= end.format('YYYYMMDD')){
-                    
+                  else if (days.isBetween(start,end)){
                     return(
                       <DayContainer key={index} onClick={()=>{handleClick(days)}}>
+                        {checkDays[days.diff(start,'days')].availability %3 === 0 &&
+                        <Day style={{ borderBottom: '4px solid #008000' }}>{days.format('D')}</Day>
+                        }
+                        {checkDays[days.diff(start,'days')].availability %3 === 1 &&
+                        <Day style={{ borderBottom: '4px solid #FFC312' }}>{days.format('D')}</Day>
                         
-                      {checkDays[ days.format('D') - start.format('D')].availability %3 === 0 &&
-                      <Day style={{ borderBottom: '4px solid #008000' }}>{days.format('D')}</Day>
-                      }
-                      {checkDays[ days.format('D') - start.format('D')].availability %3 === 1 &&
-                      <Day style={{ borderBottom: '4px solid #FFC312' }}>{days.format('D')}</Day>
-                      
-                      }
-                      {checkDays[ days.format('D') - start.format('D')].availability %3 === 2 &&
-                      <Day style={{ borderBottom: '4px solid #EA2027' }}>{days.format('D')}</Day>
-                      }
-
+                        }
+                        {checkDays[days.diff(start,'days')].availability %3 === 2 &&
+                        <Day style={{ borderBottom: '4px solid #EA2027' }}>{days.format('D')}</Day>
+                        }
                     </DayContainer>
                   );
                   }
@@ -141,7 +138,8 @@ export default ({ startDate, endDate, checkDays, setCheckDays }) => {
         }
         return result;
       }
-
+      console.log(loading);
+      console.log(checkDays);
 
     return (
       <>
@@ -150,7 +148,7 @@ export default ({ startDate, endDate, checkDays, setCheckDays }) => {
       ):(
         <Container>
           <Controller>
-            <Btn onClick={()=>{ setMoment(getMoment.clone().subtract(1, 'month')) }}>&lt; </Btn>
+            <Btn onClick={()=>{setMoment(getMoment.clone().subtract(1, 'month')) }}>&lt; </Btn>
             <Month>{today.format('YYYY 년 MM 월')}</Month>  
             <Btn onClick={()=>{ setMoment(getMoment.clone().add(1, 'month')) }}>&gt;</Btn>
           </Controller>
