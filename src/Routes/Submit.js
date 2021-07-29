@@ -6,6 +6,8 @@ import SubmitCalendar from '../Component/SubmitCalendar';
 import Button from '../Component/Button';
 import useInput from '../Hooks/useInput';
 import axios from 'axios';
+import moment from 'moment';
+
 
 const Container = styled.div`
     display: flex;
@@ -73,8 +75,8 @@ const TestDay = styled.div`
 function Submit({match}) {
     const [loading, setLoading] = useState(true); //로딩
 
-    const [startDate, setStartDate] = useState(new Date()); 
-    const [endDate, setEndDate] = useState(new Date());
+    const [startDate, setStartDate] = useState(moment()); 
+    const [endDate, setEndDate] = useState(moment());
     const [formName, setFormName] = useState("");
     const [testClick, setTestClick] = useState(0);
 
@@ -86,8 +88,8 @@ function Submit({match}) {
             idToken :"A2",
         }).then(function (response) {
             console.log(response)
-            setStartDate(new Date(response.data.startDate));
-            setEndDate(new Date(response.data.endDate));
+            setStartDate(moment(response.data.startDate));
+            setEndDate(moment(response.data.endDate));
             setFormName(response.data.scheduleName)
             setLoading(false);
           })
@@ -110,19 +112,15 @@ function Submit({match}) {
           })
         window.location.replace("/#/result/submit");
     }
-
-    const getDateFormat = date => {
-        let reVal = "";
-        reVal += date.getFullYear() + '.' + date.getMonth() + '.' + date.getDate();
-        return reVal;
-    }
-
+    
     return (
-        <Container>
+        <>
+        {loading ? (<></>): (
+            <Container>
             <DayContainer>
                 <Info>
                     <Title>{formName}</Title>
-                    <MyDays>{getDateFormat(startDate)} ~ {getDateFormat(endDate)}</MyDays>
+                    <MyDays>{startDate.format("YYYY-MM-DD")} ~ {endDate.format("YYYY-MM-DD")}</MyDays>
                     <Btns>
                         <Button fontSize="0.9rem" content="내 일정 불러오기" backgroundColor="#000070" marginRight="4rem"/>
                         <Button fontSize="0.9rem" content="일정참여 포기하기" backgroundColor="#7953D2"/>
@@ -156,7 +154,10 @@ function Submit({match}) {
 
             </InfoContainer>
         </Container>
-    )
+        )}
+        </>
+        
+    );
 }
 
 export default Submit;
