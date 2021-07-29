@@ -1,9 +1,11 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from "styled-components";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUser } from "@fortawesome/free-solid-svg-icons";
 import MypageCalendar from '../Component/MypageCalendar';
+
+import {Link} from 'react-router-dom';
 
 const Container = styled.div`
    display: flex;
@@ -68,6 +70,13 @@ const Center = styled.div`
 
 
 function MyPage() {
+    const [name, setName] = useState("");
+    const [dates, setDates] = useState([]);
+    const [myForms, setMyForms] = useState([]);
+
+    
+    useEffect(()=>{
+    },[])
 
     return (
         <Container>
@@ -79,7 +88,9 @@ function MyPage() {
                     <Name>남민정</Name>
                 </UserInfo>
                 <Forms>
-                    <Form>멋쟁이 사자처럼 해커톤회의</Form>
+                    <Link to ="/result">
+                        <Form>멋쟁이 사자처럼 해커톤회의</Form>
+                    </Link>
                     <Line/>
 
                     <Form>멋쟁이 사자처럼 해커톤회의</Form>

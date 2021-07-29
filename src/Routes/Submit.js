@@ -85,6 +85,7 @@ function Submit({match}) {
             scheduleKey : match.params.id,
             idToken :"A2",
         }).then(function (response) {
+            console.log(response)
             setStartDate(new Date(response.data.startDate));
             setEndDate(new Date(response.data.endDate));
             setFormName(response.data.scheduleName)
