@@ -5,6 +5,9 @@ import styled from "styled-components";
 import SubmitCalendar from '../Component/SubmitCalendar';
 import Button from '../Component/Button';
 import useInput from '../Hooks/useInput';
+import axios from 'axios';
+import moment from 'moment';
+
 
 const Container = styled.div`
     display: flex;
@@ -69,37 +72,61 @@ const TestDay = styled.div`
 
 
 
-function Submit() {
-    const startDate = new Date(sessionStorage.getItem("startDate"));
-    const endDate = new Date(sessionStorage.getItem("endDate"));
+function Submit({match}) {
+    const [loading, setLoading] = useState(true); //로딩
 
-    const formName = sessionStorage.getItem("name");
+    const [startDate, setStartDate] = useState(moment()); 
+    const [endDate, setEndDate] = useState(moment());
+    const [formName, setFormName] = useState("");
     const [testClick, setTestClick] = useState(0);
+
+    const [checkDays, setCheckDays] = useState([]); // 폼 체크된것 
+
+    useEffect(()=>{
+        axios.post("http://localhost:8080/api/get-submit-page",{
+            scheduleKey : match.params.id,
+            idToken :"A2",
+        }).then(function (response) {
+            console.log(response)
+            setStartDate(moment(response.data.startDate));
+            setEndDate(moment(response.data.endDate));
+            setFormName(response.data.scheduleName)
+            setLoading(false);
+          })
+          .catch(function (error) {
+            console.log(error);
+          })
+    },[])
 
 
     const sendCalendar = (calendar) => {
-        sessionStorage.setItem('Calendar', calendar);
-        console.log(sessionStorage.getItem('Calendar'));
-        window.location.replace("/#/submit/result");
+        axios.post("http://localhost:8080/api/submit",{
+            scheduleKey : match.params.id,
+            idToken :"A2",
+            dates : checkDays
+        }).then(function (response) {
+            console.log(response)
+          })
+          .catch(function (error) {
+            console.log(error);
+          })
+        window.location.replace("/#/result/submit");
     }
-    const getDateFormat = date => {
-        let reVal = "";
-        reVal += date.getFullYear() + '.' + date.getMonth() + '.' + date.getDate();
-        return reVal;
-    }
-
+    
     return (
-        <Container>
+        <>
+        {loading ? (<></>): (
+            <Container>
             <DayContainer>
                 <Info>
                     <Title>{formName}</Title>
-                    <MyDays>{getDateFormat(startDate)} ~ {getDateFormat(endDate)}</MyDays>
+                    <MyDays>{startDate.format("YYYY-MM-DD")} ~ {endDate.format("YYYY-MM-DD")}</MyDays>
                     <Btns>
                         <Button fontSize="0.9rem" content="내 일정 불러오기" backgroundColor="#000070" marginRight="4rem"/>
                         <Button fontSize="0.9rem" content="일정참여 포기하기" backgroundColor="#7953D2"/>
                     </Btns>
                 </Info>
-                <SubmitCalendar startDate = {startDate} endDate={endDate}/>
+                {!loading && <SubmitCalendar startDate = {startDate} endDate={endDate} checkDays={checkDays} setCheckDays={setCheckDays}/>}
             </DayContainer>
             <InfoContainer>
                 <Test>
@@ -127,7 +154,10 @@ function Submit() {
 
             </InfoContainer>
         </Container>
-    )
+        )}
+        </>
+        
+    );
 }
 
 export default Submit;

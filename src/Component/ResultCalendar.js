@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import moment from 'moment';
 import styled from "styled-components";
 
+
 const Container = styled.div`
   padding: 0 5%;
 `;
@@ -52,27 +53,12 @@ const Day = styled.span`
 `;
 
 
-export default ({ startDate, endDate, checkDays, setCheckDays }) => { 
-    const start = moment(startDate);
-    const end = moment(endDate);
+export default ({ startDate, endDate, checkDays}) => { 
+  const start = moment(startDate);
+  const end = moment(endDate);
 
     const cnt  = moment.duration(end.diff(start)).asDays();
-    const [loading, setLoading] = useState(true);
     let check_tmp = [];
-
-    useEffect (()=>{
-      for(let i = 0; i<=cnt; i++){
-        const tmpDay = start.clone().add(i,'days')
-        check_tmp = [...check_tmp,{
-          localDate: tmpDay.format('YYYY-MM-DD'),
-          availability : 0,
-        }]
-      }
-      setCheckDays([...check_tmp])
-      setLoading(false);
-    },[])    
-
-
     const [getMoment, setMoment]=useState(moment());     
     const today = getMoment;    // today == moment()   입니다.
     const firstWeek = today.clone().startOf('month').week();
@@ -83,12 +69,7 @@ export default ({ startDate, endDate, checkDays, setCheckDays }) => {
             <WeekDay>{day}</WeekDay>
         )
     );
-    const handleClick=(days)=>{
-      const tmp = checkDays;
-      const idx = days.diff(start,'days');
-      tmp[idx].availability = (tmp[idx].availability +1) %3;
-      setCheckDays([...tmp]);
-    }
+
 
     const calendarArr=()=>{
         let result = [];
@@ -109,8 +90,9 @@ export default ({ startDate, endDate, checkDays, setCheckDays }) => {
                   // case 2. 범위
                   else if (days.isBetween(start,end) || days.isSame(start) || days.isSame(end)){
                     return(
-                      <DayContainer key={index} onClick={()=>{handleClick(days)}}>
-                        {checkDays[days.diff(start,'days')].availability %3 === 0 &&
+                      <DayContainer key={index} >
+                        {days.diff(start,'days')}
+                        {/* {checkDays[days.diff(start,'days')].availability %3 === 0 &&
                         <Day style={{ borderBottom: '4px solid #008000' }}>{days.format('D')}</Day>
                         }
                         {checkDays[days.diff(start,'days')].availability %3 === 1 &&
@@ -119,7 +101,7 @@ export default ({ startDate, endDate, checkDays, setCheckDays }) => {
                         }
                         {checkDays[days.diff(start,'days')].availability %3 === 2 &&
                         <Day style={{ borderBottom: '4px solid #EA2027' }}>{days.format('D')}</Day>
-                        }
+                        } */}
                     </DayContainer>
                   );
                   }
@@ -138,14 +120,9 @@ export default ({ startDate, endDate, checkDays, setCheckDays }) => {
         }
         return result;
       }
-      console.log(loading);
-      console.log(checkDays);
+
 
     return (
-      <>
-      {loading ? (
-        <></>
-      ):(
         <Container>
           <Controller>
             <Btn onClick={()=>{setMoment(getMoment.clone().subtract(1, 'month')) }}>&lt; </Btn>
@@ -161,7 +138,5 @@ export default ({ startDate, endDate, checkDays, setCheckDays }) => {
           </Days>
           </CalendarContainer>
         </Container>
-      )}
-    </>
     );
 }

@@ -30,12 +30,12 @@ export default () => (
             <Contents>
                 <Switch>
                     <Route exact path="/" exact component={Main} />
-                    <Route exact path="/submit" component={Submit} />
-                    <Route exact path="/submit/result" component={SubmitResult} />
+                    <Route exact path="/submit/:id" component={Submit} />
+                    <Route exact path="/result/submit" component={SubmitResult} />
                     <Route path="/myPage" component={MyPage} />
                     <Route path="/result" component={ResultPage} />
                     <Route exact path="/form" component={Form} />
-                    <Route exact path="/form/result" component={FormResult} />
+                    <Route exact path="/form/result/:id" component={FormResult} />
                     <Route exact path="/auth" component={Auth} />
                    
                     <Redirect path="*" to="/" />
