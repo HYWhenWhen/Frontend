@@ -113,7 +113,7 @@ export default ({}) => {
                     return(
                       <Popup
                             trigger={
-                              <DayContainer key={index} style={{backgroundColor:"#E2E2FF"}} >
+                              <DayContainer key={index} style={{backgroundColor:"#BBBBFF", color:"white"}} >
                                 <Day >{days.format('D')}</Day>
                               </DayContainer>
                             }
@@ -134,8 +134,8 @@ export default ({}) => {
                   // 기본
                   else{
                     return(
-                        <DayContainer key={index}  >
-                          <Day onClick ={()=>{setCheckDay(days)}}>{days.format('D')}  </Day>
+                        <DayContainer key={index} onClick ={()=>{setCheckDay(days)}} >
+                          <Day >{days.format('D')}  </Day>
                         </DayContainer>
                     );
                   }
