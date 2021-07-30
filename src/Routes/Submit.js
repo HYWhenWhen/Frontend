@@ -122,8 +122,8 @@ function Submit({match}) {
                     <Title>{formName}</Title>
                     <MyDays>{startDate.format("YYYY-MM-DD")} ~ {endDate.format("YYYY-MM-DD")}</MyDays>
                     <Btns>
-                        <Button fontSize="0.9rem" content="내 일정 불러오기" backgroundColor="#000070" marginRight="4rem"/>
-                        <Button fontSize="0.9rem" content="일정참여 포기하기" backgroundColor="#7953D2"/>
+                        <Button fontSize="0.9rem" content="일정참여 포기하기" backgroundColor="#7953D2" marginRight="4rem"/>
+                        <Button fontSize="0.9rem" content="내 일정 불러오기" backgroundColor="#000070" />
                     </Btns>
                 </Info>
                 {!loading && <SubmitCalendar startDate = {startDate} endDate={endDate} checkDays={checkDays} setCheckDays={setCheckDays}/>}
