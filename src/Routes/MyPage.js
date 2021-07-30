@@ -9,49 +9,91 @@ import {Link} from 'react-router-dom';
 
 const Container = styled.div`
    display: flex;
-   padding: 6rem 15%;
+   padding: 3% 13%;
+   flex-direction: column;
+   align-items: center;
 `;
 
-// 왼쪽 디자인
-const Left = styled.div`
-    width: 23%;
-    margin-right: 10%;
+// 상단
+const Top = styled.div`
+    color: #000070;
+    font-size: 1.5rem;
+    border-bottom: 2px solid #707070;
+    margin-bottom: 5rem;
+    padding-bottom: 0.3rem;
+    width: 30%;
+    text-align: center;
+`;
+
+// 중간
+const Center = styled.div`
+    width: 60%;
     text-align:center;
+`;
+
+// 아래
+const Bottom = styled.div`
     display: flex;
-    flex-direction: column;
+    width: 75%;
+    margin-top:4rem;
 `;
-const UserInfo = styled.div`
-    border: 1px solid #000070;
-    padding: 5%;
-    line-height: 1.6rem;
-    margin: 0 10% 1rem;
-    height: 7rem;
-    display: flex;
-    flex-direction: column;
-`;
-const Logo = styled.div`
-    background-color: #000070;
-    width: 5rem;
-    height: 5rem;
-    border-radius: 100%;
-    margin: auto;
-    color: white;
-    font-size: 2rem;
-    line-height: 5rem;
-`;
-const Name = styled.div`
-`;
+
 
 const Forms = styled.div`
     background-color: #000070;
     color: white;
-    height: 85%;
-    margin: 0 10%;
+    width: 100%;
     display: flex;
-    flex-direction:column;
+    flex-direction: column;
     align-items: center;
-    padding: 2rem 1rem;
+    height: 4.5rem;
+    border-radius: 8px;
 `;
+
+const Info = styled.div`
+    background-color: white;
+    color: #000070;
+    text-align: center;
+    margin-bottom: 1rem;
+    width: 25%;
+    border-bottom-left-radius: 8px;
+    border-bottom-right-radius: 8px;
+    padding-bottom: 8px;
+`;
+const Flist = styled.div`
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    justify-content: space-evenly;
+`;
+
+const LeftBtn = styled.div`
+    background-color: white;
+    width: 2rem;
+    height: 2rem;
+    border-radius: 100%;
+    text-align: center;
+    line-height: 2rem;
+    margin: 1.2rem -1rem;
+    position: absolute;
+    color: #000070;
+    font-weight: bold;
+    font-size: 1.3rem;
+`;
+const RightBtn = styled.div`
+    width: 2rem;
+    height: 2rem;
+    background-color: white;
+    margin: 1.2rem -1rem;
+    position: inherit;
+    border-radius: 100%;
+    text-align: center;
+    line-height: 2rem;
+    color: #000070;
+    font-weight: bold;
+    font-size: 1.3rem;
+`;
+
 const Form = styled.div`
     font-size: 0.9rem;
     margin-bottom: 5px;
@@ -60,13 +102,10 @@ const Line = styled.div`
     height: 1px;
     background-color: white;
     width: 70%;
-    margin-bottom: 2rem;
+    margin: 0 auto;
 `;
 
-const Center = styled.div`
-    width: 60%;
-    text-align:center;
-`;
+
 
 
 function MyPage() {
@@ -80,34 +119,39 @@ function MyPage() {
 
     return (
         <Container>
-            <Left>
-                <UserInfo>
-                    <Logo>
-                        <FontAwesomeIcon icon={faUser}/>
-                    </Logo>
-                    <Name>남민정</Name>
-                </UserInfo>
-                <Forms>
-                    <Link to ="/result">
-                        <Form>멋쟁이 사자처럼 해커톤회의</Form>
-                    </Link>
-                    <Line/>
+            <Top>환영합니다, 임의진님</Top> 
 
-                    <Form>멋쟁이 사자처럼 해커톤회의</Form>
-                    <Line/>
-
-                    <Form>멋쟁이 사자처럼 해커톤회의</Form>
-                    <Line/>
-
-                    <Form>멋쟁이 사자처럼 해커톤회의</Form>
-                    <Line/>
-
-                </Forms>
-            </Left>
             <Center>
                 <MypageCalendar/> 
             </Center>
 
+            <Bottom>
+                <LeftBtn>&lt;</LeftBtn>
+                <Forms>
+                        <Info>최근 생성한 일정</Info>
+                        <Flist>
+                            <Link to ="/result">
+                                <Form>멋쟁이 사자처럼 해커톤회의</Form>
+                                <Line/>
+                            </Link>
+                            <Link to ="/result">
+                                <Form>멋쟁이 사자처럼 해커톤회의</Form>
+                                <Line/>
+                            </Link>
+                            <Link to ="/result">
+                                <Form>멋쟁이 사자처럼 해커톤회의</Form>
+                                <Line/>
+                            </Link>
+                            <Link to ="/result">
+                                <Form>멋쟁이 사자처럼 해커톤회의</Form>
+                                <Line/>
+                            </Link>
+                           
+                        </Flist>
+                </Forms>
+                <RightBtn>&gt;</RightBtn>
+
+            </Bottom>
 
            
         </Container>
