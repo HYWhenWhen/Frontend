@@ -81,9 +81,7 @@ export default ({ }) => {
     ]);
     const name = useInput(""); //폼 이름
     const [num, setNum] = useState(1); // 폼 인원수
-    const [url, seturl] = useState(""); // url
-
-
+    
 
     const make=()=>{
         const Start = moment(state[0].startDate);
@@ -96,10 +94,11 @@ export default ({ }) => {
             endDate : End.format("YYYY-MM-DD"),
           })
           .then(function (response) {
-              console.log(response.data.scheduleKey);
-
-            window.location.replace("/#/form/result/"+response.data.scheduleKey)
-            
+              if(!response.data.success)
+                alert("폼 생성에 실패하였습니다.");
+                else{
+                    window.location.replace("/#/form/result/"+response.data.scheduleKey)
+                }
           })
           .catch(function (error) {
             console.log(error);

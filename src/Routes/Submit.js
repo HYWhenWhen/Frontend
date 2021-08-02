@@ -87,11 +87,14 @@ function Submit({match}) {
             scheduleKey : match.params.id,
             idToken :"A2",
         }).then(function (response) {
-            console.log(response)
-            setStartDate(moment(response.data.startDate));
-            setEndDate(moment(response.data.endDate));
-            setFormName(response.data.scheduleName)
-            setLoading(false);
+            if(!response.data.success){
+                alert("폼 불러오기에 실패하였습니다.")
+            }else{
+                setStartDate(moment(response.data.startDate));
+                setEndDate(moment(response.data.endDate));
+                setFormName(response.data.scheduleName)
+                setLoading(false);
+            }
           })
           .catch(function (error) {
             console.log(error);
@@ -100,17 +103,20 @@ function Submit({match}) {
 
 
     const sendCalendar = (calendar) => {
-        axios.post("http://localhost:8080/api/submit",{
+        axios.post("http://localhost:8080/api/submit/member-schedule",{
             scheduleKey : match.params.id,
             idToken :"A2",
             dates : checkDays
         }).then(function (response) {
-            console.log(response)
+            if(!response.data.success){
+                alert("폼 제출에 실패하였습니다.")
+            }else{
+                window.location.replace("/#/result/submit");
+            }
           })
           .catch(function (error) {
             console.log(error);
           })
-        window.location.replace("/#/result/submit");
     }
     
     return (
