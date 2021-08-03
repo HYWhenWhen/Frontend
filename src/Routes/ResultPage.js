@@ -11,6 +11,9 @@ import { faUser } from "@fortawesome/free-solid-svg-icons";
 import moment from 'moment';
 import axios from 'axios';
 
+import {CopyToClipboard} from 'react-copy-to-clipboard'; // 클립보드 복붙용
+
+
 const Container = styled.div`
     display: flex;
     padding: 5%;
@@ -84,28 +87,38 @@ function Submit({match}) {
     const [startDate, setStartDate] = useState(moment()); 
     const [endDate, setEndDate] = useState(moment());
     const [formName, setFormName] = useState("");
+    const [expectedMemberCnt, setExpectedMemberCnt] = useState();
+    const [joinedMemberCnt, setJoinedMemberCnt] = useState();
     const [checkDays, setCheckDays] = useState([]); // 폼 체크된것 
-    
+
+    const url = 'http://localhost:3000/#/submit/'+match.params.id; //submit url mapping
+    const [copy, setCopy] = useState(false);
 
     const getDateFormat = date => {
         return date.format("YYYY-MM-DD");
     }
 
     useEffect (()=>{
-        axios.post("http://localhost:8080/api/get-total-page",{
-          scheduleKey : "aftdzyrqvr1627543835108",
+        axios.post("http://localhost:8080/api/get-result-page",{
+          scheduleKey : match.params.id,
       }).then(function (response) {
-          console.log(response);
+        if(!response.data.success){
+            alert("폼 불러오기에 실패하였습니다.")
+        }else{
           setStartDate(moment(response.data.startDate));
           setEndDate(moment(response.data.endDate));
           setFormName(response.data.scheduleName)
           setCheckDays(response.data.dates)
+          setExpectedMemberCnt(response.data.expectedMemberCnt)
+          setJoinedMemberCnt(response.data.joinedMemberCnt)
           setLoading(false);
+        }
         })
         .catch(function (error) {
           console.log(error);
         })
       },[]) 
+
 
     return (
         <Container>
@@ -113,7 +126,7 @@ function Submit({match}) {
                 <PeopleContainer>
                     <PeopleTxt>제출인원</PeopleTxt>
                     <FontAwesomeIcon icon={faUser} style = {{fontSize: "4rem"}}/>
-                    <PeopleNum>3 / 12</PeopleNum>
+                    <PeopleNum> {joinedMemberCnt} / {expectedMemberCnt}</PeopleNum>
                 </PeopleContainer>
                 <PeopleImg src = {resultPreview}/>
             </Left>
@@ -123,12 +136,16 @@ function Submit({match}) {
                     <MyDays>{getDateFormat(startDate)} ~ {getDateFormat(endDate)}</MyDays>
                 </Info>
 
+                {!loading &&
                 <ResultCalendar startDate={startDate} endDate={endDate} checkDays={checkDays}/> 
+                }
 
             </DayContainer>
             <InfoContainer>
-                <Button backgroundColor="#000070" content="링크 복사하기"  ></Button>
-
+                <input text={url} style={{display: "none"}}/>
+                <CopyToClipboard text={url} onCopy={() => setCopy(true)}>
+                    <Button backgroundColor="#000070" content="링크 복사하기" marginRight="2.5rem"/>
+                </CopyToClipboard>
             </InfoContainer>
         </Container>
     )

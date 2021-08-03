@@ -57,8 +57,6 @@ export default ({ startDate, endDate, checkDays}) => {
   const start = moment(startDate);
   const end = moment(endDate);
 
-    const cnt  = moment.duration(end.diff(start)).asDays();
-    let check_tmp = [];
     const [getMoment, setMoment]=useState(moment());     
     const today = getMoment;    // today == moment()   입니다.
     const firstWeek = today.clone().startOf('month').week();
@@ -87,21 +85,21 @@ export default ({ startDate, endDate, checkDays}) => {
                         <DayContainer key={index}/>
                     );
                   }
+                  
                   // case 2. 범위
                   else if (days.isBetween(start,end) || days.isSame(start) || days.isSame(end)){
                     return(
                       <DayContainer key={index} >
-                        {days.diff(start,'days')}
-                        {/* {checkDays[days.diff(start,'days')].availability %3 === 0 &&
+                        {checkDays[days.format("YYYY-MM-DD")].availability === "POSSIBLE" &&
                         <Day style={{ borderBottom: '4px solid #008000' }}>{days.format('D')}</Day>
                         }
-                        {checkDays[days.diff(start,'days')].availability %3 === 1 &&
+                        {checkDays[days.format("YYYY-MM-DD")].availability === "ADJUSTABLE" &&
                         <Day style={{ borderBottom: '4px solid #FFC312' }}>{days.format('D')}</Day>
                         
                         }
-                        {checkDays[days.diff(start,'days')].availability %3 === 2 &&
+                        {checkDays[days.format("YYYY-MM-DD")].availability  === "IMPOSSIBLE" &&
                         <Day style={{ borderBottom: '4px solid #EA2027' }}>{days.format('D')}</Day>
-                        } */}
+                        }
                     </DayContainer>
                   );
                   }
@@ -120,7 +118,6 @@ export default ({ startDate, endDate, checkDays}) => {
         }
         return result;
       }
-
 
     return (
         <Container>
