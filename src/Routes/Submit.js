@@ -110,7 +110,7 @@ function Submit({match}) {
             if(!response.data.success){
                 alert("폼 제출에 실패하였습니다.")
             }else{
-                window.location.replace("/#/result/submit");
+                window.location.replace("/#/result/submit/" + match.params.id);
             }
           })
           .catch(function (error) {

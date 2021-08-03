@@ -31,7 +31,7 @@ export default () => (
                 <Switch>
                     <Route exact path="/" exact component={Main} />
                     <Route exact path="/submit/:id" component={Submit} />
-                    <Route exact path="/result/submit" component={SubmitResult} />
+                    <Route exact path="/result/submit/:id" component={SubmitResult} />
                     <Route path="/myPage" component={MyPage} />
                     <Route path="/result/:id" component={ResultPage} />
                     <Route exact path="/form" component={Form} />
