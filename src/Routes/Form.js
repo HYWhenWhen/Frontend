@@ -87,7 +87,7 @@ export default ({ }) => {
         const Start = moment(state[0].startDate);
         const End = moment(state[0].endDate);
         axios.post("http://localhost:8080/api/create-schedule", {
-            name: name.value,
+            scheduleName: name.value,
             expectedMemberCnt : num,
             hostIdToken:"A2",
             startDate : Start.format("YYYY-MM-DD"),

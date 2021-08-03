@@ -6,6 +6,7 @@ import { faUser } from "@fortawesome/free-solid-svg-icons";
 import MypageCalendar from '../Component/MypageCalendar';
 
 import {Link} from 'react-router-dom';
+import axios from 'axios';
 
 const Container = styled.div`
    display: flex;
@@ -115,6 +116,19 @@ function MyPage() {
 
     
     useEffect(()=>{
+        axios.post("http://localhost:8080/api/get-my-page",{
+            idToken :"A2",
+        }).then(function (response) {
+            if(!response.data.success){
+                alert("폼 불러오기에 실패하였습니다.")
+            }else{
+                setMyForms(response.data.schedules);
+                console.log(response.data.schedules)
+            }
+          })
+          .catch(function (error) {
+            console.log(error);
+          })
     },[])
 
     return (
@@ -130,22 +144,17 @@ function MyPage() {
                 <Forms>
                         <Info>최근 생성한 일정</Info>
                         <Flist>
-                            <Link to ="/result">
-                                <Form>멋쟁이 사자처럼 해커톤회의</Form>
-                                <Line/>
-                            </Link>
-                            <Link to ="/result">
-                                <Form>멋쟁이 사자처럼 해커톤회의</Form>
-                                <Line/>
-                            </Link>
-                            <Link to ="/result">
-                                <Form>멋쟁이 사자처럼 해커톤회의</Form>
-                                <Line/>
-                            </Link>
-                            <Link to ="/result">
-                                <Form>멋쟁이 사자처럼 해커톤회의</Form>
-                                <Line/>
-                            </Link>
+                            {
+                                myForms.map((myform, key)=>
+                                <Link to ="/result" key = {key}>
+                                    <Form>{myform.scheduleName}</Form>
+                                    <Line/>
+                                </Link>
+                                )
+
+                            }
+
+                            
                            
                         </Flist>
                 </Forms>
