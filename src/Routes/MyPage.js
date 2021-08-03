@@ -144,18 +144,16 @@ function MyPage() {
                 <Forms>
                         <Info>최근 생성한 일정</Info>
                         <Flist>
-                            {
-                                myForms.map((myform, key)=>
-                                <Link to ="/result" key = {key}>
-                                    <Form>{myform.scheduleName}</Form>
-                                    <Line/>
-                                </Link>
-                                )
-
-                            }
-
-                            
-                           
+                            {myForms.map((myform, key)=>{
+                                const url = "/result/" + myform.scheduleKey;
+                                    return (
+                                        <Link to ={url} key = {key}>
+                                            <Form>{myform.scheduleName}</Form>
+                                            <Line/>
+                                        </Link>
+                                    )
+                                }
+                            )}                           
                         </Flist>
                 </Forms>
                 <RightBtn>&gt;</RightBtn>

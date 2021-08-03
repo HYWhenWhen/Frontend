@@ -33,7 +33,7 @@ export default () => (
                     <Route exact path="/submit/:id" component={Submit} />
                     <Route exact path="/result/submit" component={SubmitResult} />
                     <Route path="/myPage" component={MyPage} />
-                    <Route path="/result" component={ResultPage} />
+                    <Route path="/result/:id" component={ResultPage} />
                     <Route exact path="/form" component={Form} />
                     <Route exact path="/form/result/:id" component={FormResult} />
                     <Route exact path="/auth" component={Auth} />
