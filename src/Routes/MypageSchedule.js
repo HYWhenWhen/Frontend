@@ -6,6 +6,9 @@ import MypageModal from "../Styles/Images/MypageModal.svg";
 
 import styled from "styled-components";
 
+import axios from 'axios';
+
+
 const Container = styled.div`
     text-align:center;
     color:#000070;
@@ -99,6 +102,24 @@ const Delete = styled.div`
 export default ({day})=> {
     const scheduleText = useInput("");
 
+    const Make=()=>{
+        axios.post("http://localhost:8080/api/add-my-schedule", {
+            idToken:"A2",
+            localDate : day.format("YYYY-MM-DD"),
+            scheduleName : scheduleText.value
+          })
+          .then(function (response) {
+              if(!response.data.success)
+                alert("일정 생성에 실패하였습니다.");
+                else{
+                    console.log("일정 생성 완료!");
+                }
+          })
+          .catch(function (error) {
+            console.log(error);
+          });
+    }
+
     return (
         <Container>
             <Top>
@@ -109,7 +130,7 @@ export default ({day})=> {
                 </Date>
                 <AddContainer>
                     <ScheduleInput {...scheduleText} placeholder="일정을 추가하세요."/>
-                    <Add>+</Add>
+                    <Add onClick = {()=>Make()}>+</Add>
                 </AddContainer>
             </Top>
             <Schedules>

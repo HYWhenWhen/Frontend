@@ -111,11 +111,25 @@ const Line = styled.div`
 
 function MyPage() {
     const [name, setName] = useState("");
-    const [dates, setDates] = useState([]);
+    const [dates, setDates] = useState([]); // 일정 있는 날들
     const [myForms, setMyForms] = useState([]);
 
     
     useEffect(()=>{
+
+        axios.post("http://localhost:8080/api/get-my-schedule",{
+            idToken : "A2",
+      }).then(function (response) {
+        if(!response.data.success){
+            alert("일정 불러오기에 실패하였습니다.")
+        }else{
+            setDates(response.data.dates);
+        }
+        })
+        .catch(function (error) {
+          console.log(error);
+        })
+
         axios.post("http://localhost:8080/api/get-my-page",{
             idToken :"A2",
         }).then(function (response) {
@@ -123,7 +137,6 @@ function MyPage() {
                 alert("폼 불러오기에 실패하였습니다.")
             }else{
                 setMyForms(response.data.schedules);
-                console.log(response.data.schedules)
             }
           })
           .catch(function (error) {
@@ -136,7 +149,7 @@ function MyPage() {
             <Top>환영합니다, 임의진님</Top> 
 
             <Center>
-                <MypageCalendar/> 
+                <MypageCalendar dates ={dates}/> 
             </Center>
 
             <Bottom>

@@ -56,6 +56,15 @@ const DayContainer = styled.td`
 `;
 const Day = styled.span`
 `;
+const Point = styled.div`
+    position: relative;
+    top: -19px;
+    left: 48%;
+    width: 6px;
+    height: 6px;
+    border-radius: 100%;
+    background-color: #7953D2;
+`;
 
 const contentStyle = {
   width: "30%",
@@ -78,7 +87,7 @@ const X = styled.div`
     background-color: #7953D2;
 `;
 
-export default ({}) => { 
+export default ({dates}) => { 
     const [getMoment, setMoment]=useState(moment());     
     const [checkDay, setCheckDay]=useState(moment());     
     const today = getMoment;    // today == moment()   입니다.
@@ -102,6 +111,8 @@ export default ({}) => {
                 {
               Array(7).fill(0).map((data, index) => {
                 let days = today.clone().startOf('year').week(week).startOf('week').add(index, 'day');
+
+                
                     // case 1. 이번달이 아닌경우
                   if(days.format('MM') !== today.format('MM')){
                     return(
@@ -114,7 +125,9 @@ export default ({}) => {
                       <Popup
                             trigger={
                               <DayContainer key={index} style={{backgroundColor:"#BBBBFF", color:"white"}} >
-                                <Day >{days.format('D')}</Day>
+                                <Day >{days.format('D')}
+                                </Day>
+                                {dates.includes(days.format('YYYY-MM-DD')) && <Point/>}
                               </DayContainer>
                             }
                             modal
@@ -128,14 +141,16 @@ export default ({}) => {
                             )}
 
                         </Popup>
-                      
                   );
                   }
                   // 기본
                   else{
                     return(
                         <DayContainer key={index} onClick ={()=>{setCheckDay(days)}} >
-                          <Day >{days.format('D')}  </Day>
+                          <Day >{days.format('D')}
+                          </Day>
+                          {dates.includes(days.format('YYYY-MM-DD')) && <Point/>}
+
                         </DayContainer>
                     );
                   }

@@ -91,6 +91,7 @@ function Submit({match}) {
     const [joinedMemberCnt, setJoinedMemberCnt] = useState();
     const [checkDays, setCheckDays] = useState([]); // 폼 체크된것 
 
+
     const url = 'http://localhost:3000/#/submit/'+match.params.id; //submit url mapping
     const [copy, setCopy] = useState(false);
 
@@ -99,6 +100,7 @@ function Submit({match}) {
     }
 
     useEffect (()=>{
+    
         axios.post("http://localhost:8080/api/get-result-page",{
           scheduleKey : match.params.id,
       }).then(function (response) {
