@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import Calendar from '../Component/Calendar';
 
 import styled from "styled-components";
 import SubmitCalendar from '../Component/SubmitCalendar';
