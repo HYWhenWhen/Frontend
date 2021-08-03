@@ -117,6 +117,22 @@ function Submit({match}) {
             console.log(error);
           })
     }
+
+    const abandon = () => {
+        axios.post("http://localhost:8080/api/abandon",{
+            scheduleKey : match.params.id,
+            idToken :"A2",
+        }).then(function (response) {
+            if(!response.data.success){
+                alert("참여 포기에 실패하였습니다..")
+            }else{
+                window.location.replace("/#/result/submit");
+            }
+          })
+          .catch(function (error) {
+            console.log(error);
+          })
+    }
     
     return (
         <>
@@ -127,7 +143,7 @@ function Submit({match}) {
                     <Title>{formName}</Title>
                     <MyDays>{startDate.format("YYYY-MM-DD")} ~ {endDate.format("YYYY-MM-DD")}</MyDays>
                     <Btns>
-                        <Button fontSize="0.9rem" content="일정참여 포기하기" backgroundColor="#7953D2" marginRight="4rem"/>
+                        <Button fontSize="0.9rem" content="일정참여 포기하기" backgroundColor="#7953D2" marginRight="4rem" onClick = {abandon}/>
                         <Button fontSize="0.9rem" content="내 일정 불러오기" backgroundColor="#000070" />
                     </Btns>
                 </Info>
