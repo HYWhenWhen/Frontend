@@ -47,9 +47,36 @@ const DayContainer = styled.td`
     cursor: pointer;
     line-height: 5rem;
     font-size: 1.2rem;
+    border-radius: 1rem;
+    :hover{
+      background-color: #F6F6F6;
+    }
 `;
 const Day = styled.span`
     padding: 0 1rem;
+`;
+// const AdjDay = styled.span`
+//     padding: 0 1rem;
+//     ::before{
+//       content: value;
+//       font-size: 0.9rem;
+//       display: inline-block;
+//       position: relative;
+//       width: 0px;
+//       top: -24px;
+//       left: -1.5%;
+//       color: #009432;
+//     }
+// `;
+const Num = styled.div`
+position: relative;
+    top: -28px;
+    font-size: 0.9rem;
+    text-align: center;
+    left: 40.5%;
+    width: 0;
+    height: 0;
+    color: #009432;
 `;
 
 
@@ -67,6 +94,7 @@ export default ({ startDate, endDate, checkDays}) => {
             <WeekDay>{day}</WeekDay>
         )
     );
+    console.log(checkDays)
 
 
     const calendarArr=()=>{
@@ -88,14 +116,17 @@ export default ({ startDate, endDate, checkDays}) => {
                   
                   // case 2. 범위
                   else if (days.isBetween(start,end) || days.isSame(start) || days.isSame(end)){
+                    const adj = checkDays[days.format("YYYY-MM-DD")].possibleCnt +  "/" +  (checkDays[days.format("YYYY-MM-DD")].possibleCnt + checkDays[days.format("YYYY-MM-DD")].adjustableCnt);
                     return(
                       <DayContainer key={index} >
                         {checkDays[days.format("YYYY-MM-DD")].availability === 0 &&
                         <Day style={{ borderBottom: '4px solid #008000' }}>{days.format('D')}</Day>
                         }
                         {checkDays[days.format("YYYY-MM-DD")].availability === 1 &&
-                        <Day style={{ borderBottom: '4px solid #FFC312' }}>{days.format('D')}</Day>
-                        
+                        <>
+                        <Num>{adj}</Num>
+                          <Day value ="123" style={{ borderBottom: '4px solid #FFC312' }}>{days.format('D')}</Day>
+                        </>
                         }
                         {checkDays[days.format("YYYY-MM-DD")].availability  === 2 &&
                         <Day style={{ borderBottom: '4px solid #EA2027' }}>{days.format('D')}</Day>
