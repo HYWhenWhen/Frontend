@@ -90,14 +90,14 @@ export default ({ startDate, endDate, checkDays}) => {
                   else if (days.isBetween(start,end) || days.isSame(start) || days.isSame(end)){
                     return(
                       <DayContainer key={index} >
-                        {checkDays[days.format("YYYY-MM-DD")].availability === "POSSIBLE" &&
+                        {checkDays[days.format("YYYY-MM-DD")].availability === 0 &&
                         <Day style={{ borderBottom: '4px solid #008000' }}>{days.format('D')}</Day>
                         }
-                        {checkDays[days.format("YYYY-MM-DD")].availability === "ADJUSTABLE" &&
+                        {checkDays[days.format("YYYY-MM-DD")].availability === 1 &&
                         <Day style={{ borderBottom: '4px solid #FFC312' }}>{days.format('D')}</Day>
                         
                         }
-                        {checkDays[days.format("YYYY-MM-DD")].availability  === "IMPOSSIBLE" &&
+                        {checkDays[days.format("YYYY-MM-DD")].availability  === 2 &&
                         <Day style={{ borderBottom: '4px solid #EA2027' }}>{days.format('D')}</Day>
                         }
                     </DayContainer>

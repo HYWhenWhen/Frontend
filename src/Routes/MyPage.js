@@ -130,18 +130,18 @@ function MyPage() {
           console.log(error);
         })
 
-        axios.post("http://localhost:8080/api/get-my-page",{
-            idToken :"A2",
-        }).then(function (response) {
-            if(!response.data.success){
-                alert("폼 불러오기에 실패하였습니다.")
-            }else{
-                setMyForms(response.data.schedules);
-            }
-          })
-          .catch(function (error) {
-            console.log(error);
-          })
+        // axios.post("http://localhost:8080/api/get-my-page",{
+        //     idToken :"A2",
+        // }).then(function (response) {
+        //     if(!response.data.success){
+        //         alert("폼 불러오기에 실패하였습니다.")
+        //     }else{
+        //         setMyForms(response.data.schedules);
+        //     }
+        //   })
+        //   .catch(function (error) {
+        //     console.log(error);
+        //   })
     },[])
 
     return (
