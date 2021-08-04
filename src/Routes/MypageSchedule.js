@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import useInput from '../Hooks/useInput';
 import moment from 'moment';
 import Clip from "../Styles/Images/Clip.svg";
@@ -101,6 +101,30 @@ const Delete = styled.div`
 
 export default ({day})=> {
     const scheduleText = useInput("");
+    const [scheduleList,setScheduleList] = useState([]);
+    const [loading,setLoading] = useState(false);
+
+    useEffect(()=>{
+        GetSchedule();
+    },[])
+
+    const GetSchedule  = () =>{
+        axios.post("http://localhost:8080/api/get-my-page-modal",{
+            idToken : "A2",
+            localDate : day.format("YYYY-MM-DD"),
+      }).then(function (response) {
+        if(!response.data.success){
+            setLoading(false);
+            alert("일정 불러오기에 실패하였습니다.")
+        }else{
+            setScheduleList(response.data.myScheduleList);
+            setLoading(true);
+        }
+        })
+        .catch(function (error) {
+          console.log(error);
+        })
+    }
 
     const Make=()=>{
         axios.post("http://localhost:8080/api/add-my-schedule", {
@@ -112,7 +136,25 @@ export default ({day})=> {
               if(!response.data.success)
                 alert("일정 생성에 실패하였습니다.");
                 else{
-                    console.log("일정 생성 완료!");
+                    scheduleText.setValue("");
+                    GetSchedule();
+                }
+          })
+          .catch(function (error) {
+            console.log(error);
+          });
+    }
+
+    const DeleteSchedule =(id)=>{
+        axios.post("http://localhost:8080/api/delete-my-schedule", {
+            idToken:"A2",
+            scheduleKey : id
+          })
+          .then(function (response) {
+              if(!response.data.success)
+                alert("일정 삭제에 실패하였습니다.");
+                else{
+                    GetSchedule();
                 }
           })
           .catch(function (error) {
@@ -134,18 +176,16 @@ export default ({day})=> {
                 </AddContainer>
             </Top>
             <Schedules>
-                    <Schedule>
-                        <ScheduleText>멋사 프로젝트 회의</ScheduleText>
-                        <Delete>&times;</Delete>
-                    </Schedule>
-                    <Schedule>
-                        <ScheduleText>멋사 프로젝트 회의</ScheduleText>
-                        <Delete>&times;</Delete>
-                    </Schedule>
-                    <Schedule>
-                        <ScheduleText>멋사 프로젝트 회의멋사 프로젝트 회의멋사 프로젝트 회의</ScheduleText>
-                        <Delete>&times;</Delete>
-                    </Schedule>
+                {scheduleList.map((schedule, key)=>{
+                    const id = schedule.myScheduleID;
+                        return (
+                            <Schedule key = {key}>
+                                <ScheduleText>{schedule.myScheduleName}</ScheduleText>
+                                <Delete onClick = {()=>{DeleteSchedule(id);}}>&times;</Delete>
+                            </Schedule>
+                        )
+                    }
+                )}                   
             </Schedules>
         </Container>
         )

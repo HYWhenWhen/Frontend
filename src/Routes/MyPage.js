@@ -116,7 +116,6 @@ function MyPage() {
 
     
     useEffect(()=>{
-
         axios.post("http://localhost:8080/api/get-my-schedule",{
             idToken : "A2",
       }).then(function (response) {
@@ -129,7 +128,12 @@ function MyPage() {
         .catch(function (error) {
           console.log(error);
         })
+    })
 
+
+    useEffect(()=>{
+        // 지금 에러 나서 잠깐 닫아놓음 (백엔드에서 해결되면 풀것!)
+        
         // axios.post("http://localhost:8080/api/get-my-page",{
         //     idToken :"A2",
         // }).then(function (response) {
