@@ -122,14 +122,14 @@ export default ({ startDate, endDate, checkDays}) => {
                         {checkDays[days.format("YYYY-MM-DD")].availability === 0 &&
                         <Day style={{ borderBottom: '4px solid #008000' }}>{days.format('D')}</Day>
                         }
-                        {checkDays[days.format("YYYY-MM-DD")].availability === 1 &&
+                        {checkDays[days.format("YYYY-MM-DD")].availability  === 1 &&
+                        <Day style={{ borderBottom: '4px solid #EA2027' }}>{days.format('D')}</Day>
+                        }
+                        {checkDays[days.format("YYYY-MM-DD")].availability === 2 &&
                         <>
                         <Num>{adj}</Num>
                           <Day value ="123" style={{ borderBottom: '4px solid #FFC312' }}>{days.format('D')}</Day>
                         </>
-                        }
-                        {checkDays[days.format("YYYY-MM-DD")].availability  === 2 &&
-                        <Day style={{ borderBottom: '4px solid #EA2027' }}>{days.format('D')}</Day>
                         }
                     </DayContainer>
                   );

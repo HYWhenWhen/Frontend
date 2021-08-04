@@ -158,13 +158,13 @@ function Submit({match}) {
                             <Des >가능한 날</Des>
                         </>
                         }
-                        {testClick === 2 && 
+                        {testClick === 1 && 
                         <>
                             <TestDay onClick={() => { setTestClick((testClick + 1) % 3) }} style={{ borderBottom: '4px solid #EA2027' }}>1</TestDay>
                             <Des >불가능한 날</Des>
                         </>
                         }
-                        {testClick === 1 && 
+                        {testClick === 2 && 
                         <>
                             <TestDay onClick={() => { setTestClick((testClick + 1) % 3) }} style={{ borderBottom: '4px solid #FFC312' }}>1</TestDay>
                             <Des >조정 가능한 날</Des>

@@ -114,11 +114,10 @@ export default ({ startDate, endDate, checkDays, setCheckDays }) => {
                         <Day style={{ borderBottom: '4px solid #008000' }}>{days.format('D')}</Day>
                         }
                         {checkDays[days.diff(start,'days')].availability %3 === 1 &&
-                        <Day style={{ borderBottom: '4px solid #FFC312' }}>{days.format('D')}</Day>
-                        
-                        }
-                        {checkDays[days.diff(start,'days')].availability %3 === 2 &&
                         <Day style={{ borderBottom: '4px solid #EA2027' }}>{days.format('D')}</Day>
+                        }
+                         {checkDays[days.diff(start,'days')].availability %3 === 2 &&
+                        <Day style={{ borderBottom: '4px solid #FFC312' }}>{days.format('D')}</Day>
                         }
                     </DayContainer>
                   );
@@ -138,8 +137,6 @@ export default ({ startDate, endDate, checkDays, setCheckDays }) => {
         }
         return result;
       }
-      console.log(loading);
-      console.log(checkDays);
 
     return (
       <>
