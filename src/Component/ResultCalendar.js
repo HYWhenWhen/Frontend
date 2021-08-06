@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react';
 import moment from 'moment';
 import styled from "styled-components";
 
+import Popup from "reactjs-popup";
+import ResultPopup from '../Routes/ResultPopup';
 
 const Container = styled.div`
   padding: 0 5%;
@@ -55,19 +57,7 @@ const DayContainer = styled.td`
 const Day = styled.span`
     padding: 0 1rem;
 `;
-// const AdjDay = styled.span`
-//     padding: 0 1rem;
-//     ::before{
-//       content: value;
-//       font-size: 0.9rem;
-//       display: inline-block;
-//       position: relative;
-//       width: 0px;
-//       top: -24px;
-//       left: -1.5%;
-//       color: #009432;
-//     }
-// `;
+
 const Num = styled.div`
 position: relative;
     top: -28px;
@@ -79,8 +69,30 @@ position: relative;
     color: #009432;
 `;
 
+const contentStyle = {
+  width: "30%",
+  height: "60%",
+  padding: "0px",
+  backgroundColor: "#F3F3FF"
+};
 
-export default ({ startDate, endDate, checkDays}) => { 
+const X = styled.div`
+    cursor: pointer;
+    position: absolute;
+    right: -1.6rem;
+    top: -1.2rem;
+    font-size: 1.7em;
+    color: #e5eaee;
+    width: 3rem;
+    height: 3rem;
+    line-height: 3rem;
+    border-radius: 100%;
+    background-color: #7953D2;
+`;
+
+
+
+export default ({ submitStatus, scheduleKey, startDate, endDate, checkDays}) => { 
   const start = moment(startDate);
   const end = moment(endDate);
 
@@ -94,9 +106,6 @@ export default ({ startDate, endDate, checkDays}) => {
             <WeekDay>{day}</WeekDay>
         )
     );
-    console.log(checkDays)
-
-
     const calendarArr=()=>{
         let result = [];
         let week = firstWeek;
@@ -118,20 +127,37 @@ export default ({ startDate, endDate, checkDays}) => {
                   else if (days.isBetween(start,end) || days.isSame(start) || days.isSame(end)){
                     const adj = checkDays[days.format("YYYY-MM-DD")].possibleCnt +  "/" +  (checkDays[days.format("YYYY-MM-DD")].possibleCnt + checkDays[days.format("YYYY-MM-DD")].adjustableCnt);
                     return(
-                      <DayContainer key={index} >
-                        {checkDays[days.format("YYYY-MM-DD")].availability === 0 &&
-                        <Day style={{ borderBottom: '4px solid #008000' }}>{days.format('D')}</Day>
-                        }
-                        {checkDays[days.format("YYYY-MM-DD")].availability  === 1 &&
-                        <Day style={{ borderBottom: '4px solid #EA2027' }}>{days.format('D')}</Day>
-                        }
-                        {checkDays[days.format("YYYY-MM-DD")].availability === 2 &&
-                        <>
-                        <Num>{adj}</Num>
-                          <Day value ="123" style={{ borderBottom: '4px solid #FFC312' }}>{days.format('D')}</Day>
-                        </>
-                        }
-                    </DayContainer>
+                      <Popup
+                            trigger={
+                                <DayContainer key={index} >
+                                {checkDays[days.format("YYYY-MM-DD")].availability === 0 &&
+                                <Day style={{ borderBottom: '4px solid #008000' }}>{days.format('D')}</Day>
+                                }
+                                {checkDays[days.format("YYYY-MM-DD")].availability  === 1 &&
+                                <Day style={{ borderBottom: '4px solid #EA2027' }}>{days.format('D')}</Day>
+                                }
+                                {checkDays[days.format("YYYY-MM-DD")].availability === 2 &&
+                                <>
+                                <Num>{adj}</Num>
+                                  <Day value ="123" style={{ borderBottom: '4px solid #FFC312' }}>{days.format('D')}</Day>
+                                </>
+                                }
+                            </DayContainer>
+                            }
+                            modal
+                            contentStyle={contentStyle}
+                            lockScroll={true}>
+                            {close => (
+                                <>
+                                    <X onClick={close}>&times; </X>
+                                    <ResultPopup submitStatus={submitStatus} scheduleKey= {scheduleKey} date = {days} startDate ={startDate} endDate = {endDate}/>
+                                </>
+                            )}
+
+                        </Popup>
+
+
+
                   );
                   }
                   // 기본

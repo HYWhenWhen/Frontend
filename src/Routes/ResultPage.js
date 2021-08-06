@@ -91,7 +91,6 @@ function Submit({match}) {
     const [joinedMemberCnt, setJoinedMemberCnt] = useState();
     const [checkDays, setCheckDays] = useState([]); // 폼 체크된것 
 
-
     const url = 'http://localhost:3000/#/submit/'+match.params.id; //submit url mapping
     const [copy, setCopy] = useState(false);
 
@@ -100,7 +99,6 @@ function Submit({match}) {
     }
 
     useEffect (()=>{
-    
         axios.post("http://localhost:8080/api/get-result-page",{
           scheduleKey : match.params.id,
       }).then(function (response) {
@@ -122,6 +120,21 @@ function Submit({match}) {
       },[]) 
 
 
+      const Del = ()=>{
+        axios.post("http://localhost:8080/api/delete-schedule",{
+            hostIdToken: "A2",
+            scheduleKey : match.params.id,
+        }).then(function (response) {
+          if(!response.data.success){
+              alert("폼 삭제에 실패하였습니다.")
+          }else{
+            window.location.replace("/#/myPage");
+          }
+          })
+          .catch(function (error) {
+            console.log(error);
+          })
+      }
     return (
         <Container>
             <Left>
@@ -139,15 +152,16 @@ function Submit({match}) {
                 </Info>
 
                 {!loading &&
-                <ResultCalendar startDate={startDate} endDate={endDate} checkDays={checkDays}/> 
+                <ResultCalendar submitStatus={joinedMemberCnt+ ' / ' +expectedMemberCnt} scheduleKey= {match.params.id} startDate={startDate} endDate={endDate} checkDays={checkDays}/> 
                 }
 
             </DayContainer>
             <InfoContainer>
                 <input text={url} style={{display: "none"}}/>
                 <CopyToClipboard text={url} onCopy={() => setCopy(true)}>
-                    <Button backgroundColor="#000070" content="링크 복사하기" marginRight="2.5rem"/>
+                    <Button backgroundColor="#000070" content="링크 복사하기" marginBottom= "1rem"/>
                 </CopyToClipboard>
+                <Button backgroundColor="#7953D2" content="일정 삭제하기" onClick={() => Del()}/>
             </InfoContainer>
         </Container>
     )
