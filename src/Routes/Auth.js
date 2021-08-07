@@ -88,20 +88,6 @@ const GoogleBtn = styled(GoogleLogin)`
   }
 `;
 
-function loginApi() {
-  const url = "http://localhost:8080/api/log-in";
-  axios.post(url,{
-    idToken: "A2"
-  })
-  .then(function(response) {
-      console.log(response);
-  })
-  .catch(function(error) {
-      console.log("err");
-      console.log(error);
-  })
-  
-}
 
 
 export default ({}) => {
@@ -109,27 +95,40 @@ export default ({}) => {
 
   // 구글
   const googleLoginFunc=(res)=>{
-    console.log(res.profileObj.googleID);
-    setUserObj({
-      token:res.accessToken
-    })
-    localStorage.setItem("login", userObj.token);
-
+    if(res){
+      axios.post("http://localhost:8080/api/sign-up",{
+        idToken: res.profileObj.googleId,
+        nickName : res.Ts.Me,
+      })
+      .then(function(response) {
+          console.log(response);
+          localStorage.setItem("login", res.profileObj.googleId);
+          window.location.replace("/");
+      })
+      .catch(function(error) {
+          console.log(error);
+      })
+    }
   }
 
     // 카카오
     const kakaoLoginFunc=(res)=>{
-      console.log(res.response);
-      setUserObj({
-        token:res.response.access_token
-      })
-      localStorage.setItem("login", userObj.token);
+      console.log(res);
+      if(res){
+        axios.post("http://localhost:8080/api/sign-up",{
+          idToken: res.profile.id,
+          nickName : "test",
+        })
+        .then(function(response) {
+            console.log(response);
+            localStorage.setItem("login", res.profile.id);
+            window.location.replace("/");
+        })
+        .catch(function(error) {
+            console.log(error);
+        })
+      }
     }
-
-
-  useEffect(()=>{
-  })
-
 
     return (
         <Container>
