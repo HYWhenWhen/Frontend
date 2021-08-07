@@ -2,7 +2,6 @@ import React, {useEffect, useState} from 'react';
 import styled from "styled-components";
 import { GoogleLogin } from 'react-google-login';
 import KaKaoLogin from 'react-kakao-login';
-import NaverLogin from 'react-naver-login';
 import axios from 'axios';
 
 const Container = styled.div`
@@ -14,23 +13,6 @@ const Container = styled.div`
     align-items:center;
 `;
 
-// const KaKaoBtn = styled(KaKaoLogin)`
-//     padding: 0;
-//     width: 190px;
-//     height: 44px;
-//     line-height: 44px;
-//     color: #783c00;
-//     background-color: #FFEB00;
-//     border: 1px solid transparent;
-//     border-radius: 3px;
-//     font-size: 16px;
-//     font-weight: bold;
-//     text-align: center;
-//     cursor: pointer;
-//     &:hover{
-//         box-shadow: 0 0px 15px 0 rgba(0, 0, 0, 0.2)
-//     }
-// `
 
 function loginApi() {
   const url = "http://localhost:8080/api/log-in";
@@ -94,14 +76,7 @@ export default ({}) => {
                 onSuccess={response=>kakaoLoginFunc(response)}
                 getProfile={true}
           />
-          {/* <NaverLogin 
-                clientId={"XeM0NxCkHE0demSf3Y1j"}
-                callbackUrl ="http://localhost:3000/"
-                render={(props) => <div onClick={props.onClick}>Naver Login</div>}
-                onSuccess={result=>console.log(result)}
-                onFailure={result => console.log(result)}
-        /> */}
-        {/* 네이버 로그인 현재 오류... */}
+
         </Container>
     )
 }
