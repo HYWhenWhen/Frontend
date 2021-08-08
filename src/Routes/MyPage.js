@@ -18,7 +18,7 @@ const Top = styled.div`
     color: #000070;
     font-size: 1.5rem;
     border-bottom: 2px solid #707070;
-    margin-bottom: 5rem;
+    margin-bottom: 3rem;
     padding-bottom: 0.3rem;
     width: 30%;
     text-align: center;
