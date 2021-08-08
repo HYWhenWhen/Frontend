@@ -152,7 +152,7 @@ function Submit({match}) {
                 </Info>
 
                 {!loading &&
-                <ResultCalendar submitStatus={joinedMemberCnt+ ' / ' +expectedMemberCnt} scheduleKey= {match.params.id} startDate={startDate} endDate={endDate} checkDays={checkDays}/> 
+                <ResultCalendar formName = {formName} submitStatus={joinedMemberCnt+ ' / ' +expectedMemberCnt} scheduleKey= {match.params.id} startDate={startDate} endDate={endDate} checkDays={checkDays}/> 
                 }
 
             </DayContainer>

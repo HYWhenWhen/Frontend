@@ -10,6 +10,8 @@ import { faUser } from "@fortawesome/free-solid-svg-icons";
 import styled from "styled-components";
 
 import axios from 'axios';
+import { toast } from "react-toastify";
+
 
 
 const Container = styled.div`
@@ -151,7 +153,7 @@ const R = styled.div`
 `;
 
 
-export default ({scheduleKey, date, submitStatus, startDate, endDate})=> {
+export default ({scheduleKey, date, submitStatus, startDate, endDate, formName})=> {
     const [availability,setAvailability] = useState([]);
     const [loading,setLoading] = useState(false);
     useEffect (()=>{
@@ -173,8 +175,8 @@ export default ({scheduleKey, date, submitStatus, startDate, endDate})=> {
 
     return (
         <Container>
-                <L onClick = {()=>{ if(!date.isSame(endDate)) date.add(1,'days');}}>&gt; </L>
-                 <R onClick = {()=>{ if(!date.isSame(startDate)) date.subtract(1,'days');}}>&lt; </R>
+                <L onClick = {()=>{(!date.isSame(endDate)) ? date.add(1,'days'): toast("마지막 날짜입니다.", {autoClose: 3000}) }}>&gt; </L>
+                 <R onClick = {()=>{ (!date.isSame(startDate)) ? date.subtract(1,'days'):toast("시작일 입니다.", {autoClose: 3000}) }}>&lt; </R>
             <Top>
                 <ClipImg src = {Clip}/>
                 <Date>
@@ -182,8 +184,8 @@ export default ({scheduleKey, date, submitStatus, startDate, endDate})=> {
                     {date.format("D")}일
                 </Date>
                 <Info>
-                    <Title>멋쟁이사자처럼</Title>
-                    <DateRange>1~!</DateRange>
+                    <Title>{formName}</Title>
+                    <DateRange>{startDate.format("YYYY-MM-DD")} ~ {endDate.format("YYYY-MM-DD")} </DateRange>
                 </Info>
             </Top>
             <Schedules>

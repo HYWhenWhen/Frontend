@@ -92,7 +92,7 @@ const X = styled.div`
 
 
 
-export default ({ submitStatus, scheduleKey, startDate, endDate, checkDays}) => { 
+export default ({ submitStatus, scheduleKey, startDate, endDate, checkDays, formName}) => { 
   const start = moment(startDate);
   const end = moment(endDate);
 
@@ -150,7 +150,7 @@ export default ({ submitStatus, scheduleKey, startDate, endDate, checkDays}) => 
                             {close => (
                                 <>
                                     <X onClick={close}>&times; </X>
-                                    <ResultPopup submitStatus={submitStatus} scheduleKey= {scheduleKey} date = {days} startDate ={startDate} endDate = {endDate}/>
+                                    <ResultPopup formName={formName} submitStatus={submitStatus} scheduleKey= {scheduleKey} date = {days} startDate ={startDate} endDate = {endDate}/>
                                 </>
                             )}
 
