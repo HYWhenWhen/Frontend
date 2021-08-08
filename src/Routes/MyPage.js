@@ -26,8 +26,17 @@ const Top = styled.div`
 
 // 중간
 const Center = styled.div`
-    width: 60%;
+    width: 80%;
     text-align:center;
+    background-color: #F3F3FF;
+    border-radius: 1rem;
+`;
+const CalendarTop = styled.div`
+    background-color: #000070;
+    color: white;
+    line-height: 2.5rem;
+    font-size: 1.2rem;
+    border-radius: 1rem;
 `;
 
 // 아래
@@ -151,6 +160,7 @@ function MyPage() {
             <Top>환영합니다, 임의진님</Top> 
 
             <Center>
+                <CalendarTop>내캘린더</CalendarTop>
                 <MypageCalendar dates ={dates}/> 
             </Center>
 

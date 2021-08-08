@@ -6,7 +6,11 @@ import MypageSchedule from '../Routes/MypageSchedule';
 
 
 const Container = styled.div`
-  padding: 0 5%;
+    width: 70%;
+    margin: 2rem auto;
+    background-color: white;
+    border-radius: 1rem;
+    padding: 2%;
 `;
 const Controller = styled.div`
     display: flex;
