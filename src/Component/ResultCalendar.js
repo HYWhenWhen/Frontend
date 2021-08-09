@@ -71,7 +71,7 @@ position: relative;
 
 const contentStyle = {
   width: "30%",
-  height: "60%",
+  height: "45%",
   padding: "0px",
   backgroundColor: "#F3F3FF"
 };

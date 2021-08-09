@@ -25,7 +25,7 @@ const Top = styled.div`
     display: flex;
     background-color: #E2E2FF;
     padding: 3% 5%;
-    height: 4rem;
+    height: 4.5rem;
 `;
 
 const ClipImg = styled.img`
@@ -71,7 +71,7 @@ const DateRange = styled.div`
 const Schedules = styled.div`
     display: flex;
     flex-direction: column;
-    padding: 0 5% 3%;
+    padding: 4%;
 `;
 const All = styled.div`
     display: flex;
