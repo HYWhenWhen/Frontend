@@ -5,6 +5,7 @@ import MypageCalendar from '../Component/MypageCalendar';
 
 import {Link} from 'react-router-dom';
 import axios from 'axios';
+import { toast } from 'react-toastify';
 
 const Container = styled.div`
    display: flex;
@@ -87,6 +88,7 @@ const LeftBtn = styled.div`
     color: #000070;
     font-weight: bold;
     font-size: 1.3rem;
+    cursor: pointer;
 `;
 const RightBtn = styled.div`
     width: 2rem;
@@ -100,6 +102,7 @@ const RightBtn = styled.div`
     color: #000070;
     font-weight: bold;
     font-size: 1.3rem;
+    cursor: pointer;
 `;
 
 const Form = styled.div`
@@ -120,7 +123,10 @@ function MyPage() {
     const [name, setName] = useState("");
     const [dates, setDates] = useState([]); // 일정 있는 날들
     const [myForms, setMyForms] = useState([]);
-
+    const [FourForm, setFourForm] = useState([]);
+    const [myidx, setMyidx] = useState(0);
+    const [loading, setLoading] = useState(true);
+    let total;
     
     useEffect(()=>{
         axios.post("http://localhost:8080/api/get-my-schedule",{
@@ -138,54 +144,74 @@ function MyPage() {
     })
 
 
-    useEffect(()=>{
-        // 지금 에러 나서 잠깐 닫아놓음 (백엔드에서 해결되면 풀것!)
-        
-        // axios.post("http://localhost:8080/api/get-my-page",{
-        //     idToken :"A2",
-        // }).then(function (response) {
-        //     if(!response.data.success){
-        //         alert("폼 불러오기에 실패하였습니다.")
-        //     }else{
-        //         setMyForms(response.data.schedules);
-        //     }
-        //   })
-        //   .catch(function (error) {
-        //     console.log(error);
-        //   })
+    useEffect(()=>{        
+        axios.post("http://localhost:8080/api/get-my-page",{
+            idToken :"A2",
+        }).then(function (response) {
+            if(!response.data.success){
+                alert("폼 불러오기에 실패하였습니다.")
+            }else{
+                setMyForms(response.data.schedules);
+                setLoading(false);
+            }
+          })
+          .catch(function (error) {
+            console.log(error);
+          })
     },[])
+
+
+    const left = ()=>{
+        if(myidx === 0){
+            toast("일정의 끝입니다.", {autoClose: 3000});
+        }
+        else{
+            setMyidx(myidx-1);
+        }
+    }
+    const right = ()=>{
+        if(myidx ===Math.ceil(myForms.length/4)-1){
+            toast("일정의 끝입니다.", {autoClose: 3000});
+        }
+        else{
+            setMyidx(myidx+ 1);
+        }
+    }            
 
     return (
         <Container>
-            <Top>환영합니다, 임의진님</Top> 
+            {loading ? <></> :
+            <>
+                <Top>환영합니다, 임의진님</Top> 
 
-            <Center>
-                <CalendarTop>내캘린더</CalendarTop>
-                <MypageCalendar dates ={dates}/> 
-            </Center>
+                <Center>
+                    <CalendarTop>내캘린더</CalendarTop>
+                    <MypageCalendar dates ={dates}/> 
+                </Center>
 
-            <Bottom>
-                <LeftBtn>&lt;</LeftBtn>
-                <Forms>
-                        <Info>최근 생성한 일정</Info>
-                        <Flist>
-                            {myForms.map((myform, key)=>{
-                                const url = "/result/" + myform.scheduleKey;
-                                    return (
-                                        <Link to ={url} key = {key}>
-                                            <Form>{myform.scheduleName}</Form>
-                                            <Line/>
-                                        </Link>
-                                    )
-                                }
-                            )}                           
-                        </Flist>
-                </Forms>
-                <RightBtn>&gt;</RightBtn>
+                <Bottom>
+                    <LeftBtn onClick = {()=>{left();}}>&lt;</LeftBtn>
+                    <Forms>
+                            <Info>최근 생성한 일정</Info>
+                            <Flist>
+                                {myForms.slice(myidx*4, (myidx+1)*4).map((myform, key)=>{
+                                    const url = "/result/" + myform.scheduleKey;
+                                        return (
+                                            <Link to ={url} key = {key}>
+                                                <Form>{myform.scheduleName}</Form>
+                                                <Line/>
+                                            </Link>
+                                        )
+                                    }
+                                )}                           
+                            </Flist>
+                    </Forms>
+                    <RightBtn onClick = {()=>{right();}}>&gt;</RightBtn>
 
-            </Bottom>
+                </Bottom>
+            </>
+            }
 
-           
         </Container>
     )
 };
