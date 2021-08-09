@@ -76,7 +76,7 @@ export default ({ }) => {
             startDate: new Date(),
             endDate: new Date(),
             key: 'selection',
-            color: "#000000"
+            color: "#BBBBFF"
         }
     ]);
     const name = useInput(""); //폼 이름
