@@ -6,6 +6,7 @@ import styled from "styled-components";
 const Btn = styled.button`
     background-color: ${props => props.backgroundColor};
     margin-right: ${props => props.marginRight};
+    margin-bottom: ${props => props.marginBottom};
     width: ${props => props.width || "9rem"};  // 디폴트 값이 9rem
     font-size: ${props => props.fontSize || "1rem"};;
     padding: 13px 8px;
@@ -23,8 +24,8 @@ const Btn = styled.button`
     onclick - 버튼 클릭시 작동되는 함수.
     입력 타입은 하단 props 참고.
 */
-const Button = ({onClick, content, backgroundColor, width, marginRight, fontSize }) => (
-    <Btn onClick={onClick} backgroundColor={backgroundColor} width={width} marginRight={marginRight} fontSize={fontSize}>
+const Button = ({onClick, content, backgroundColor, width, marginRight, fontSize, marginBottom }) => (
+    <Btn onClick={onClick} backgroundColor={backgroundColor} width={width} marginRight={marginRight} fontSize={fontSize} marginBottom={marginBottom}>
         {content}
     </Btn>
 );
@@ -35,6 +36,7 @@ Button.propTypes = {
     width :PropTypes.string,
     marginRight :PropTypes.string,
     fontSize: PropTypes.string,
+    marginBottom : PropTypes.string,
 };
 
 export default Button;

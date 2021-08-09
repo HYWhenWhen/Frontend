@@ -1,55 +1,110 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from "styled-components";
 
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faUser } from "@fortawesome/free-solid-svg-icons";
 import MypageCalendar from '../Component/MypageCalendar';
+
+import {Link} from 'react-router-dom';
+import axios from 'axios';
+import { toast } from 'react-toastify';
 
 const Container = styled.div`
    display: flex;
-   padding: 3rem 15%;
+   padding: 3% 13%;
+   flex-direction: column;
+   align-items: center;
 `;
 
-// 왼쪽 디자인
-const Left = styled.div`
-    width: 23%;
-    margin-right: 10%;
+// 상단
+const Top = styled.div`
+    color: #000070;
+    font-size: 1.5rem;
+    border-bottom: 2px solid #707070;
+    margin-bottom: 3rem;
+    padding-bottom: 0.3rem;
+    width: 30%;
+    text-align: center;
+`;
+
+// 중간
+const Center = styled.div`
+    width: 80%;
     text-align:center;
-    display: flex;
-    flex-direction: column;
+    background-color: #F3F3FF;
+    border-radius: 1rem;
 `;
-const UserInfo = styled.div`
-    border: 1px solid #000070;
-    padding: 5%;
-    line-height: 1.6rem;
-    margin: 0 10% 1rem;
-    height: 7rem;
-    display: flex;
-    flex-direction: column;
-`;
-const Logo = styled.div`
+const CalendarTop = styled.div`
     background-color: #000070;
-    width: 5rem;
-    height: 5rem;
-    border-radius: 100%;
-    margin: auto;
     color: white;
-    font-size: 2rem;
-    line-height: 5rem;
+    line-height: 2.5rem;
+    font-size: 1.2rem;
+    border-radius: 1rem;
 `;
-const Name = styled.div`
+
+// 아래
+const Bottom = styled.div`
+    display: flex;
+    width: 75%;
+    margin-top:4rem;
 `;
+
 
 const Forms = styled.div`
     background-color: #000070;
     color: white;
-    height: 85%;
-    margin: 0 10%;
+    width: 100%;
     display: flex;
-    flex-direction:column;
+    flex-direction: column;
     align-items: center;
-    padding: 2rem 1rem;
+    height: 4.5rem;
+    border-radius: 8px;
 `;
+
+const Info = styled.div`
+    background-color: white;
+    color: #000070;
+    text-align: center;
+    margin-bottom: 1rem;
+    width: 25%;
+    border-bottom-left-radius: 8px;
+    border-bottom-right-radius: 8px;
+    padding-bottom: 8px;
+`;
+const Flist = styled.div`
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    justify-content: space-evenly;
+`;
+
+const LeftBtn = styled.div`
+    background-color: white;
+    width: 2rem;
+    height: 2rem;
+    border-radius: 100%;
+    text-align: center;
+    line-height: 2rem;
+    margin: 1.2rem -1rem;
+    position: absolute;
+    color: #000070;
+    font-weight: bold;
+    font-size: 1.3rem;
+    cursor: pointer;
+`;
+const RightBtn = styled.div`
+    width: 2rem;
+    height: 2rem;
+    background-color: white;
+    margin: 1.2rem -1rem;
+    position: inherit;
+    border-radius: 100%;
+    text-align: center;
+    line-height: 2rem;
+    color: #000070;
+    font-weight: bold;
+    font-size: 1.3rem;
+    cursor: pointer;
+`;
+
 const Form = styled.div`
     font-size: 0.9rem;
     margin-bottom: 5px;
@@ -58,47 +113,103 @@ const Line = styled.div`
     height: 1px;
     background-color: white;
     width: 70%;
-    margin-bottom: 2rem;
+    margin: 0 auto;
 `;
 
-const Center = styled.div`
-    width: 60%;
-    text-align:center;
-`;
+
 
 
 function MyPage() {
+    const [name, setName] = useState("");
+    const [dates, setDates] = useState([]); // 일정 있는 날들
+    const [myForms, setMyForms] = useState([]);
+    const [myidx, setMyidx] = useState(0);
+    const [loading, setLoading] = useState(true);
+    
+    useEffect(()=>{
+        axios.post("http://localhost:8080/api/get-my-schedule",{
+            idToken : "A2",
+      }).then(function (response) {
+        if(!response.data.success){
+            alert("일정 불러오기에 실패하였습니다.")
+        }else{
+            setDates(response.data.dates);
+        }
+        })
+        .catch(function (error) {
+          console.log(error);
+        })
+    })
+
+
+    useEffect(()=>{        
+        axios.post("http://localhost:8080/api/get-my-page",{
+            idToken :"A2",
+        }).then(function (response) {
+            if(!response.data.success){
+                alert("폼 불러오기에 실패하였습니다.")
+            }else{
+                setMyForms(response.data.schedules);
+                setLoading(false);
+            }
+          })
+          .catch(function (error) {
+            console.log(error);
+          })
+    },[])
+
+
+    const left = ()=>{
+        if(myidx === 0){
+            toast("일정의 끝입니다.", {autoClose: 3000});
+        }
+        else{
+            setMyidx(myidx-1);
+        }
+    }
+    const right = ()=>{
+        if(myidx ===Math.ceil(myForms.length/4)-1){
+            toast("일정의 끝입니다.", {autoClose: 3000});
+        }
+        else{
+            setMyidx(myidx+ 1);
+        }
+    }            
 
     return (
         <Container>
-            <Left>
-                <UserInfo>
-                    <Logo>
-                        <FontAwesomeIcon icon={faUser}/>
-                    </Logo>
-                    <Name>남민정</Name>
-                </UserInfo>
-                <Forms>
-                    <Form>멋쟁이 사자처럼 해커톤회의</Form>
-                    <Line/>
+            {loading ? <></> :
+            <>
+                <Top>환영합니다, 임의진님</Top> 
 
-                    <Form>멋쟁이 사자처럼 해커톤회의</Form>
-                    <Line/>
+                <Center>
+                    <CalendarTop>내캘린더</CalendarTop>
+                    <MypageCalendar dates ={dates}/> 
+                </Center>
 
-                    <Form>멋쟁이 사자처럼 해커톤회의</Form>
-                    <Line/>
+                <Bottom>
+                    <LeftBtn onClick = {()=>{left();}}>&lt;</LeftBtn>
+                    <Forms>
+                            <Info>최근 생성한 일정</Info>
+                            <Flist>
+                                {myForms.slice(myidx*4, (myidx+1)*4).map((myform, key)=>{
+                                    const url = "/result/" + myform.scheduleKey;
+                                        return (
+                                            <Link to ={url} key = {key}>
+                                                <Form>{myform.scheduleName}</Form>
+                                                <Line/>
+                                            </Link>
+                                        )
+                                    }
+                                )}                           
+                            </Flist>
+                    </Forms>
+                    <RightBtn onClick = {()=>{right();}}>&gt;</RightBtn>
 
-                    <Form>멋쟁이 사자처럼 해커톤회의</Form>
-                    <Line/>
+                </Bottom>
+            </>
+            }
 
-                </Forms>
-            </Left>
-            <Center>
-                <MypageCalendar/> 
-            </Center>
-
-
-           
         </Container>
     )
 };

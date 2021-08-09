@@ -25,14 +25,14 @@ const Btns = styled.div`
 
 
 
-export default ({}) => {
+export default ({match}) => {
     const title = "멋쟁이 사자처럼 해커톤 회의";
     return (
     <Container>
         <Img src = {SubmitResult}/>
         <Btns>
-            <Button backgroundColor="#000070" content="링크 복사하기" marginRight="2.5rem"/>
-            <Button backgroundColor="#7953D2" content="메인화면" onClick={()=>{window.location.replace("/")}}/>
+            <Button backgroundColor="#7953D2" content="수정하기" marginRight="2.5rem"/>
+            <Button backgroundColor="#000070" content="결과보기" onClick={()=>{window.location.replace("/#/result/"+match.params.id)}}/>
         </Btns>
     </Container>
     );
