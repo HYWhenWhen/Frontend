@@ -176,7 +176,7 @@ export default ({scheduleKey, date, submitStatus, startDate, endDate, formName})
     return (
         <Container>
                 <L onClick = {()=>{(!date.isSame(endDate)) ? date.add(1,'days'): toast("마지막 날짜입니다.", {autoClose: 3000}) }}>&gt; </L>
-                 <R onClick = {()=>{ (!date.isSame(startDate)) ? date.subtract(1,'days'):toast("시작일 입니다.", {autoClose: 3000}) }}>&lt; </R>
+                 <R onClick = {()=>{ (!date.isSame(startDate)) ? date.subtract(1,'days'):toast("시작 날짜입니다.", {autoClose: 3000}) }}>&lt; </R>
             <Top>
                 <ClipImg src = {Clip}/>
                 <Date>
