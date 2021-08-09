@@ -72,7 +72,7 @@ const Point = styled.div`
 
 const contentStyle = {
   width: "30%",
-  height: "60%",
+  height: "36rem",
   padding: "0px",
   backgroundColor: "#F3F3FF"
 };

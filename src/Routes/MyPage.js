@@ -123,10 +123,8 @@ function MyPage() {
     const [name, setName] = useState("");
     const [dates, setDates] = useState([]); // 일정 있는 날들
     const [myForms, setMyForms] = useState([]);
-    const [FourForm, setFourForm] = useState([]);
     const [myidx, setMyidx] = useState(0);
     const [loading, setLoading] = useState(true);
-    let total;
     
     useEffect(()=>{
         axios.post("http://localhost:8080/api/get-my-schedule",{

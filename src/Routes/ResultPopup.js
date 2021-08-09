@@ -11,6 +11,7 @@ import styled from "styled-components";
 
 import axios from 'axios';
 import { toast } from "react-toastify";
+import Scrollbars from 'react-custom-scrollbars';
 
 
 
@@ -189,61 +190,73 @@ export default ({scheduleKey, date, submitStatus, startDate, endDate, formName})
                 </Info>
             </Top>
             <Schedules>
-                <All>
-                    <Left>
-                        <FontAwesomeIcon icon = {faUser} style= {{fontSize: "1.4rem"}}/>
-                        <Txt>제출 인원</Txt>
-                    </Left>
-                    <Allpeople>{submitStatus}</Allpeople>
-                </All>     
-                <Possible>
-                    <Left>
-                        <FontAwesomeIcon icon = {faUser} style= {{fontSize: "1.4rem"}}/>
-                        <Txt>가능한 인원</Txt>
-                    </Left>
-                    <Right>
-                        {availability.map((avail, key)=>{
-                                    return (
-                                        <>
-                                        {avail.availabilityToLong == 0 ? <Node style ={{backgroundColor:"#009432"}}>{avail.nickName}</Node> : <Node>{avail.nickName}</Node> }
-                                        </>
-                                    )
-                                }
-                            )}   
-                    </Right>
-                </Possible>      
-                <Adjust>
-                    <Left>
-                        <FontAwesomeIcon icon = {faUser} style= {{fontSize: "1.4rem"}}/>
-                        <Txt>조정 가능한 인원</Txt>
-                    </Left>
-                    <Right>
-                        {availability.map((avail, key)=>{
-                                    return (
-                                        <>
-                                        {avail.availabilityToLong == 2 ? <Node style ={{backgroundColor:"#FFC312"}}>{avail.nickName}</Node> : <Node>{avail.nickName}</Node> }
-                                        </>
-                                    )
-                                }
-                            )}   
-                    </Right>
-                </Adjust>   
-                <Impossible>
-                    <Left>
-                        <FontAwesomeIcon icon = {faUser} style= {{fontSize: "1.4rem"}}/>
-                        <Txt>불가능한 인원</Txt>
-                    </Left>
-                    <Right>
-                        {availability.map((avail, key)=>{
-                                    return (
-                                        <>
-                                        {avail.availabilityToLong == 1 ? <Node style ={{backgroundColor:"#EA2027"}}>{avail.nickName}</Node> : <Node>{avail.nickName}</Node> }
-                                        </>
-                                    )
-                                }
-                            )}   
-                    </Right>
-                </Impossible>
+                <Scrollbars style ={{height :"19rem"}}>
+                    <All>
+                        <Left>
+                            <FontAwesomeIcon icon = {faUser} style= {{fontSize: "1.4rem"}}/>
+                            <Txt>제출 인원</Txt>
+                        </Left>
+                        <Allpeople>{submitStatus}</Allpeople>
+                    </All>     
+                    <Possible>
+                        <Left>
+                            <FontAwesomeIcon icon = {faUser} style= {{fontSize: "1.4rem"}}/>
+                            <Txt>가능한 인원</Txt>
+                        </Left>
+                        <Right>
+                            {availability.map((avail, key)=>{
+                                        return (
+                                            <>
+                                            {avail.availabilityToLong == 0 ? <Node style ={{backgroundColor:"#009432"}}>{avail.nickName}</Node> : <Node>{avail.nickName}</Node> }
+                                            {avail.availabilityToLong == 0 ? <Node style ={{backgroundColor:"#009432"}}>{avail.nickName}</Node> : <Node>{avail.nickName}</Node> }
+                                            {avail.availabilityToLong == 0 ? <Node style ={{backgroundColor:"#009432"}}>{avail.nickName}</Node> : <Node>{avail.nickName}</Node> }
+                                            {avail.availabilityToLong == 0 ? <Node style ={{backgroundColor:"#009432"}}>{avail.nickName}</Node> : <Node>{avail.nickName}</Node> }
+                                            {avail.availabilityToLong == 0 ? <Node style ={{backgroundColor:"#009432"}}>{avail.nickName}</Node> : <Node>{avail.nickName}</Node> }
+                                            {avail.availabilityToLong == 0 ? <Node style ={{backgroundColor:"#009432"}}>{avail.nickName}</Node> : <Node>{avail.nickName}</Node> }
+                                            {avail.availabilityToLong == 0 ? <Node style ={{backgroundColor:"#009432"}}>{avail.nickName}</Node> : <Node>{avail.nickName}</Node> }
+                                            {avail.availabilityToLong == 0 ? <Node style ={{backgroundColor:"#009432"}}>{avail.nickName}</Node> : <Node>{avail.nickName}</Node> }
+                                            {avail.availabilityToLong == 0 ? <Node style ={{backgroundColor:"#009432"}}>{avail.nickName}</Node> : <Node>{avail.nickName}</Node> }
+                                            {avail.availabilityToLong == 0 ? <Node style ={{backgroundColor:"#009432"}}>{avail.nickName}</Node> : <Node>{avail.nickName}</Node> }
+                                            {avail.availabilityToLong == 0 ? <Node style ={{backgroundColor:"#009432"}}>{avail.nickName}</Node> : <Node>{avail.nickName}</Node> }
+                                            </>
+                                        )
+                                    }
+                                )}   
+                        </Right>
+                    </Possible>      
+                    <Adjust>
+                        <Left>
+                            <FontAwesomeIcon icon = {faUser} style= {{fontSize: "1.4rem"}}/>
+                            <Txt>조정 가능한 인원</Txt>
+                        </Left>
+                        <Right>
+                            {availability.map((avail, key)=>{
+                                        return (
+                                            <>
+                                            {avail.availabilityToLong == 2 ? <Node style ={{backgroundColor:"#FFC312"}}>{avail.nickName}</Node> : <Node>{avail.nickName}</Node> }
+                                            </>
+                                        )
+                                    }
+                                )}   
+                        </Right>
+                    </Adjust>   
+                    <Impossible>
+                        <Left>
+                            <FontAwesomeIcon icon = {faUser} style= {{fontSize: "1.4rem"}}/>
+                            <Txt>불가능한 인원</Txt>
+                        </Left>
+                        <Right>
+                            {availability.map((avail, key)=>{
+                                        return (
+                                            <>
+                                            {avail.availabilityToLong == 1 ? <Node style ={{backgroundColor:"#EA2027"}}>{avail.nickName}</Node> : <Node>{avail.nickName}</Node> }
+                                            </>
+                                        )
+                                    }
+                                )}   
+                        </Right>
+                    </Impossible>
+                </Scrollbars>
             </Schedules>
         </Container>
         )

@@ -7,6 +7,7 @@ import MypageModal from "../Styles/Images/MypageModal.svg";
 import styled from "styled-components";
 
 import axios from 'axios';
+import Scrollbars from 'react-custom-scrollbars';
 
 
 const Container = styled.div`
@@ -175,18 +176,20 @@ export default ({day})=> {
                     <Add onClick = {()=>Make()}>+</Add>
                 </AddContainer>
             </Top>
-            <Schedules>
-                {scheduleList.map((schedule, key)=>{
-                    const id = schedule.myScheduleID;
-                        return (
-                            <Schedule key = {key}>
-                                <ScheduleText>{schedule.myScheduleName}</ScheduleText>
-                                <Delete onClick = {()=>{DeleteSchedule(id);}}>&times;</Delete>
-                            </Schedule>
-                        )
-                    }
-                )}                   
-            </Schedules>
+            <Scrollbars style ={{height: "30rem"}}>
+                <Schedules>
+                    {scheduleList.map((schedule, key)=>{
+                        const id = schedule.myScheduleID;
+                            return (
+                                <Schedule key = {key}>
+                                    <ScheduleText>{schedule.myScheduleName}</ScheduleText>
+                                    <Delete onClick = {()=>{DeleteSchedule(id);}}>&times;</Delete>
+                                </Schedule>
+                            )
+                        }
+                    )}                   
+                </Schedules>
+            </Scrollbars>
         </Container>
         )
 }
