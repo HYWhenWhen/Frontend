@@ -111,7 +111,7 @@ export default ({day})=> {
 
     const GetSchedule  = () =>{
         axios.post("http://localhost:8080/api/get-my-page-modal",{
-            idToken : "A2",
+            idToken : localStorage.getItem("login"),
             localDate : day.format("YYYY-MM-DD"),
       }).then(function (response) {
         if(!response.data.success){
@@ -129,7 +129,7 @@ export default ({day})=> {
 
     const Make=()=>{
         axios.post("http://localhost:8080/api/add-my-schedule", {
-            idToken:"A2",
+            idToken:localStorage.getItem("login"),
             localDate : day.format("YYYY-MM-DD"),
             scheduleName : scheduleText.value
           })
@@ -148,7 +148,7 @@ export default ({day})=> {
 
     const DeleteSchedule =(id)=>{
         axios.post("http://localhost:8080/api/delete-my-schedule", {
-            idToken:"A2",
+            idToken:localStorage.getItem("login"),
             scheduleKey : id
           })
           .then(function (response) {

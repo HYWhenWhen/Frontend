@@ -122,7 +122,7 @@ function Submit({match}) {
 
       const Del = ()=>{
         axios.post("http://localhost:8080/api/delete-schedule",{
-            hostIdToken: "A2",
+            hostIdToken: localStorage.getItem("login"),
             scheduleKey : match.params.id,
         }).then(function (response) {
           if(!response.data.success){

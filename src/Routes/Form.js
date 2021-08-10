@@ -89,7 +89,7 @@ export default ({ }) => {
         axios.post("http://localhost:8080/api/create-schedule", {
             scheduleName: name.value,
             expectedMemberCnt : num,
-            hostIdToken:"A2",
+            hostIdToken:localStorage.getItem("login"),
             startDate : Start.format("YYYY-MM-DD"),
             endDate : End.format("YYYY-MM-DD"),
           })
