@@ -97,7 +97,7 @@ export default ({ }) => {
               if(!response.data.success)
                 alert("폼 생성에 실패하였습니다.");
                 else{
-                    window.location.replace("/#/form/result/"+response.data.scheduleKey)
+                    window.location.replace("/#/submit/"+response.data.scheduleKey)
                 }
           })
           .catch(function (error) {
