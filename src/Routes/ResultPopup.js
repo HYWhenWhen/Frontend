@@ -208,16 +208,6 @@ export default ({scheduleKey, date, submitStatus, startDate, endDate, formName})
                                         return (
                                             <>
                                             {avail.availabilityToLong == 0 ? <Node style ={{backgroundColor:"#009432"}}>{avail.nickName}</Node> : <Node>{avail.nickName}</Node> }
-                                            {avail.availabilityToLong == 0 ? <Node style ={{backgroundColor:"#009432"}}>{avail.nickName}</Node> : <Node>{avail.nickName}</Node> }
-                                            {avail.availabilityToLong == 0 ? <Node style ={{backgroundColor:"#009432"}}>{avail.nickName}</Node> : <Node>{avail.nickName}</Node> }
-                                            {avail.availabilityToLong == 0 ? <Node style ={{backgroundColor:"#009432"}}>{avail.nickName}</Node> : <Node>{avail.nickName}</Node> }
-                                            {avail.availabilityToLong == 0 ? <Node style ={{backgroundColor:"#009432"}}>{avail.nickName}</Node> : <Node>{avail.nickName}</Node> }
-                                            {avail.availabilityToLong == 0 ? <Node style ={{backgroundColor:"#009432"}}>{avail.nickName}</Node> : <Node>{avail.nickName}</Node> }
-                                            {avail.availabilityToLong == 0 ? <Node style ={{backgroundColor:"#009432"}}>{avail.nickName}</Node> : <Node>{avail.nickName}</Node> }
-                                            {avail.availabilityToLong == 0 ? <Node style ={{backgroundColor:"#009432"}}>{avail.nickName}</Node> : <Node>{avail.nickName}</Node> }
-                                            {avail.availabilityToLong == 0 ? <Node style ={{backgroundColor:"#009432"}}>{avail.nickName}</Node> : <Node>{avail.nickName}</Node> }
-                                            {avail.availabilityToLong == 0 ? <Node style ={{backgroundColor:"#009432"}}>{avail.nickName}</Node> : <Node>{avail.nickName}</Node> }
-                                            {avail.availabilityToLong == 0 ? <Node style ={{backgroundColor:"#009432"}}>{avail.nickName}</Node> : <Node>{avail.nickName}</Node> }
                                             </>
                                         )
                                     }
