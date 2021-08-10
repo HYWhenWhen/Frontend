@@ -21,7 +21,6 @@ const Wrapper = styled.div`
 const Contents = styled.div`
     flex:1;
 `;
-console.log(localStorage.getItem("login"));
 
 export default () => (
     <Wrapper>

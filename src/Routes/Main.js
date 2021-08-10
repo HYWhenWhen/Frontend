@@ -23,7 +23,6 @@ const Content = styled.div`
 padding-top: 21%;
 `;
 
-
 const Text = styled.div`
     padding-bottom: 2rem;
     cursor: default;
@@ -32,17 +31,8 @@ const Text = styled.div`
     line-height: 3.5rem;
 `;
 
-const Image = styled.img`
-    height:33rem;
-`;
-
-const Check =()=>{
-}
-
-
 export default ({})=>{
     const isLogin =localStorage.getItem('login')
-    console.log(isLogin)
 
     return (
         <Container>
