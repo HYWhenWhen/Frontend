@@ -100,9 +100,8 @@ const Delete = styled.div`
 `;
 
 
-export default ({day})=> {
+export default ({day, scheduleList, setScheduleList})=> {
     const scheduleText = useInput("");
-    const [scheduleList,setScheduleList] = useState([]);
     const [loading,setLoading] = useState(false);
 
     useEffect(()=>{

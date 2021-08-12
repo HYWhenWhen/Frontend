@@ -157,6 +157,8 @@ const R = styled.div`
 export default ({scheduleKey, date, submitStatus, startDate, endDate, formName})=> {
     const [availability,setAvailability] = useState([]);
     const [loading,setLoading] = useState(false);
+    const [check, setCheck] = useState(true);
+    
     useEffect (()=>{
         axios.post("http://ec2-3-36-53-178.ap-northeast-2.compute.amazonaws.com:8080/api/get-result-page-modal",{
           scheduleKey : scheduleKey,
@@ -172,12 +174,30 @@ export default ({scheduleKey, date, submitStatus, startDate, endDate, formName})
         .catch(function (error) {
           console.log(error);
         })
-      }) 
+      },[check]) 
+
+      const Lfunc = () =>{
+          if(date.isSame(endDate)){
+            toast("마지막 날짜입니다.", {autoClose: 3000})
+          }else{
+            date.add(1,'days');
+            setCheck(!check);
+          }
+      }
+
+      const Rfunc = () =>{
+        if(date.isSame(startDate)){
+          toast("시작 날짜입니다.", {autoClose: 3000})
+        }else{
+            date.subtract(1,'days')
+          setCheck(!check);
+        }
+    }
 
     return (
         <Container>
-                <L onClick = {()=>{(!date.isSame(endDate)) ? date.add(1,'days'): toast("마지막 날짜입니다.", {autoClose: 3000}) }}>&gt; </L>
-                 <R onClick = {()=>{ (!date.isSame(startDate)) ? date.subtract(1,'days'):toast("시작 날짜입니다.", {autoClose: 3000}) }}>&lt; </R>
+                <L onClick = {()=>{Lfunc()}}>&gt; </L>
+                 <R onClick = {()=>{Rfunc()}}>&lt; </R>
             <Top>
                 <ClipImg src = {Clip}/>
                 <Date>

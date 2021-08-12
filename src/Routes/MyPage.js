@@ -126,6 +126,9 @@ function MyPage() {
     const [myidx, setMyidx] = useState(0);
     const [loading, setLoading] = useState(true);
     
+    const [scheduleList,setScheduleList] = useState([]);
+
+
     useEffect(()=>{
         axios.post("http://ec2-3-36-53-178.ap-northeast-2.compute.amazonaws.com:8080/api/get-my-schedule",{
             idToken : localStorage.getItem("login"),
@@ -139,7 +142,7 @@ function MyPage() {
         .catch(function (error) {
           console.log(error);
         })
-    })
+    }, [scheduleList])
 
 
     useEffect(()=>{        
@@ -185,7 +188,7 @@ function MyPage() {
 
                 <Center>
                     <CalendarTop>내캘린더</CalendarTop>
-                    <MypageCalendar dates ={dates}/> 
+                    <MypageCalendar dates ={dates} scheduleList={scheduleList} setScheduleList={setScheduleList}/> 
                 </Center>
 
                 <Bottom>

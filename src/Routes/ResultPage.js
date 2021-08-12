@@ -91,7 +91,7 @@ function Submit({match}) {
     const [joinedMemberCnt, setJoinedMemberCnt] = useState();
     const [checkDays, setCheckDays] = useState([]); // 폼 체크된것 
 
-    const url = 'http://3.34.216.89//#/submit/'+match.params.id; //submit url mapping
+    const url = 'http://whenwhen.hyu_likelion.org/#/submit/'+match.params.id; //submit url mapping
     const [copy, setCopy] = useState(false);
 
     const getDateFormat = date => {

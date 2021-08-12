@@ -91,7 +91,7 @@ const X = styled.div`
     background-color: #7953D2;
 `;
 
-export default ({dates}) => { 
+export default ({dates, scheduleList, setScheduleList}) => { 
     const [getMoment, setMoment]=useState(moment());     
     const [checkDay, setCheckDay]=useState(moment());     
     const today = getMoment;    // today == moment()   입니다.
@@ -140,7 +140,7 @@ export default ({dates}) => {
                             {close => (
                                 <>
                                     <X onClick={close}>&times; </X>
-                                    <MypageSchedule day = {days}/>
+                                    <MypageSchedule day = {days} scheduleList={scheduleList} setScheduleList={setScheduleList}/>
                                 </>
                             )}
 
