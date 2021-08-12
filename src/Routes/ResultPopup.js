@@ -158,7 +158,7 @@ export default ({scheduleKey, date, submitStatus, startDate, endDate, formName})
     const [availability,setAvailability] = useState([]);
     const [loading,setLoading] = useState(false);
     useEffect (()=>{
-        axios.post("http://localhost:8080/api/get-result-page-modal",{
+        axios.post("http://ec2-3-36-53-178.ap-northeast-2.compute.amazonaws.com:8080/api/get-result-page-modal",{
           scheduleKey : scheduleKey,
           date : date.format("YYYY-MM-DD"),
       }).then(function (response) {
@@ -207,16 +207,6 @@ export default ({scheduleKey, date, submitStatus, startDate, endDate, formName})
                             {availability.map((avail, key)=>{
                                         return (
                                             <>
-                                            {avail.availabilityToLong == 0 ? <Node style ={{backgroundColor:"#009432"}}>{avail.nickName}</Node> : <Node>{avail.nickName}</Node> }
-                                            {avail.availabilityToLong == 0 ? <Node style ={{backgroundColor:"#009432"}}>{avail.nickName}</Node> : <Node>{avail.nickName}</Node> }
-                                            {avail.availabilityToLong == 0 ? <Node style ={{backgroundColor:"#009432"}}>{avail.nickName}</Node> : <Node>{avail.nickName}</Node> }
-                                            {avail.availabilityToLong == 0 ? <Node style ={{backgroundColor:"#009432"}}>{avail.nickName}</Node> : <Node>{avail.nickName}</Node> }
-                                            {avail.availabilityToLong == 0 ? <Node style ={{backgroundColor:"#009432"}}>{avail.nickName}</Node> : <Node>{avail.nickName}</Node> }
-                                            {avail.availabilityToLong == 0 ? <Node style ={{backgroundColor:"#009432"}}>{avail.nickName}</Node> : <Node>{avail.nickName}</Node> }
-                                            {avail.availabilityToLong == 0 ? <Node style ={{backgroundColor:"#009432"}}>{avail.nickName}</Node> : <Node>{avail.nickName}</Node> }
-                                            {avail.availabilityToLong == 0 ? <Node style ={{backgroundColor:"#009432"}}>{avail.nickName}</Node> : <Node>{avail.nickName}</Node> }
-                                            {avail.availabilityToLong == 0 ? <Node style ={{backgroundColor:"#009432"}}>{avail.nickName}</Node> : <Node>{avail.nickName}</Node> }
-                                            {avail.availabilityToLong == 0 ? <Node style ={{backgroundColor:"#009432"}}>{avail.nickName}</Node> : <Node>{avail.nickName}</Node> }
                                             {avail.availabilityToLong == 0 ? <Node style ={{backgroundColor:"#009432"}}>{avail.nickName}</Node> : <Node>{avail.nickName}</Node> }
                                             </>
                                         )

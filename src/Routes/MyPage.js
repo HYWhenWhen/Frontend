@@ -127,8 +127,8 @@ function MyPage() {
     const [loading, setLoading] = useState(true);
     
     useEffect(()=>{
-        axios.post("http://localhost:8080/api/get-my-schedule",{
-            idToken : "A2",
+        axios.post("http://ec2-3-36-53-178.ap-northeast-2.compute.amazonaws.com:8080/api/get-my-schedule",{
+            idToken : localStorage.getItem("login"),
       }).then(function (response) {
         if(!response.data.success){
             alert("일정 불러오기에 실패하였습니다.")
@@ -143,8 +143,8 @@ function MyPage() {
 
 
     useEffect(()=>{        
-        axios.post("http://localhost:8080/api/get-my-page",{
-            idToken :"A2",
+        axios.post("http://ec2-3-36-53-178.ap-northeast-2.compute.amazonaws.com:8080/api/get-my-page",{
+            idToken :localStorage.getItem("login"),
         }).then(function (response) {
             if(!response.data.success){
                 alert("폼 불러오기에 실패하였습니다.")

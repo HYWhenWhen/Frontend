@@ -49,7 +49,6 @@ const Link = styled.a`
 
 export default () => {
     const isLogin =localStorage.getItem('login')
-    console.log(isLogin);
     const logout=()=>{
         toast("로그아웃 되었습니다")
         localStorage.removeItem('login');

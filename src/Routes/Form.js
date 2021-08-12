@@ -86,10 +86,10 @@ export default ({ }) => {
     const make=()=>{
         const Start = moment(state[0].startDate);
         const End = moment(state[0].endDate);
-        axios.post("http://localhost:8080/api/create-schedule", {
+        axios.post("http://ec2-3-36-53-178.ap-northeast-2.compute.amazonaws.com:8080/api/create-schedule", {
             scheduleName: name.value,
             expectedMemberCnt : num,
-            hostIdToken:"A2",
+            hostIdToken:localStorage.getItem("login"),
             startDate : Start.format("YYYY-MM-DD"),
             endDate : End.format("YYYY-MM-DD"),
           })
@@ -97,7 +97,7 @@ export default ({ }) => {
               if(!response.data.success)
                 alert("폼 생성에 실패하였습니다.");
                 else{
-                    window.location.replace("/#/form/result/"+response.data.scheduleKey)
+                    window.location.replace("/#/submit/"+response.data.scheduleKey)
                 }
           })
           .catch(function (error) {

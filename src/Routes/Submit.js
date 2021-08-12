@@ -82,9 +82,9 @@ function Submit({match}) {
     const [checkDays, setCheckDays] = useState([]); // 폼 체크된것 
 
     useEffect(()=>{
-        axios.post("http://localhost:8080/api/get-submit-page",{
+        axios.post("http://ec2-3-36-53-178.ap-northeast-2.compute.amazonaws.com:8080/api/get-submit-page",{
             scheduleKey : match.params.id,
-            idToken :"A2",
+            idToken :localStorage.getItem("login"),
         }).then(function (response) {
             if(!response.data.success){
                 alert("폼 불러오기에 실패하였습니다.")
@@ -102,9 +102,9 @@ function Submit({match}) {
 
 
     const sendCalendar = (calendar) => {
-        axios.post("http://localhost:8080/api/submit/member-schedule",{
+        axios.post("http://ec2-3-36-53-178.ap-northeast-2.compute.amazonaws.com:8080/api/submit/member-schedule",{
             scheduleKey : match.params.id,
-            idToken :"A2",
+            idToken :localStorage.getItem("login"),
             dates : checkDays
         }).then(function (response) {
             if(!response.data.success){
@@ -119,9 +119,9 @@ function Submit({match}) {
     }
 
     const abandon = () => {
-        axios.post("http://localhost:8080/api/abandon",{
+        axios.post("http://ec2-3-36-53-178.ap-northeast-2.compute.amazonaws.com:8080/api/abandon",{
             scheduleKey : match.params.id,
-            idToken :"A2",
+            idToken :localStorage.getItem("login"),
         }).then(function (response) {
             if(!response.data.success){
                 alert("참여 포기에 실패하였습니다..")
