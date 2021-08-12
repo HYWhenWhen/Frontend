@@ -93,35 +93,37 @@ const GoogleBtn = styled(GoogleLogin)`
 export default ({}) => {
   const [userObj, setUserObj]=useState({})
 
-  // 구글
-  const googleLoginFunc=(res)=>{
-    if(res){
-      axios.post("http://localhost:8080/api/sign-up",{
-        idToken: res.profileObj.googleId,
-        nickName : res.Ts.Me,
-      })
-      .then(function(response) {
-          console.log(response);
-          localStorage.setItem("login", res.profileObj.googleId);
-          window.location.replace("/");
-      })
-      .catch(function(error) {
-          console.log(error);
-      })
-    }
-  }
+  // // 구글
+  // const googleLoginFunc=(res)=>{
+  //   if(res){
+  //     axios.post("http://localhost:8080/api/log-in",{
+  //       idToken: 9999999999 -  res.profileObj.googleId,
+  //       token: res.profileObj.googleId,
+  //       nickName : res.Ts.Me,
+  //     })
+  //     .then(function(response) {
+  //         console.log(response);
+  //         localStorage.setItem("login", res.profileObj.googleId);
+  //         window.location.replace("/");
+  //     })
+  //     .catch(function(error) {
+  //         console.log(error);
+  //     })
+  //   }
+  // }
 
     // 카카오
     const kakaoLoginFunc=(res)=>{
       console.log(res);
       if(res){
-        axios.post("http://localhost:8080/api/sign-up",{
-          idToken: res.profile.id,
-          nickName : "test",
+        axios.post("http://localhost:8080/api/log-in",{
+          idToken: 9999999999 - res.profile.id,
+          token: res.response.access_token,
+          nickName : res.profile.properties.nickname,
         })
         .then(function(response) {
             console.log(response);
-            localStorage.setItem("login", res.profile.id);
+            localStorage.setItem("login", response.data.idToken);
             window.location.replace("/");
         })
         .catch(function(error) {
@@ -139,13 +141,13 @@ export default ({}) => {
             <Login>
               <Txt>간편로그인</Txt>
               <Line/>
-              <GoogleBtn 
+              {/* <GoogleBtn 
                     clientId={"187020779465-9ie61b7h5kkniltgsjgs7nsq75g56f20.apps.googleusercontent.com"}
                     onSuccess={result=>googleLoginFunc(result)}
                     onFailure={result => console.log(result)}
                     cookiePolicy={'single_host_origin'}
                     buttonText = "Continue with Google"
-                />
+                /> */}
                 <KaKaoBtn
                       token={'cb21585076043446225f15568416bac0'}
                       onSuccess={response=>kakaoLoginFunc(response)}

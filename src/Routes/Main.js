@@ -33,7 +33,7 @@ const Text = styled.div`
 
 export default ({})=>{
     const isLogin =localStorage.getItem('login')
-
+console.log(localStorage.getItem("login"))
     return (
         <Container>
             <Content>
