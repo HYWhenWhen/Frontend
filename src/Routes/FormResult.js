@@ -29,7 +29,7 @@ const Btns = styled.div`
 export default ({match}) => {
     const title = "멋쟁이 사자처럼 해커톤 회의";
 
-    const url = 'http://localhost:3000/#/submit/'+match.params.id; //submit url mapping
+    const url = 'http://3.34.216.89//#/submit/'+match.params.id; //submit url mapping
     const [copy, setCopy] = useState(false);
 
     return (
