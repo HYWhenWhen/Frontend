@@ -96,7 +96,7 @@ export default ({}) => {
   // // 구글
   // const googleLoginFunc=(res)=>{
   //   if(res){
-  //     axios.post("http://localhost:8080/api/log-in",{
+  //     axios.post("http://ec2-3-36-53-178.ap-northeast-2.compute.amazonaws.com:8080/api/log-in",{
   //       idToken: 9999999999 -  res.profileObj.googleId,
   //       token: res.profileObj.googleId,
   //       nickName : res.Ts.Me,
@@ -116,7 +116,7 @@ export default ({}) => {
     const kakaoLoginFunc=(res)=>{
       console.log(res);
       if(res){
-        axios.post("http://localhost:8080/api/log-in",{
+        axios.post("http://ec2-3-36-53-178.ap-northeast-2.compute.amazonaws.com:8080/api/log-in",{
           idToken: 9999999999 - res.profile.id,
           token: res.response.access_token,
           nickName : res.profile.properties.nickname,
