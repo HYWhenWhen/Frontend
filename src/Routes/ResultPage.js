@@ -91,7 +91,7 @@ export default ({match})=> {
     const [joinedMemberCnt, setJoinedMemberCnt] = useState();
     const [checkDays, setCheckDays] = useState([]); // 폼 체크된것 
 
-    const url = 'http://whenwhen.hyu_likelion.org/#/submit/'+match.params.id; //submit url mapping
+    const url = 'http://whenwhen.hyu-likelion.org/#/submit/'+match.params.id; //submit url mapping
     const [copy, setCopy] = useState(false);
 
     const getDateFormat = date => {
