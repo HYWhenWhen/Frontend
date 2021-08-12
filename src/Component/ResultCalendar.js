@@ -2,6 +2,9 @@ import React, { useEffect, useState } from 'react';
 import moment from 'moment';
 import styled from "styled-components";
 
+import Popup from "reactjs-popup";
+import ResultPopup from '../Routes/ResultPopup';
+
 const Container = styled.div`
   padding: 0 5%;
 `;
@@ -46,32 +49,52 @@ const DayContainer = styled.td`
     cursor: pointer;
     line-height: 5rem;
     font-size: 1.2rem;
+    border-radius: 1rem;
+    :hover{
+      background-color: #F6F6F6;
+    }
 `;
 const Day = styled.span`
     padding: 0 1rem;
 `;
 
+const Num = styled.div`
+position: relative;
+    top: -28px;
+    font-size: 0.9rem;
+    text-align: center;
+    left: 40.5%;
+    width: 0;
+    height: 0;
+    color: #009432;
+`;
 
-export default ({ startDate, endDate, checkDays, setCheckDays }) => { 
-    const start = moment(startDate);
-    const end = moment(endDate);
+const contentStyle = {
+  width: "30%",
+  height: "27rem",
+  padding: "0px",
+  backgroundColor: "#F3F3FF"
+};
 
-    const cnt  = moment.duration(end.diff(start)).asDays();
-    const [loading, setLoading] = useState(true);
-    let check_tmp = [];
+const X = styled.div`
+    cursor: pointer;
+    position: absolute;
+    right: -1.6rem;
+    top: -1.2rem;
+    font-size: 1.7em;
+    color: #e5eaee;
+    width: 3rem;
+    height: 3rem;
+    line-height: 3rem;
+    border-radius: 100%;
+    background-color: #7953D2;
+`;
 
-    useEffect (()=>{
-      for(let i = 0; i<=cnt; i++){
-        const tmpDay = start.clone().add(i,'days')
-        check_tmp = [...check_tmp,{
-          localDate: tmpDay.format('YYYY-MM-DD'),
-          availability : 0,
-        }]
-      }
-      setCheckDays([...check_tmp])
-      setLoading(false);
-    },[])    
 
+
+export default ({ submitStatus, scheduleKey, startDate, endDate, checkDays, formName}) => { 
+  const start = moment(startDate);
+  const end = moment(endDate);
 
     const [getMoment, setMoment]=useState(moment());     
     const today = getMoment;    // today == moment()   입니다.
@@ -83,13 +106,6 @@ export default ({ startDate, endDate, checkDays, setCheckDays }) => {
             <WeekDay>{day}</WeekDay>
         )
     );
-    const handleClick=(days)=>{
-      const tmp = checkDays;
-      const idx = days.diff(start,'days');
-      tmp[idx].availability = (tmp[idx].availability +1) %3;
-      setCheckDays([...tmp]);
-    }
-
     const calendarArr=()=>{
         let result = [];
         let week = firstWeek;
@@ -106,20 +122,42 @@ export default ({ startDate, endDate, checkDays, setCheckDays }) => {
                         <DayContainer key={index}/>
                     );
                   }
+                  
                   // case 2. 범위
                   else if (days.isBetween(start,end) || days.isSame(start) || days.isSame(end)){
+                    const adj = checkDays[days.format("YYYY-MM-DD")].possibleCnt +  "/" +  (checkDays[days.format("YYYY-MM-DD")].possibleCnt + checkDays[days.format("YYYY-MM-DD")].adjustableCnt);
                     return(
-                      <DayContainer key={index} onClick={()=>{handleClick(days)}}>
-                        {checkDays[days.diff(start,'days')].availability %3 === 0 &&
-                        <Day style={{ borderBottom: '4px solid #008000' }}>{days.format('D')}</Day>
-                        }
-                        {checkDays[days.diff(start,'days')].availability %3 === 1 &&
-                        <Day style={{ borderBottom: '4px solid #EA2027' }}>{days.format('D')}</Day>
-                        }
-                         {checkDays[days.diff(start,'days')].availability %3 === 2 &&
-                        <Day style={{ borderBottom: '4px solid #FFC312' }}>{days.format('D')}</Day>
-                        }
-                    </DayContainer>
+                      <Popup
+                            trigger={
+                                <DayContainer key={index} >
+                                {checkDays[days.format("YYYY-MM-DD")].availability === 0 &&
+                                <Day style={{ borderBottom: '4px solid #008000' }}>{days.format('D')}</Day>
+                                }
+                                {checkDays[days.format("YYYY-MM-DD")].availability  === 1 &&
+                                <Day style={{ borderBottom: '4px solid #EA2027' }}>{days.format('D')}</Day>
+                                }
+                                {checkDays[days.format("YYYY-MM-DD")].availability === 2 &&
+                                <>
+                                <Num>{adj}</Num>
+                                  <Day value ="123" style={{ borderBottom: '4px solid #FFC312' }}>{days.format('D')}</Day>
+                                </>
+                                }
+                            </DayContainer>
+                            }
+                            modal
+                            contentStyle={contentStyle}
+                            lockScroll={true}>
+                            {close => (
+                                <>
+                                    <X onClick={close}>&times; </X>
+                                    <ResultPopup formName={formName} submitStatus={submitStatus} scheduleKey= {scheduleKey} date = {days} startDate ={startDate} endDate = {endDate}/>
+                                </>
+                            )}
+
+                        </Popup>
+
+
+
                   );
                   }
                   // 기본
@@ -139,10 +177,6 @@ export default ({ startDate, endDate, checkDays, setCheckDays }) => {
       }
 
     return (
-      <>
-      {loading ? (
-        <></>
-      ):(
         <Container>
           <Controller>
             <Btn onClick={()=>{setMoment(getMoment.clone().subtract(1, 'month')) }}>&lt; </Btn>
@@ -158,7 +192,5 @@ export default ({ startDate, endDate, checkDays, setCheckDays }) => {
           </Days>
           </CalendarContainer>
         </Container>
-      )}
-    </>
     );
 }

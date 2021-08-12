@@ -1,10 +1,14 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import useInput from '../Hooks/useInput';
 import moment from 'moment';
 import Clip from "../Styles/Images/Clip.svg";
 import MypageModal from "../Styles/Images/MypageModal.svg";
 
 import styled from "styled-components";
+
+import axios from 'axios';
+import Scrollbars from 'react-custom-scrollbars';
+
 
 const Container = styled.div`
     text-align:center;
@@ -98,6 +102,66 @@ const Delete = styled.div`
 
 export default ({day})=> {
     const scheduleText = useInput("");
+    const [scheduleList,setScheduleList] = useState([]);
+    const [loading,setLoading] = useState(false);
+
+    useEffect(()=>{
+        GetSchedule();
+    },[])
+
+    const GetSchedule  = () =>{
+        axios.post("http://ec2-3-36-53-178.ap-northeast-2.compute.amazonaws.com:8080/api/get-my-page-modal",{
+            idToken : localStorage.getItem("login"),
+            localDate : day.format("YYYY-MM-DD"),
+      }).then(function (response) {
+        if(!response.data.success){
+            setLoading(false);
+            alert("일정 불러오기에 실패하였습니다.")
+        }else{
+            setScheduleList(response.data.myScheduleList);
+            setLoading(true);
+        }
+        })
+        .catch(function (error) {
+          console.log(error);
+        })
+    }
+
+    const Make=()=>{
+        axios.post("http://ec2-3-36-53-178.ap-northeast-2.compute.amazonaws.com:8080/api/add-my-schedule", {
+            idToken:localStorage.getItem("login"),
+            localDate : day.format("YYYY-MM-DD"),
+            scheduleName : scheduleText.value
+          })
+          .then(function (response) {
+              if(!response.data.success)
+                alert("일정 생성에 실패하였습니다.");
+                else{
+                    scheduleText.setValue("");
+                    GetSchedule();
+                }
+          })
+          .catch(function (error) {
+            console.log(error);
+          });
+    }
+
+    const DeleteSchedule =(id)=>{
+        axios.post("http://ec2-3-36-53-178.ap-northeast-2.compute.amazonaws.com:8080/api/delete-my-schedule", {
+            idToken:localStorage.getItem("login"),
+            scheduleKey : id
+          })
+          .then(function (response) {
+              if(!response.data.success)
+                alert("일정 삭제에 실패하였습니다.");
+                else{
+                    GetSchedule();
+                }
+          })
+          .catch(function (error) {
+            console.log(error);
+          });
+    }
 
     return (
         <Container>
@@ -109,23 +173,23 @@ export default ({day})=> {
                 </Date>
                 <AddContainer>
                     <ScheduleInput {...scheduleText} placeholder="일정을 추가하세요."/>
-                    <Add>+</Add>
+                    <Add onClick = {()=>Make()}>+</Add>
                 </AddContainer>
             </Top>
-            <Schedules>
-                    <Schedule>
-                        <ScheduleText>멋사 프로젝트 회의</ScheduleText>
-                        <Delete>&times;</Delete>
-                    </Schedule>
-                    <Schedule>
-                        <ScheduleText>멋사 프로젝트 회의</ScheduleText>
-                        <Delete>&times;</Delete>
-                    </Schedule>
-                    <Schedule>
-                        <ScheduleText>멋사 프로젝트 회의멋사 프로젝트 회의멋사 프로젝트 회의</ScheduleText>
-                        <Delete>&times;</Delete>
-                    </Schedule>
-            </Schedules>
+            <Scrollbars style ={{height: "30rem"}}>
+                <Schedules>
+                    {scheduleList.map((schedule, key)=>{
+                        const id = schedule.myScheduleID;
+                            return (
+                                <Schedule key = {key}>
+                                    <ScheduleText>{schedule.myScheduleName}</ScheduleText>
+                                    <Delete onClick = {()=>{DeleteSchedule(id);}}>&times;</Delete>
+                                </Schedule>
+                            )
+                        }
+                    )}                   
+                </Schedules>
+            </Scrollbars>
         </Container>
         )
 }

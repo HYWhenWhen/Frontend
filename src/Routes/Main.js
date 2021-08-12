@@ -14,7 +14,7 @@ const Container = styled.div`
     box-sizing: border-box;
     background-image : url(${Main});
     background-size: 103rem;
-    background-position: 22rem -4rem;
+    background-position: 22srem -4rem;
     background-repeat: no-repeat;
 
 `;
@@ -22,7 +22,6 @@ const Container = styled.div`
 const Content = styled.div`
 padding-top: 21%;
 `;
-
 
 const Text = styled.div`
     padding-bottom: 2rem;
@@ -32,18 +31,8 @@ const Text = styled.div`
     line-height: 3.5rem;
 `;
 
-const Image = styled.img`
-    height:33rem;
-`;
-
-const Check =()=>{
-}
-
-
 export default ({})=>{
     const isLogin =localStorage.getItem('login')
-    console.log(isLogin)
-
     return (
         <Container>
             <Content>
