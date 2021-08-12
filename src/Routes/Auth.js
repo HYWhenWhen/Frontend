@@ -93,25 +93,6 @@ const GoogleBtn = styled(GoogleLogin)`
 export default ({}) => {
   const [userObj, setUserObj]=useState({})
 
-  // // 구글
-  // const googleLoginFunc=(res)=>{
-  //   if(res){
-  //     axios.post("http://ec2-3-36-53-178.ap-northeast-2.compute.amazonaws.com:8080/api/log-in",{
-  //       idToken: 9999999999 -  res.profileObj.googleId,
-  //       token: res.profileObj.googleId,
-  //       nickName : res.Ts.Me,
-  //     })
-  //     .then(function(response) {
-  //         console.log(response);
-  //         localStorage.setItem("login", res.profileObj.googleId);
-  //         window.location.replace("/");
-  //     })
-  //     .catch(function(error) {
-  //         console.log(error);
-  //     })
-  //   }
-  // }
-
     // 카카오
     const kakaoLoginFunc=(res)=>{
       if(res){
@@ -140,13 +121,6 @@ export default ({}) => {
             <Login>
               <Txt>간편로그인</Txt>
               <Line/>
-              {/* <GoogleBtn 
-                    clientId={"187020779465-9ie61b7h5kkniltgsjgs7nsq75g56f20.apps.googleusercontent.com"}
-                    onSuccess={result=>googleLoginFunc(result)}
-                    onFailure={result => console.log(result)}
-                    cookiePolicy={'single_host_origin'}
-                    buttonText = "Continue with Google"
-                /> */}
                 <KaKaoBtn
                       token={'cb21585076043446225f15568416bac0'}
                       onSuccess={response=>kakaoLoginFunc(response)}

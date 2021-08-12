@@ -81,7 +81,7 @@ const InfoContainer = styled.div`
 `;
 
 
-function Submit({match}) {
+export default ({match})=> {
     const [loading, setLoading] = useState(true); //로딩
 
     const [startDate, setStartDate] = useState(moment()); 
@@ -167,4 +167,3 @@ function Submit({match}) {
     )
 }
 
-export default Submit;
