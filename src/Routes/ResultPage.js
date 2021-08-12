@@ -99,7 +99,7 @@ export default ({match})=> {
     }
 
     useEffect (()=>{
-        axios.post("http://ec2-3-36-53-178.ap-northeast-2.compute.amazonaws.com:8080/api/get-result-page",{
+        axios.post("http://ec2-3-35-174-100.ap-northeast-2.compute.amazonaws.com:8080/api/get-result-page",{
           scheduleKey : match.params.id,
       }).then(function (response) {
         if(!response.data.success){
@@ -121,7 +121,7 @@ export default ({match})=> {
 
 
       const Del = ()=>{
-        axios.post("http://ec2-3-36-53-178.ap-northeast-2.compute.amazonaws.com:8080/api/delete-schedule",{
+        axios.post("http://ec2-3-35-174-100.ap-northeast-2.compute.amazonaws.com:8080/api/delete-schedule",{
             hostIdToken: localStorage.getItem("login"),
             scheduleKey : match.params.id,
         }).then(function (response) {

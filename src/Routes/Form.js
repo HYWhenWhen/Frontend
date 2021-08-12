@@ -86,7 +86,7 @@ export default ({ }) => {
     const make=()=>{
         const Start = moment(state[0].startDate);
         const End = moment(state[0].endDate);
-        axios.post("http://ec2-3-36-53-178.ap-northeast-2.compute.amazonaws.com:8080/api/create-schedule", {
+        axios.post("http://ec2-3-35-174-100.ap-northeast-2.compute.amazonaws.com:8080/api/create-schedule", {
             scheduleName: name.value,
             expectedMemberCnt : num,
             hostIdToken:localStorage.getItem("login"),
