@@ -14,7 +14,7 @@ const Container = styled.div`
     box-sizing: border-box;
     background-image : url(${Main});
     background-size: 103rem;
-    background-position: 22srem -4rem;
+    background-position: 22rem -4rem;
     background-repeat: no-repeat;
 
 `;

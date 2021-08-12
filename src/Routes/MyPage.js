@@ -149,6 +149,7 @@ function MyPage() {
             if(!response.data.success){
                 alert("폼 불러오기에 실패하였습니다.")
             }else{
+                setName(response.data.nickName);
                 setMyForms(response.data.schedules);
                 setLoading(false);
             }
@@ -180,7 +181,7 @@ function MyPage() {
         <Container>
             {loading ? <></> :
             <>
-                <Top>환영합니다, 임의진님</Top> 
+                <Top>환영합니다, {name}님</Top> 
 
                 <Center>
                     <CalendarTop>내캘린더</CalendarTop>
