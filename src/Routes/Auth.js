@@ -19,10 +19,17 @@ const Top = styled.div`
   font-size: 2rem;
   color: #000070;
   margin-bottom: 1rem;
+  @media ${(props)=>props.theme.tablet}{
+        font-size: 3vh;
+        margin-bottom: 2rem;
+    }
 `;
 
 const Content = styled.div`
   display: flex;
+  @media ${(props)=>props.theme.tablet}{
+        flex-direction: column;
+    }
 `;  
 
 const Img = styled.img`
@@ -35,6 +42,11 @@ const Login = styled.div`
   align-self: center;
   width: 20%;
   padding-left: 10%;
+  @media ${(props)=>props.theme.tablet}{
+    padding-left: 0;
+      margin-top: 5vh;
+        width: 50%;
+    }
 `;
 
 const Txt = styled.div`

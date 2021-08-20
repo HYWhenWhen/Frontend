@@ -12,6 +12,9 @@ const Container = styled.div`
    padding: 3% 13%;
    flex-direction: column;
    align-items: center;
+   @media ${(props)=>props.theme.tablet}{
+        padding: 5% 13%;
+    }
 `;
 
 // 상단
@@ -23,6 +26,9 @@ const Top = styled.div`
     padding-bottom: 0.3rem;
     width: 30%;
     text-align: center;
+    @media ${(props)=>props.theme.tablet}{
+        width: 70%;
+    }
 `;
 
 // 중간
@@ -31,6 +37,9 @@ const Center = styled.div`
     text-align:center;
     background-color: #F3F3FF;
     border-radius: 1rem;
+    @media ${(props)=>props.theme.tablet}{
+        width: 100%;
+    }
 `;
 const CalendarTop = styled.div`
     background-color: #000070;
@@ -38,6 +47,10 @@ const CalendarTop = styled.div`
     line-height: 2.5rem;
     font-size: 1.2rem;
     border-radius: 1rem;
+    @media ${(props)=>props.theme.tablet}{
+        height: 9rem;
+        line-height:3.5rem;
+    }
 `;
 
 // 아래
@@ -45,6 +58,9 @@ const Bottom = styled.div`
     display: flex;
     width: 75%;
     margin-top:4rem;
+    @media ${(props)=>props.theme.tablet}{
+        width: 100%;
+    }
 `;
 
 

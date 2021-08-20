@@ -11,6 +11,9 @@ const Container = styled.div`
     background-color: white;
     border-radius: 1rem;
     padding: 2%;
+    @media ${(props)=>props.theme.tablet}{
+      margin: -5rem auto 2rem;
+    }
 `;
 const Controller = styled.div`
     display: flex;
@@ -24,6 +27,9 @@ const Btn = styled.div`
 `;
 const Month = styled.span`
     margin: 0 10px;
+    @media ${(props)=>props.theme.tablet}{
+      font-size: 2vh;
+    }
 `;
 
 const WeekDayRow = styled.div`
@@ -38,6 +44,9 @@ const WeekDay = styled.div`
     color: #BEBEBE;
     line-height: 5rem;
     font-size: 1.2rem;
+    @media ${(props)=>props.theme.tablet}{
+      font-size: 1.7vh;
+    }
 `;
 
 
@@ -59,6 +68,9 @@ const DayContainer = styled.td`
     }
 `;
 const Day = styled.span`
+    @media ${(props)=>props.theme.tablet}{
+      font-size: 1.7vh;
+    }
 `;
 const Point = styled.div`
     position: relative;
