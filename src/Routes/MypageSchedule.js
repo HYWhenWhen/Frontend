@@ -109,7 +109,7 @@ export default ({day, scheduleList, setScheduleList})=> {
     },[])
 
     const GetSchedule  = () =>{
-        axios.post("http://ec2-3-35-174-100.ap-northeast-2.compute.amazonaws.com:8080/api/get-my-page-modal",{
+        axios.post("http://localhost:8080/api/get-my-page-modal",{
             idToken : localStorage.getItem("login"),
             localDate : day.format("YYYY-MM-DD"),
       }).then(function (response) {
@@ -127,7 +127,7 @@ export default ({day, scheduleList, setScheduleList})=> {
     }
 
     const Make=()=>{
-        axios.post("http://ec2-3-35-174-100.ap-northeast-2.compute.amazonaws.com:8080/api/add-my-schedule", {
+        axios.post("http://localhost:8080/api/add-my-schedule", {
             idToken:localStorage.getItem("login"),
             localDate : day.format("YYYY-MM-DD"),
             scheduleName : scheduleText.value
@@ -146,7 +146,7 @@ export default ({day, scheduleList, setScheduleList})=> {
     }
 
     const DeleteSchedule =(id)=>{
-        axios.post("http://ec2-3-35-174-100.ap-northeast-2.compute.amazonaws.com:8080/api/delete-my-schedule", {
+        axios.post("http://localhost:8080/api/delete-my-schedule", {
             idToken:localStorage.getItem("login"),
             scheduleKey : id
           })

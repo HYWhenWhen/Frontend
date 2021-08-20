@@ -82,7 +82,7 @@ function Submit({match}) {
     const [checkDays, setCheckDays] = useState([]); // 폼 체크된것 
 
     useEffect(()=>{
-        axios.post("http://ec2-3-35-174-100.ap-northeast-2.compute.amazonaws.com:8080/api/get-submit-page",{
+        axios.post("http://localhost:8080/api/get-submit-page",{
             scheduleKey : match.params.id,
             idToken :localStorage.getItem("login"),
         }).then(function (response) {
@@ -102,7 +102,7 @@ function Submit({match}) {
 
 
     const sendCalendar = (calendar) => {
-        axios.post("http://ec2-3-35-174-100.ap-northeast-2.compute.amazonaws.com:8080/api/submit/member-schedule",{
+        axios.post("http://localhost:8080/api/submit/member-schedule",{
             scheduleKey : match.params.id,
             idToken :localStorage.getItem("login"),
             dates : checkDays
@@ -119,7 +119,7 @@ function Submit({match}) {
     }
 
     const abandon = () => {
-        axios.post("http://ec2-3-35-174-100.ap-northeast-2.compute.amazonaws.com:8080/api/abandon",{
+        axios.post("http://localhost:8080/api/abandon",{
             scheduleKey : match.params.id,
             idToken :localStorage.getItem("login"),
         }).then(function (response) {

@@ -130,7 +130,7 @@ function MyPage() {
 
 
     useEffect(()=>{
-        axios.post("http://ec2-3-35-174-100.ap-northeast-2.compute.amazonaws.com:8080/api/get-my-schedule",{
+        axios.post("http://localhost:8080/api/get-my-schedule",{
             idToken : localStorage.getItem("login"),
       }).then(function (response) {
         if(!response.data.success){
@@ -146,7 +146,7 @@ function MyPage() {
 
 
     useEffect(()=>{        
-        axios.post("http://ec2-3-35-174-100.ap-northeast-2.compute.amazonaws.com:8080/api/get-my-page",{
+        axios.post("http://localhost:8080/api/get-my-page",{
             idToken :localStorage.getItem("login"),
         }).then(function (response) {
             if(!response.data.success){
