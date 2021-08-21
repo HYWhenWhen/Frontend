@@ -81,6 +81,7 @@ export default ({ }) => {
     ]);
     const name = useInput(""); //폼 이름
     const [num, setNum] = useState(1); // 폼 인원수
+
     
 
     const make=()=>{
@@ -118,8 +119,8 @@ export default ({ }) => {
                 </NumController>
 
             </PeopleNum>
-
-            <DateRange
+        
+            {/* <DateRange
                 editableDateInputs={true}
                 onChange={item => setState([item.selection])}
                 moveRangeOnFirstSelection={false}
@@ -127,7 +128,16 @@ export default ({ }) => {
                 locale={ko}
                  months={2}
                  direction="horizontal"
-            />
+            /> */}
+            <DateRange
+            editableDateInputs={true}
+            onChange={item => setState([item.selection])}
+            moveRangeOnFirstSelection={false}
+            ranges={state}
+            locale={ko}
+             months={1}
+             direction="vertical"
+        />
             <Buttons>
                 <Button onClick={()=>{window.location.replace("/")}} content="취소" backgroundColor="#7953D2" marginRight="20px"/>
                 <Button onClick={()=>{make()}} content="일정 생성하기" backgroundColor="#000070"/>

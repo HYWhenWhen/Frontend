@@ -20,6 +20,8 @@ const Btn = styled.div`
 `;
 const Month = styled.span`
     margin: 0 10px;
+    font-size: 2.7vh;
+
 `;
 
 const WeekDayRow = styled.div`
@@ -33,7 +35,7 @@ const WeekDay = styled.div`
     text-align: center;
     color: #BEBEBE;
     line-height: 5rem;
-    font-size: 1.2rem;
+    font-size: 2vh;
 `;
 
 
@@ -56,6 +58,7 @@ const DayContainer = styled.td`
 `;
 const Day = styled.span`
     padding: 0 1rem;
+    font-size: 2vh;
 `;
 
 const Num = styled.div`

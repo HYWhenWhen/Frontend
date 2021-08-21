@@ -14,6 +14,10 @@ const Container = styled.div`
 const Img = styled.img`
     width: 70%;
     margin: -20% auto;
+    @media ${(props)=>props.theme.tablet}{
+        width: 90%;
+        margin: -1vh auto 5vh;
+    }
 `;
 
 const Btns = styled.div`
@@ -21,6 +25,9 @@ const Btns = styled.div`
     flex-direction: row;
     justify-content: center;
     margin-top: -1rem;
+    @media ${(props)=>props.theme.tablet}{
+        flex-direction: column;
+    }
 `;
 
 

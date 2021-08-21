@@ -87,6 +87,15 @@ const contentStyle = {
   height: "36rem",
   padding: "0px",
   backgroundColor: "#F3F3FF"
+  
+};
+
+const contentStyleTablet = {
+  width: "70%",
+  height: "36rem",
+  padding: "0px",
+  backgroundColor: "#F3F3FF"
+  
 };
 
 const X = styled.div`
@@ -147,7 +156,7 @@ export default ({dates, scheduleList, setScheduleList}) => {
                               </DayContainer>
                             }
                             modal
-                            contentStyle={contentStyle}
+                            contentStyle={`${(props)=>props.theme.tablet}` ? contentStyleTablet :  contentStyle}
                             lockScroll={true}>
                             {close => (
                                 <>

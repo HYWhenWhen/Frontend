@@ -14,6 +14,7 @@ const Container = styled.div`
    align-items: center;
    @media ${(props)=>props.theme.tablet}{
         padding: 5% 13%;
+        margin-bottom: 1vh;
     }
 `;
 

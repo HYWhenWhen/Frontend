@@ -16,6 +16,11 @@ const Btn = styled.button`
     cursor: pointer;
     border:none;
     font-family: 'Noto Sans CJK KR';
+    @media ${(props)=>props.theme.tablet}{
+        width: 80%;
+        margin: 0 auto 2vh;
+        margin-right: ${props => props.marginRightTab};
+    }
 `;
 
 /*
@@ -24,8 +29,8 @@ const Btn = styled.button`
     onclick - 버튼 클릭시 작동되는 함수.
     입력 타입은 하단 props 참고.
 */
-const Button = ({onClick, content, backgroundColor, width, marginRight, fontSize, marginBottom }) => (
-    <Btn onClick={onClick} backgroundColor={backgroundColor} width={width} marginRight={marginRight} fontSize={fontSize} marginBottom={marginBottom}>
+const Button = ({onClick, content, backgroundColor, width, marginRight, fontSize, marginBottom, marginRightTab }) => (
+    <Btn onClick={onClick} backgroundColor={backgroundColor} width={width} marginRight={marginRight} fontSize={fontSize} marginBottom={marginBottom} marginRightTab={marginRightTab}>
         {content}
     </Btn>
 );
