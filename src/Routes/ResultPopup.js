@@ -130,7 +130,7 @@ const Node = styled.div`
 const L = styled.div`
     cursor: pointer;
     position: absolute;
-    right: -10rem;
+    right: -8vh;
     top: 37%;
     font-size: 2.7em;
     color: #e5eaee;
@@ -143,7 +143,7 @@ const L = styled.div`
 const R = styled.div`
     cursor: pointer;
     position: absolute;
-    left: -10rem;
+    left: -8vh;
     top: 37%;
     font-size: 2.7em;
     color: #e5eaee;

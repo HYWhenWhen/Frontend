@@ -62,9 +62,9 @@ const Day = styled.span`
 `;
 
 const Num = styled.div`
-position: relative;
+    position: relative;
     top: -28px;
-    font-size: 0.9rem;
+    font-size: 1.5vh;
     text-align: center;
     left: 40.5%;
     width: 0;
@@ -72,11 +72,13 @@ position: relative;
     color: #009432;
 `;
 
+
 const contentStyle = {
-  width: "30%",
-  height: "27rem",
+  width: "80vh",
+  height: "36rem",
   padding: "0px",
   backgroundColor: "#F3F3FF"
+  
 };
 
 const X = styled.div`

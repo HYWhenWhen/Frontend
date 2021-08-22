@@ -91,7 +91,7 @@ const contentStyle = {
 };
 
 const contentStyleTablet = {
-  width: "70%",
+  width: "80vh",
   height: "36rem",
   padding: "0px",
   backgroundColor: "#F3F3FF"
@@ -164,7 +164,6 @@ export default ({dates, scheduleList, setScheduleList}) => {
                                     <MypageSchedule day = {days} scheduleList={scheduleList} setScheduleList={setScheduleList}/>
                                 </>
                             )}
-
                         </Popup>
                   );
                   }

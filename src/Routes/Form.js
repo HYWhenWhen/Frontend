@@ -66,11 +66,25 @@ const Num = styled.div`
     width: 7rem;
     text-align: center;
     margin: 0 0.5rem;
-    
+`;
+
+const DateRangeDes = styled(DateRange)`
+  @media ${(props)=>props.theme.tablet}{
+        display: none;
+    }
+`;
+
+const DateRangeTab = styled(DateRange)`
+display: none;
+  @media ${(props)=>props.theme.tablet}{
+        display: flex;
+    }
 `;
 
 
-export default ({ }) => {
+
+
+export default ({props}) => {
     const [state, setState] = useState([
         {
             startDate: new Date(),
@@ -82,6 +96,7 @@ export default ({ }) => {
     const name = useInput(""); //폼 이름
     const [num, setNum] = useState(1); // 폼 인원수
 
+console.log(`${(props)=>props.theme.tablet}`);
     
 
     const make=()=>{
@@ -118,28 +133,28 @@ export default ({ }) => {
                     <PM onClick ={()=>{setNum(num+1)}}> + </PM>
                 </NumController>
 
-            </PeopleNum>
-        
-            {/* <DateRange
+            </PeopleNum>                
+            <DateRangeDes
+                    editableDateInputs={true}
+                    onChange={item => setState([item.selection])}
+                    moveRangeOnFirstSelection={false}
+                    ranges={state}
+                    locale={ko}
+                    months={2}
+                    direction="horizontal"
+                />   
+
+            <DateRangeTab
                 editableDateInputs={true}
                 onChange={item => setState([item.selection])}
                 moveRangeOnFirstSelection={false}
                 ranges={state}
                 locale={ko}
-                 months={2}
-                 direction="horizontal"
-            /> */}
-            <DateRange
-            editableDateInputs={true}
-            onChange={item => setState([item.selection])}
-            moveRangeOnFirstSelection={false}
-            ranges={state}
-            locale={ko}
-             months={1}
-             direction="vertical"
-        />
+                months={1}
+                direction="vertical"
+                />
             <Buttons>
-                <Button onClick={()=>{window.location.replace("/")}} content="취소" backgroundColor="#7953D2" marginRight="20px"/>
+                <Button onClick={()=>{window.location.replace("/")}} content="취소" backgroundColor="#7953D2" marginRight="20px" marginRightTab="2vh"/>
                 <Button onClick={()=>{make()}} content="일정 생성하기" backgroundColor="#000070"/>
             </Buttons>
 
