@@ -14,6 +14,10 @@ const Container = styled.div`
     @media ${(props)=>props.theme.tablet}{
       margin: -5rem auto 2rem;
     }
+    @media ${(props)=>props.theme.mobile}{
+      margin: 0;
+      width: 100%;
+    }
 `;
 const Controller = styled.div`
     display: flex;
@@ -29,6 +33,9 @@ const Month = styled.span`
     margin: 0 10px;
     @media ${(props)=>props.theme.tablet}{
       font-size: 2vh;
+    }
+    @media ${(props)=>props.theme.mobile}{
+      font-size: 3vh;
     }
 `;
 
@@ -46,6 +53,9 @@ const WeekDay = styled.div`
     font-size: 1.2rem;
     @media ${(props)=>props.theme.tablet}{
       font-size: 1.7vh;
+    }
+    @media ${(props)=>props.theme.mobile}{
+      font-size: 2vh;
     }
 `;
 
@@ -71,6 +81,9 @@ const Day = styled.span`
     @media ${(props)=>props.theme.tablet}{
       font-size: 1.7vh;
     }
+    @media ${(props)=>props.theme.mobile}{
+      font-size: 2.3vh;
+    }
 `;
 const Point = styled.div`
     position: relative;
@@ -83,14 +96,6 @@ const Point = styled.div`
 `;
 
 const contentStyle = {
-  width: "30%",
-  height: "36rem",
-  padding: "0px",
-  backgroundColor: "#F3F3FF"
-  
-};
-
-const contentStyleTablet = {
   width: "80vh",
   height: "36rem",
   padding: "0px",
@@ -156,7 +161,7 @@ export default ({dates, scheduleList, setScheduleList}) => {
                               </DayContainer>
                             }
                             modal
-                            contentStyle={`${(props)=>props.theme.tablet}` ? contentStyleTablet :  contentStyle}
+                            contentStyle={contentStyle}
                             lockScroll={true}>
                             {close => (
                                 <>

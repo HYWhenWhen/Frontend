@@ -42,11 +42,15 @@ const Login = styled.div`
   align-self: center;
   width: 20%;
   padding-left: 10%;
+  @media ${(props)=>props.theme.mobile}{
+        width: 90% !important;
+    }
   @media ${(props)=>props.theme.tablet}{
     padding-left: 0;
       margin-top: 5vh;
         width: 50%;
     }
+
 `;
 
 const Txt = styled.div`

@@ -21,6 +21,9 @@ const Container = styled.div`
         flex-direction: column;
         align-items: center;
     }
+    @media ${(props)=>props.theme.mobile}{
+        padding: 5% 0;
+    }
 `;
 
 // 왼쪽
@@ -83,6 +86,9 @@ const DayContainer = styled.div`
     @media ${(props)=>props.theme.tablet}{
         width: 80%;
         margin-bottom: 3vh;
+    }
+    @media ${(props)=>props.theme.mobile}{
+        width: 100%;
     }
 `;
 const Title = styled.div`

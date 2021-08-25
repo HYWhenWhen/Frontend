@@ -6,6 +6,7 @@ import { DateRange } from 'react-date-range';
 import '../Styles/Form.css'
 import useInput from '../Hooks/useInput';
 import Button from '../Component/Button';
+import MobileButton from '../Component/MobileButton';
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUser } from "@fortawesome/free-solid-svg-icons";
@@ -18,6 +19,9 @@ const Container = styled.div`
     width: 100%;
     box-sizing: border-box;
     padding: 4rem 20%;
+    @media ${(props)=>props.theme.mobile}{
+        padding: 4rem 10%;
+    }
 `;
 
 const Buttons = styled.div`
@@ -26,6 +30,10 @@ const Buttons = styled.div`
     margin-top: 5rem;
     text-align: center;
     color:white;
+    @media ${(props)=>props.theme.mobile}{
+        flex-direction: column;
+        align-items: center;
+    }
 `;
 
 const Name = styled.input`
@@ -156,6 +164,8 @@ console.log(`${(props)=>props.theme.tablet}`);
             <Buttons>
                 <Button onClick={()=>{window.location.replace("/")}} content="취소" backgroundColor="#7953D2" marginRight="20px" marginRightTab="2vh"/>
                 <Button onClick={()=>{make()}} content="일정 생성하기" backgroundColor="#000070"/>
+                <MobileButton onClick={()=>{window.location.replace("/")}} content="취소" backgroundColor="#7953D2" marginBottom="20px" marginRightTab="2vh" width="80%"/>
+                <MobileButton onClick={()=>{make()}} content="일정 생성하기" backgroundColor="#000070" width="80%"/>
             </Buttons>
 
         </Container>

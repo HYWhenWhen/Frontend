@@ -16,6 +16,9 @@ const Container = styled.div`
         padding: 5% 13%;
         margin-bottom: 1vh;
     }
+    @media ${(props)=>props.theme.tablet}{
+        padding: 5% 4vh;
+    }
 `;
 
 // 상단
@@ -41,6 +44,9 @@ const Center = styled.div`
     @media ${(props)=>props.theme.tablet}{
         width: 100%;
     }
+    @media ${(props)=>props.theme.mobile}{
+        display: none;
+    }
 `;
 const CalendarTop = styled.div`
     background-color: #000070;
@@ -52,6 +58,26 @@ const CalendarTop = styled.div`
         height: 9rem;
         line-height:3.5rem;
     }
+`;
+
+const MobCenter = styled.div`
+    display: none;
+    @media ${(props)=>props.theme.mobile}{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+    }
+`;
+const MobCalendarTop = styled.div`
+    background-color: #000070;
+    color: white;
+    line-height: 2.5rem;
+    font-size: 1.2rem;
+    border-radius: 1rem;
+    width: 100%;
+    text-align: center;
+    margin-bottom: 3vh;
 `;
 
 // 아래
@@ -85,6 +111,9 @@ const Info = styled.div`
     border-bottom-left-radius: 8px;
     border-bottom-right-radius: 8px;
     padding-bottom: 8px;
+    @media ${(props)=>props.theme.mobile}{
+      width:40%;
+    }
 `;
 const Flist = styled.div`
     display: flex;
@@ -207,6 +236,13 @@ function MyPage() {
                     <CalendarTop>내캘린더</CalendarTop>
                     <MypageCalendar dates ={dates} scheduleList={scheduleList} setScheduleList={setScheduleList}/> 
                 </Center>
+
+                <MobCenter>
+                    <MobCalendarTop>내캘린더</MobCalendarTop>
+                    <MypageCalendar dates ={dates} scheduleList={scheduleList} setScheduleList={setScheduleList}/> 
+                </MobCenter>
+
+                
 
                 <Bottom>
                     <LeftBtn onClick = {()=>{left();}}>&lt;</LeftBtn>
