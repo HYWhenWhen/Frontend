@@ -11,6 +11,13 @@ const Container = styled.div`
     background-color: white;
     border-radius: 1rem;
     padding: 2%;
+    @media ${(props)=>props.theme.tablet}{
+      margin: -5rem auto 2rem;
+    }
+    @media ${(props)=>props.theme.mobile}{
+      margin: 0;
+      width: 100%;
+    }
 `;
 const Controller = styled.div`
     display: flex;
@@ -24,6 +31,12 @@ const Btn = styled.div`
 `;
 const Month = styled.span`
     margin: 0 10px;
+    @media ${(props)=>props.theme.tablet}{
+      font-size: 2vh;
+    }
+    @media ${(props)=>props.theme.mobile}{
+      font-size: 3vh;
+    }
 `;
 
 const WeekDayRow = styled.div`
@@ -38,6 +51,12 @@ const WeekDay = styled.div`
     color: #BEBEBE;
     line-height: 5rem;
     font-size: 1.2rem;
+    @media ${(props)=>props.theme.tablet}{
+      font-size: 1.7vh;
+    }
+    @media ${(props)=>props.theme.mobile}{
+      font-size: 2vh;
+    }
 `;
 
 
@@ -59,6 +78,12 @@ const DayContainer = styled.td`
     }
 `;
 const Day = styled.span`
+    @media ${(props)=>props.theme.tablet}{
+      font-size: 1.7vh;
+    }
+    @media ${(props)=>props.theme.mobile}{
+      font-size: 2.3vh;
+    }
 `;
 const Point = styled.div`
     position: relative;
@@ -71,10 +96,11 @@ const Point = styled.div`
 `;
 
 const contentStyle = {
-  width: "30%",
+  width: "80vh",
   height: "36rem",
   padding: "0px",
   backgroundColor: "#F3F3FF"
+  
 };
 
 const X = styled.div`
@@ -143,7 +169,6 @@ export default ({dates, scheduleList, setScheduleList}) => {
                                     <MypageSchedule day = {days} scheduleList={scheduleList} setScheduleList={setScheduleList}/>
                                 </>
                             )}
-
                         </Popup>
                   );
                   }

@@ -6,6 +6,7 @@ import { DateRange } from 'react-date-range';
 import '../Styles/Form.css'
 import useInput from '../Hooks/useInput';
 import Button from '../Component/Button';
+import MobileButton from '../Component/MobileButton';
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUser } from "@fortawesome/free-solid-svg-icons";
@@ -18,6 +19,9 @@ const Container = styled.div`
     width: 100%;
     box-sizing: border-box;
     padding: 4rem 20%;
+    @media ${(props)=>props.theme.mobile}{
+        padding: 4rem 10%;
+    }
 `;
 
 const Buttons = styled.div`
@@ -26,6 +30,10 @@ const Buttons = styled.div`
     margin-top: 5rem;
     text-align: center;
     color:white;
+    @media ${(props)=>props.theme.mobile}{
+        flex-direction: column;
+        align-items: center;
+    }
 `;
 
 const Name = styled.input`
@@ -66,11 +74,25 @@ const Num = styled.div`
     width: 7rem;
     text-align: center;
     margin: 0 0.5rem;
-    
+`;
+
+const DateRangeDes = styled(DateRange)`
+  @media ${(props)=>props.theme.tablet}{
+        display: none;
+    }
+`;
+
+const DateRangeTab = styled(DateRange)`
+display: none;
+  @media ${(props)=>props.theme.tablet}{
+        display: flex;
+    }
 `;
 
 
-export default ({ }) => {
+
+
+export default ({props}) => {
     const [state, setState] = useState([
         {
             startDate: new Date(),
@@ -81,12 +103,14 @@ export default ({ }) => {
     ]);
     const name = useInput(""); //폼 이름
     const [num, setNum] = useState(1); // 폼 인원수
+
+console.log(`${(props)=>props.theme.tablet}`);
     
 
     const make=()=>{
         const Start = moment(state[0].startDate);
         const End = moment(state[0].endDate);
-        axios.post("http://ec2-3-35-174-100.ap-northeast-2.compute.amazonaws.com:8080/api/create-schedule", {
+        axios.post("http://localhost:8080/api/create-schedule", {
             scheduleName: name.value,
             expectedMemberCnt : num,
             hostIdToken:localStorage.getItem("login"),
@@ -117,20 +141,31 @@ export default ({ }) => {
                     <PM onClick ={()=>{setNum(num+1)}}> + </PM>
                 </NumController>
 
-            </PeopleNum>
+            </PeopleNum>                
+            <DateRangeDes
+                    editableDateInputs={true}
+                    onChange={item => setState([item.selection])}
+                    moveRangeOnFirstSelection={false}
+                    ranges={state}
+                    locale={ko}
+                    months={2}
+                    direction="horizontal"
+                />   
 
-            <DateRange
+            <DateRangeTab
                 editableDateInputs={true}
                 onChange={item => setState([item.selection])}
                 moveRangeOnFirstSelection={false}
                 ranges={state}
                 locale={ko}
-                 months={2}
-                 direction="horizontal"
-            />
+                months={1}
+                direction="vertical"
+                />
             <Buttons>
-                <Button onClick={()=>{window.location.replace("/")}} content="취소" backgroundColor="#7953D2" marginRight="20px"/>
+                <Button onClick={()=>{window.location.replace("/")}} content="취소" backgroundColor="#7953D2" marginRight="20px" marginRightTab="2vh"/>
                 <Button onClick={()=>{make()}} content="일정 생성하기" backgroundColor="#000070"/>
+                <MobileButton onClick={()=>{window.location.replace("/")}} content="취소" backgroundColor="#7953D2" marginBottom="20px" marginRightTab="2vh" width="80%"/>
+                <MobileButton onClick={()=>{make()}} content="일정 생성하기" backgroundColor="#000070" width="80%"/>
             </Buttons>
 
         </Container>

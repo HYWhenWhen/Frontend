@@ -30,6 +30,14 @@
 .rdrSelected ~ .rdrDayNumber span {
   color: black !important;
 }
+
+@media screen and (max-width: 1200px) {
+  .rdrMonth {
+    width: 90% !important;
+    height: 100%;
+  }
+}
+
 /* 
 .rdrStartEdge {
   border-radius: 100% 0 0 100% !important;

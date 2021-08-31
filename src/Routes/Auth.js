@@ -19,10 +19,17 @@ const Top = styled.div`
   font-size: 2rem;
   color: #000070;
   margin-bottom: 1rem;
+  @media ${(props)=>props.theme.tablet}{
+        font-size: 3vh;
+        margin-bottom: 2rem;
+    }
 `;
 
 const Content = styled.div`
   display: flex;
+  @media ${(props)=>props.theme.tablet}{
+        flex-direction: column;
+    }
 `;  
 
 const Img = styled.img`
@@ -35,6 +42,15 @@ const Login = styled.div`
   align-self: center;
   width: 20%;
   padding-left: 10%;
+  @media ${(props)=>props.theme.mobile}{
+        width: 90% !important;
+    }
+  @media ${(props)=>props.theme.tablet}{
+    padding-left: 0;
+      margin-top: 5vh;
+        width: 50%;
+    }
+
 `;
 
 const Txt = styled.div`
@@ -96,7 +112,7 @@ export default ({}) => {
     // 카카오
     const kakaoLoginFunc=(res)=>{
       if(res){
-        axios.post("http://ec2-3-35-174-100.ap-northeast-2.compute.amazonaws.com:8080/api/log-in",{
+        axios.post("http://localhost:8080/api/log-in",{
           idToken: 9999999999 - res.profile.id,
           token: res.response.access_token,
           nickName : res.profile.properties.nickname,

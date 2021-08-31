@@ -3,6 +3,7 @@ import React, { useState, useEffect } from 'react';
 import styled from "styled-components";
 import SubmitCalendar from '../Component/SubmitCalendar';
 import Button from '../Component/Button';
+import MobileButton from '../Component/MobileButton';
 import useInput from '../Hooks/useInput';
 import axios from 'axios';
 import moment from 'moment';
@@ -11,6 +12,10 @@ import moment from 'moment';
 const Container = styled.div`
     display: flex;
     padding: 2% 6%;
+    @media ${(props)=>props.theme.tablet}{
+        padding: 3% 6vh;
+        flex-direction: column;
+    }
 `;
 
 const InfoContainer = styled.div`
@@ -19,10 +24,16 @@ const InfoContainer = styled.div`
    display: flex;
    flex-direction:column;
    align-items: center;
+   @media ${(props)=>props.theme.tablet}{
+        display: none;
+    }
 `;
 
 const DayContainer = styled.div`
     width: 60%;
+    @media ${(props)=>props.theme.tablet}{
+        width: 100%;
+    }
 `;
 const Title = styled.div`
     border-bottom: 3px solid #E2E2E2;
@@ -46,6 +57,7 @@ const Btns = styled.div`
     display: flex;
     margin-top: 14px;
     justify-content: center;
+
 `;
 
 const Test = styled.div`
@@ -54,9 +66,24 @@ const Test = styled.div`
     text-align: center;
     margin-bottom: 4rem;
 `;
+
+const TabTest = styled.div`
+    display: none;
+    @media ${(props)=>props.theme.tablet}{
+        display: flex;
+        flex-direction: column;
+        text-align: center;
+        margin: 3vh 0;
+    }
+`;
+
 const Des = styled.div`
     font-size: 1.8rem;
+    @media ${(props)=>props.theme.tablet}{
+        font-size: 2.5vh;
+    }
 `;
+
 const TestDay = styled.div`
     width: 6rem;
     padding: 0 3px;
@@ -69,7 +96,12 @@ const TestDay = styled.div`
     margin: 20px auto;
 `;
 
-
+const TabInfo = styled.div`
+    display: none;
+    @media ${(props)=>props.theme.tablet}{
+        display: flex; 
+    }
+`;
 
 function Submit({match}) {
     const [loading, setLoading] = useState(true); //로딩
@@ -82,7 +114,7 @@ function Submit({match}) {
     const [checkDays, setCheckDays] = useState([]); // 폼 체크된것 
 
     useEffect(()=>{
-        axios.post("http://ec2-3-35-174-100.ap-northeast-2.compute.amazonaws.com:8080/api/get-submit-page",{
+        axios.post("http://localhost:8080/api/get-submit-page",{
             scheduleKey : match.params.id,
             idToken :localStorage.getItem("login"),
         }).then(function (response) {
@@ -102,7 +134,7 @@ function Submit({match}) {
 
 
     const sendCalendar = (calendar) => {
-        axios.post("http://ec2-3-35-174-100.ap-northeast-2.compute.amazonaws.com:8080/api/submit/member-schedule",{
+        axios.post("http://localhost:8080/api/submit/member-schedule",{
             scheduleKey : match.params.id,
             idToken :localStorage.getItem("login"),
             dates : checkDays
@@ -119,7 +151,7 @@ function Submit({match}) {
     }
 
     const abandon = () => {
-        axios.post("http://ec2-3-35-174-100.ap-northeast-2.compute.amazonaws.com:8080/api/abandon",{
+        axios.post("http://localhost:8080/api/abandon",{
             scheduleKey : match.params.id,
             idToken :localStorage.getItem("login"),
         }).then(function (response) {
@@ -142,12 +174,36 @@ function Submit({match}) {
                 <Info>
                     <Title>{formName}</Title>
                     <MyDays>{startDate.format("YYYY-MM-DD")} ~ {endDate.format("YYYY-MM-DD")}</MyDays>
+
+                    <TabTest>
+                    <Des>클릭해보세요</Des>
+                        {testClick === 0 && 
+                        <>
+                            <TestDay onClick={() => { setTestClick((testClick + 1) % 3) }} style={{ borderBottom: '4px solid #008000' }}>1</TestDay>
+                            <Des >가능한 날</Des>
+                        </>
+                        }
+                        {testClick === 1 && 
+                        <>
+                            <TestDay onClick={() => { setTestClick((testClick + 1) % 3) }} style={{ borderBottom: '4px solid #EA2027' }}>1</TestDay>
+                            <Des >불가능한 날</Des>
+                        </>
+                        }
+                        {testClick === 2 && 
+                        <>
+                            <TestDay onClick={() => { setTestClick((testClick + 1) % 3) }} style={{ borderBottom: '4px solid #FFC312' }}>1</TestDay>
+                            <Des >조정 가능한 날</Des>
+                        </>
+                        }
+                </TabTest>
+
                     <Btns>
-                        <Button fontSize="0.9rem" content="일정참여 포기하기" backgroundColor="#7953D2" marginRight="4rem" onClick = {abandon}/>
-                        <Button fontSize="0.9rem" content="내 일정 불러오기" backgroundColor="#000070" />
+                        <Button fontSize="1.8vh" content="일정참여 포기하기" backgroundColor="#7953D2" marginRight="4rem" marginRightTab="3vh" onClick = {abandon}/>
+                        <Button fontSize="1.8vh" content="내 일정 불러오기" backgroundColor="#000070" />
                     </Btns>
                 </Info>
                 {!loading && <SubmitCalendar startDate = {startDate} endDate={endDate} checkDays={checkDays} setCheckDays={setCheckDays}/>}
+                
             </DayContainer>
             <InfoContainer>
                 <Test>
@@ -174,6 +230,9 @@ function Submit({match}) {
                 <Button backgroundColor="#000070" content="제출하기"  onClick={() => { sendCalendar(); }}></Button>
 
             </InfoContainer>
+            <TabInfo>
+                <Button backgroundColor="#000070" content="제출하기"  onClick={() => { sendCalendar(); }}></Button>
+            </TabInfo>
         </Container>
         )}
         </>

@@ -12,6 +12,13 @@ const Container = styled.div`
    padding: 3% 13%;
    flex-direction: column;
    align-items: center;
+   @media ${(props)=>props.theme.tablet}{
+        padding: 5% 13%;
+        margin-bottom: 1vh;
+    }
+    @media ${(props)=>props.theme.tablet}{
+        padding: 5% 4vh;
+    }
 `;
 
 // 상단
@@ -23,6 +30,9 @@ const Top = styled.div`
     padding-bottom: 0.3rem;
     width: 30%;
     text-align: center;
+    @media ${(props)=>props.theme.tablet}{
+        width: 70%;
+    }
 `;
 
 // 중간
@@ -31,6 +41,12 @@ const Center = styled.div`
     text-align:center;
     background-color: #F3F3FF;
     border-radius: 1rem;
+    @media ${(props)=>props.theme.tablet}{
+        width: 100%;
+    }
+    @media ${(props)=>props.theme.mobile}{
+        display: none;
+    }
 `;
 const CalendarTop = styled.div`
     background-color: #000070;
@@ -38,6 +54,30 @@ const CalendarTop = styled.div`
     line-height: 2.5rem;
     font-size: 1.2rem;
     border-radius: 1rem;
+    @media ${(props)=>props.theme.tablet}{
+        height: 9rem;
+        line-height:3.5rem;
+    }
+`;
+
+const MobCenter = styled.div`
+    display: none;
+    @media ${(props)=>props.theme.mobile}{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+    }
+`;
+const MobCalendarTop = styled.div`
+    background-color: #000070;
+    color: white;
+    line-height: 2.5rem;
+    font-size: 1.2rem;
+    border-radius: 1rem;
+    width: 100%;
+    text-align: center;
+    margin-bottom: 3vh;
 `;
 
 // 아래
@@ -45,6 +85,9 @@ const Bottom = styled.div`
     display: flex;
     width: 75%;
     margin-top:4rem;
+    @media ${(props)=>props.theme.tablet}{
+        width: 100%;
+    }
 `;
 
 
@@ -68,6 +111,9 @@ const Info = styled.div`
     border-bottom-left-radius: 8px;
     border-bottom-right-radius: 8px;
     padding-bottom: 8px;
+    @media ${(props)=>props.theme.mobile}{
+      width:40%;
+    }
 `;
 const Flist = styled.div`
     display: flex;
@@ -130,7 +176,7 @@ function MyPage() {
 
 
     useEffect(()=>{
-        axios.post("http://ec2-3-35-174-100.ap-northeast-2.compute.amazonaws.com:8080/api/get-my-schedule",{
+        axios.post("http://localhost:8080/api/get-my-schedule",{
             idToken : localStorage.getItem("login"),
       }).then(function (response) {
         if(!response.data.success){
@@ -146,7 +192,7 @@ function MyPage() {
 
 
     useEffect(()=>{        
-        axios.post("http://ec2-3-35-174-100.ap-northeast-2.compute.amazonaws.com:8080/api/get-my-page",{
+        axios.post("http://localhost:8080/api/get-my-page",{
             idToken :localStorage.getItem("login"),
         }).then(function (response) {
             if(!response.data.success){
@@ -190,6 +236,13 @@ function MyPage() {
                     <CalendarTop>내캘린더</CalendarTop>
                     <MypageCalendar dates ={dates} scheduleList={scheduleList} setScheduleList={setScheduleList}/> 
                 </Center>
+
+                <MobCenter>
+                    <MobCalendarTop>내캘린더</MobCalendarTop>
+                    <MypageCalendar dates ={dates} scheduleList={scheduleList} setScheduleList={setScheduleList}/> 
+                </MobCenter>
+
+                
 
                 <Bottom>
                     <LeftBtn onClick = {()=>{left();}}>&lt;</LeftBtn>
